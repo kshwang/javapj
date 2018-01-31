@@ -22,7 +22,7 @@ public class DaoUser implements IDaoUser {
 
     @Override
     public ModelUser login(String userid, String passwd) {
-        Map<String, Object> map = new HashMap<>(); 
+        Map<String, Object> map = new HashMap<String, Object>(); 
         map.put("userid"  ,    userid);
         map.put("passwd",      passwd);
         return session.selectOne("mapper.mapperUser.login", map);

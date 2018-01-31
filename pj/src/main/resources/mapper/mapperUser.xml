@@ -12,6 +12,7 @@
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">
 	        select userid, name, email, mobile, userno 
 	          from pj_user
+               WHERE 1=1
 	           AND userid = #{userid}
 	           AND passwd = #{passwd}
 	</select>
