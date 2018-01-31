@@ -20,7 +20,7 @@
     <!-- 회원 정보 수정  -->
     <select id="selectUserOne" parameterType="int" resultType="ModelUser">
              SELECT *
-             FROM pj_user 
+             FROM pj_user
              WHERE userno = #{userno}
     </select>
 
