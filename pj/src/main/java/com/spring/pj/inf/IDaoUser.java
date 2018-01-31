@@ -16,7 +16,7 @@ public interface IDaoUser {
    
    int updatePasswd(String userid, String currentPasswd, String newPasswd);
    
-   int updateRetire(ModelUser user);
+   int deleteUser(ModelUser user);
    
    ModelUser selectUserOne(ModelUser user);
    

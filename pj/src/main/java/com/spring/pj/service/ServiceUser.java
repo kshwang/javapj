@@ -80,10 +80,10 @@ public class ServiceUser implements IServiceUser {
     }
 
     @Override
-    public int updateRetire(ModelUser whereValue) {
+    public int deleteUser(ModelUser user) {
         int result = -1;
         try {
-            result = daouser.updateRetire(whereValue);
+            result = daouser.deleteUser(user);
         } catch (Exception e) {
             logger.error("updateUserInfo " + e.getMessage() );
         }

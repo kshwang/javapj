@@ -5,14 +5,13 @@
 <mapper namespace="mapper.mapperUser">
     
 	<insert id="insertUser" parameterType="ModelUser">
-	    INSERT INTO pj_user (userid, email, passwd, name, mobile, retireYN, InsertUID, InsertDT, UpdateUID, UpdateDT)
-	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{mobile} , 0 , #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT})
+	    INSERT INTO pj_user (userid, email, passwd, name, mobile)
+	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{mobile})
 	</insert>
 
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">
-	        select userid, name, email, mobile, retireYN, userno 
+	        select userid, name, email, mobile, userno 
 	          from pj_user
-	         WHERE retireYN = 0
 	           AND userid = #{userid}
 	           AND passwd = #{passwd}
 	</select>
@@ -40,9 +39,6 @@
                 <if test= "mobile != null and mobile != '' ">
                     AND (mobile LIKE CONCAT('%',#{mobile},'%') )
                 </if>
-                <if test= "retireYN != null ">
-                    AND (retireYN LIKE CONCAT('%',#{retireYN},'%') )
-                </if>            
             ORDER BY userno
     </select>
 
@@ -62,9 +58,6 @@
 	               <if test=" setValue.passwd    != null and setValue.passwd  !='' "> passwd    = #{setValue.passwd   } , </if>
 	               <if test=" setValue.name      != null and setValue.name    !='' "> name      = #{setValue.name     } , </if>
 	               <if test=" setValue.mobile    != null and setValue.mobile  !='' "> mobile    = #{setValue.mobile   } , </if>
-	               <if test=" setValue.retireYN  != null                           "> retireYN  = #{setValue.retireYN } , </if>
-	               <if test=" setValue.UpdateUID != null                           "> UpdateUID = #{setValue.UpdateUID} , </if>
-	               <if test=" setValue.UpdateDT  != null                           "> UpdateDT  = #{setValue.UpdateDT } , </if>
                </set> 
 	        WHERE 1 = 1
 	        <if test="whereValue.userno != null">
@@ -83,11 +76,10 @@
                AND passwd = #{currentPasswd}
 	</update>
 
-	<update id="updateRetire" parameterType="ModelUser" >
-	        UPDATE pj_user 
-	           SET retireYN=1            
+	<delete id="deleteUser" parameterType="ModelUser" >
+	        DELETE from pj_user 
 	        WHERE userid = #{userid}
-	</update>
+	</delete>
     
     <select id="checkpassword" parameterType="java.util.Map" resultType="int">
         select count(*) from pj_user where userid = #{id} and passwd = #{pw}

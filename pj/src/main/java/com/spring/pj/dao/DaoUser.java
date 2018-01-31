@@ -55,8 +55,8 @@ public class DaoUser implements IDaoUser {
     }
 
     @Override
-    public int updateRetire(ModelUser user) {
-        return session.delete("mapper.mapperUser.updateRetire", user);
+    public int deleteUser(ModelUser user) {
+        return session.delete("mapper.mapperUser.deleteUser", user);
     }
 
     @Override

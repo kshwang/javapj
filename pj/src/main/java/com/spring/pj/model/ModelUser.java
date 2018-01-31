@@ -10,11 +10,6 @@ public class ModelUser {
     private String  passwd    = ""  ;// `passwd` VARCHAR(30) NULL DEFAULT NULL,
     private String  name      = ""  ;// `name` VARCHAR(30) NULL DEFAULT NULL,
     private String  mobile    = ""  ;// `mobile` VARCHAR(20) NULL DEFAULT NULL,
-    private Boolean retireYN  = null;// `retireYN` TINYINT(1) NULL DEFAULT '1',
-    private String  InsertUID = ""  ;// `InsertUID` VARCHAR(40) NULL DEFAULT NULL,
-    private Date    InsertDT  = null;// `InsertDT` DATETIME NULL DEFAULT NULL,
-    private String  UpdateUID = ""  ;// `UpdateUID` VARCHAR(40) NULL DEFAULT NULL,
-    private Date    UpdateDT  = null;// `UpdateDT` DATETIME NULL DEFAULT NULL,
     public ModelUser() {
         super();
     }
@@ -54,43 +49,11 @@ public class ModelUser {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-    public Boolean getRetireYN() {
-        return retireYN;
-    }
-    public void setRetireYN(Boolean retireYN) {
-        this.retireYN = retireYN;
-    }
-    public String getInsertUID() {
-        return InsertUID;
-    }
-    public void setInsertUID(String insertUID) {
-        InsertUID = insertUID;
-    }
-    public Date getInsertDT() {
-        return InsertDT;
-    }
-    public void setInsertDT(Date insertDT) {
-        InsertDT = insertDT;
-    }
-    public String getUpdateUID() {
-        return UpdateUID;
-    }
-    public void setUpdateUID(String updateUID) {
-        UpdateUID = updateUID;
-    }
-    public Date getUpdateDT() {
-        return UpdateDT;
-    }
-    public void setUpdateDT(Date updateDT) {
-        UpdateDT = updateDT;
-    }
     @Override
     public String toString() {
         return "ModelUser [userno=" + userno + ", userid=" + userid + ", email="
                 + email + ", passwd=" + passwd + ", name=" + name + ", mobile="
-                + mobile + ", retireYN=" + retireYN + ", InsertUID=" + InsertUID
-                + ", InsertDT=" + InsertDT + ", UpdateUID=" + UpdateUID
-                + ", UpdateDT=" + UpdateDT + "]";
+                + mobile + "]";
     }
     
     
