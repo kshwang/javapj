@@ -5,8 +5,8 @@
 <mapper namespace="mapper.mapperUser">
     
 	<insert id="insertUser" parameterType="ModelUser">
-	    INSERT INTO pj_user (userid, email, passwd, name, mobile)
-	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{mobile})
+	    INSERT INTO pj_user (userid, email, passwd, name, mobile, userclass)
+	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{mobile}, 2)
 	</insert>
 
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">

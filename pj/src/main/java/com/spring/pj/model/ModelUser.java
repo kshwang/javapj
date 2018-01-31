@@ -10,6 +10,7 @@ public class ModelUser {
     private String  passwd    = ""  ;// `passwd` VARCHAR(30) NULL DEFAULT NULL,
     private String  name      = ""  ;// `name` VARCHAR(30) NULL DEFAULT NULL,
     private String  mobile    = ""  ;// `mobile` VARCHAR(20) NULL DEFAULT NULL,
+    private Integer userclass = null;
     public ModelUser() {
         super();
     }
@@ -49,11 +50,17 @@ public class ModelUser {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
+    public Integer getUserclass() {
+        return userclass;
+    }
+    public void setUserclass(Integer userclass) {
+        this.userclass = userclass;
+    }
     @Override
     public String toString() {
         return "ModelUser [userno=" + userno + ", userid=" + userid + ", email="
                 + email + ", passwd=" + passwd + ", name=" + name + ", mobile="
-                + mobile + "]";
+                + mobile + ",userclass=" + userclass + "]";
     }
     
     

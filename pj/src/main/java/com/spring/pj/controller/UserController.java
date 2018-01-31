@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.pj.common.WebConstants;
@@ -67,9 +68,38 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
-        logger.info("register");
+        logger.info("register:get");
         
         return "register";
     }
+    
+    @RequestMapping(value = "/rest/checkuserid", method = RequestMethod.POST)
+    @ResponseBody
+    public int checkuserid(String userid) {
+        logger.info("/rest/checkuserid");
+        
+        return srvuser.checkuserid(userid);
+    }
 
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(Model model
+            , @RequestParam String userid
+            , @RequestParam String passwd
+            , @RequestParam String name
+            , @RequestParam String email
+            , @RequestParam String mobile) {
+        logger.info("register:post");
+        
+        ModelUser user = new ModelUser();
+        user.setUserid(userid);
+        user.setPasswd(passwd);
+        user.setName(name);
+        user.setEmail(email);
+        user.setMobile(mobile);
+        
+        srvuser.insertUser(user);
+        
+        return "redirect:/";
+    }
+    
 }

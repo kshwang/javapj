@@ -13,6 +13,7 @@ CREATE TABLE `pj_user` (
 	`passwd` VARCHAR(30) NULL DEFAULT NULL,
 	`name` VARCHAR(30) NULL DEFAULT NULL,
 	`mobile` VARCHAR(20) NULL DEFAULT NULL,
+	`userclass` INT(11) NULL DEFAULT '2',
 	PRIMARY KEY (`userno`),
 	UNIQUE INDEX `userid` (`userid`)
 )
