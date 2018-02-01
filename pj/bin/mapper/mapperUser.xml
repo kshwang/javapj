@@ -5,14 +5,14 @@
 <mapper namespace="mapper.mapperUser">
     
 	<insert id="insertUser" parameterType="ModelUser">
-	    INSERT INTO pj_user (userid, email, passwd, name, mobile, userclass)
-	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{mobile}, 2)
+	    INSERT INTO pj_user (userid, email, passwd, name, mobile, userclass, retireYN)
+	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{mobile}, 2, 0)
 	</insert>
 
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">
 	        select userid, name, email, mobile, userno 
 	          from pj_user
-               WHERE 1=1
+               WHERE retireYN=0
 	           AND userid = #{userid}
 	           AND passwd = #{passwd}
 	</select>
@@ -21,13 +21,14 @@
     <select id="selectUserOne" parameterType="int" resultType="ModelUser">
              SELECT *
              FROM pj_user
-             WHERE userno = #{userno}
+             WHERE 1 = 1 
+             AND userno = #{userno}
     </select>
 
     <select id="selectUserList" parameterType="ModelUser" resultType="ModelUser">
             SELECT *
             FROM pj_user
-            where 1=1
+            where 1 = 1
                 <if test= "userid != null and userid != '' ">
                     AND (userid LIKE CONCAT('%',#{userid},'%') )
                 </if>
@@ -77,10 +78,11 @@
                AND passwd = #{currentPasswd}
 	</update>
 
-	<delete id="deleteUser" parameterType="ModelUser" >
-	        DELETE from pj_user 
+	<update id="deleteUser" parameterType="ModelUser" >
+	        UPDATE pj_user SET
+            retireYN = 1 
 	        WHERE userid = #{userid}
-	</delete>
+	</update>
     
     <select id="checkpassword" parameterType="java.util.Map" resultType="int">
         select count(*) from pj_user where userid = #{id} and passwd = #{pw}
