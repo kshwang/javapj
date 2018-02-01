@@ -30,6 +30,10 @@
     <script src="/resources/js/jquery.bxslider.min.js"></script>
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
+    $(document).ready(function() {
+    
+    	});
+    
     
     </script>
     <style type="text/css">
@@ -84,7 +88,7 @@
             <br>
              <ul>
             <li> 개인정보 수집 및 이용동의</li>
-    <form action="pj_mn23" method="get" enctype="application/x-www-form-urlencoded">
+    <form action="" method="get" enctype="application/x-www-form-urlencoded">
     
         <p>
             <textarea cols="40" rows="25">
@@ -100,7 +104,7 @@
                 - 입사지원자가 개인정보의 삭제를 원하는 경우 지체 없이 해당 정보를 파기합니다. 다만, 관련 법령에 의해 보유가 허용된 정보는 법령이 정한 기간 동안 보관합니다.</textarea>
         </p>
         <div>
-        <input type="checkbox" name="agreement">
+        <input type="checkbox" name="agreement" >
         개인정보 수집 및 이용에 동의 합니다.
         <br>
         <br>
@@ -124,7 +128,7 @@
         </p>
         
     <div>
-        <input type="checkbox" name="agreement">
+        <input type="checkbox" name="agreement" >
         민감정보의 수집 및 이용에 동의 합니다.
         <br>
         <br>
