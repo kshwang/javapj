@@ -31,19 +31,14 @@ public class QnaBoardController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "pj_mn10/pj_mn11", method = RequestMethod.GET)
-	public String pj_index( Model model) {
-		logger.info("/pj_mn10/pj_mn11");
-		return "pj_mn10/pj_mn11";
-	}
 	
-	@RequestMapping(value = "pj_mn40/pj_mn41", method = RequestMethod.GET)
-    public String pj_41( Model model
+	@RequestMapping(value = "pj_mn30/pj_mn31", method = RequestMethod.GET)
+    public String pj_mn31( Model model
             , @RequestParam(defaultValue="1") Integer curPage
             , @RequestParam(defaultValue="") String searchWord
             , HttpServletRequest request
             ) {
-        logger.info("pj_mn40/pj_mn41");
+        logger.info("pj_mn30/pj_mn31");
         
         int totalRecord = svrboard.getQnaBoardTotalRecord(searchWord);
         
@@ -58,13 +53,13 @@ public class QnaBoardController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("curPage", curPage);
         model.addAttribute("nextLink", paging.getNextLink());
-        return "pj_mn40/pj_mn41";
+        return "pj_mn30/pj_mn31";
     }
 	
-	@RequestMapping(value = "pj_mn40/pj_mn42", method = RequestMethod.GET)
-    public String pj_mn42( Model model) {
-        logger.info("/pj_mn40/pj_mn42");
-        return "pj_mn40/pj_mn42";
+	@RequestMapping(value = "pj_mn30/pj_mn32", method = RequestMethod.GET)
+    public String pj_mn32( Model model) {
+        logger.info("/pj_mn30/pj_mn32");
+        return "pj_mn30/pj_mn32";
     }
 	
 }
