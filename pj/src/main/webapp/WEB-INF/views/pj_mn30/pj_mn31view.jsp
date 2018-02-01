@@ -22,7 +22,8 @@
     <link href="/resources/css/style.css" rel="stylesheet">
     
     <style type="text/css">
-        table { margin-left: 292.500px; width: 555px;}
+        .portfolio { width: 555px; margin-left: 292.500px;}
+        table {  width: 555px;}
         table tr {background: #36CBD4; }
         table td { text-align: center;}
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
@@ -36,20 +37,22 @@
     <script src="/resources/js/jquery.isotope.min.js"></script>
     <script src="/resources/js/jquery.bxslider.min.js"></script>
 <!--     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
- -->    <script src="/resources/js/functions.js"></script><!-- 
-    <script type="text/javascript">$('.portfolio').flipLightBox()</script> -->
-    <script type="text/javascript">
+ -->    <script src="/resources/js/functions.js"></script>
+<!--     <script type="text/javascript">$('.portfolio').flipLightBox()</script>
+ -->    <script type="text/javascript">
     var goList = function(page) {
         location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage="
                 + page;
     };
 
-    var goView= function(bno){
-        location.href = '/pj_mn30/pj_mn31view/' + bno;
+    /* var goView= function(articleno){
+        location.href = '/board/articleview/${boardcd}/' + articleno + location.search;
     };
+
     var goWrite = function(){
-        location.href = "/pj_mn30/pj_mn31write";
-    };
+        location.href = "/board/articlewrite/${boardcd}";
+    }; */
+    
     </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -80,26 +83,100 @@
     <div class="portfolio">
         <div class="container">
             <table>
-                <tr class="sthead">
-                    <th>no.</th>
-                    <th>title</th>
-                    <th>id</th>
-                    <th>hit</th>
-                    <th>date</th>
-                </tr>
+                <tr>
+                    <th style="width: 50px;">TITLE</th>
+                    <th style="text-align: left;color: #555;">${board.title }</th>
+                    <th style="width: 50px;">DATE</th>
+                    <th style="width: 130px;color: #555;"><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedt }" /></th>
+                </tr>   
+                </table>
+            
+                <div id="gul-content">
+                    <h6>작성자 ${board.userid }, 조회수 ${board.hit }</h6>
+                    <p>${board.content }</p>
+                </div>
                 
-                <c:forEach var="board" items="${boardlist }" varStatus="status">
+                <!--  덧글 반복 시작
+                <div id="commentlist">
+                    <c:forEach var="comment" items="${commentList }" varStatus="status">    
+                    <%-- <%@ include file="qnaview-commentlistbody.jsp" %> --%>
+                    </c:forEach>
+                </div> -->
+                <!--  덧글 반복 끝 -->
+                
+                <div id="addComment">
+                    <div>
+                        <textarea name="memo" rows="7" cols="50"></textarea>
+                    </div>
+                    <div style="text-align: right;">
+                        <input type="button" value="덧글남기기" />
+                    </div>
+                </div>
+                
+                <div id="next-prev">
+                    <c:if test="${nextQna != null }">
+                        <p>다음글 : <a href="javascript:goView('${nextQna.bno }')">${nextQna.title }</a></p>
+                    </c:if>
+                    <c:if test="${prevQna != null }">
+                        <p>이전글 : <a href="javascript:goView('${prevQna.bno }')">${prevQna.title }</a></p>
+                    </c:if>
+                </div>
+                
+                <div id="view-menu">
+                    <div class="fl">
+                        <input type="button" value="수정" onclick="goModify();" />
+                        <input type="button" value="삭제" onclick="goDelete();" />
+                    </div>
+                    
+                    <div class="fr">
+                    <c:if test="${nextQna != null }">       
+                        <input type="button" value="다음글" onclick="goView('${nextQna.bno }')" />
+                    </c:if>
+                    <c:if test="${prevQna != null }">           
+                        <input type="button" value="이전글" onclick="goView('${prevQna.bno }')" />
+                    </c:if>
+                        <input type="button" value="목록" onclick="goList('${curPage }')" />
+                        <input type="button" value="새글쓰기" onclick="goWrite()" />
+                    </div>
+                </div>
+            
+            
+                <table id="bbs" style="clear: both;">
                     <tr>
-                        <td>${no - status.index }</td>
-                        <td><a href="javascript:goView('${board.bno }')">${board.title }</a></td>
-                        <td>${board.userid }</td>
-                        <td>${board.hit }</td>
-                        <td>${board.updatedt }</td>
+                        <th>no.</th>
+                        <th>title</th>
+                        <th>userid</th>
+                        <th>hit</th>
+                        <th>date</th>
                     </tr>
-                </c:forEach>
-                
-                
-            </table>
+                    
+                    <!--  반복 구간 시작 -->
+                    <c:forEach var="board" items="${boardlist }" varStatus="status">
+                    <tr articleno="${board.bno }">
+                        <td style="text-align: center;">
+                            <c:choose>
+                                <c:when test="${bno == board.bno }">
+                                    <img src="/resources/images/arrow.gif" alt="현재글" />
+                                </c:when>
+                                <c:otherwise>
+                                    ${no - status.index }
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <a href="javascript:goView('${board.bno }')">${board.title }</a>
+                            <c:if test="${board.commentNum > 0 }">
+                                <span class="bbs-strong">[${board.commentNum }]</span>
+                            </c:if>
+                        </td>
+                        <td style="text-align: center;">${board.userid }</td>
+                        <td style="text-align: center;">${board.hit }</td>
+                        <td style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedt }" /></td>
+                    </tr>
+                    </c:forEach>
+                    <!--  반복 구간 끝 -->
+                </table>
+                    
             
             <div id="paging" style="text-align: center;">
 
@@ -145,7 +222,7 @@
                     
             </div>
         </div>
-    </div>
+   
     
     
       <%@ include file="../footer.jsp"%>

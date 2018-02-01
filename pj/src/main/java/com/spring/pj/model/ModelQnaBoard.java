@@ -16,6 +16,7 @@ public class ModelQnaBoard {
     private Integer       hit   = null;
     private java.sql.Date updatedt  = null;// `date   `    DATE NULL DEFAULT NULL,
     private Boolean       useyn = null;
+    private Integer        commentNum = null;
     public String getContent() {
         return content;
     }
@@ -68,25 +69,35 @@ public class ModelQnaBoard {
     public void setUserid(String userid) {
         this.userid = userid;
     }
+    
+    
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
     @Override
     public String toString() {
         return "ModelBoard [logger=" + logger + ", bno=" + bno + ", title="
-                + title + ", content=" + content + ", id=" + userid + ", hit=" + hit
+                + title + ", content=" + content + ", userid=" + userid + ", hit=" + hit
                 + ", updatedt=" + updatedt + ", useyn=" + useyn + "]";
     }
     
     
     
-    public ModelQnaBoard(Integer bno, String title, String content, String id,
-            Integer hit, Date updatedt, Boolean useyn) {
+    public ModelQnaBoard(Integer bno, String title, String content,
+            String userid, Integer hit, Date updatedt, Boolean useyn,
+            Integer commentNum) {
         super();
         this.bno = bno;
         this.title = title;
         this.content = content;
-        this.userid = id;
+        this.userid = userid;
         this.hit = hit;
         this.updatedt = updatedt;
         this.useyn = useyn;
+        this.commentNum = commentNum;
     }
     public ModelQnaBoard() {
         super();
