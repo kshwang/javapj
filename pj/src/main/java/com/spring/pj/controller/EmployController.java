@@ -3,6 +3,7 @@ package com.spring.pj.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.pj.common.PagingHelper;
+import com.spring.pj.common.WebConstants;
 import com.spring.pj.inf.IServiceEmploy;
 import com.spring.pj.model.ModelEmploy;
 import com.spring.pj.model.ModelQnaBoard;
@@ -31,6 +33,7 @@ public class EmployController {
             , @RequestParam(defaultValue="1") Integer curPage
             , @RequestParam(defaultValue="") String searchWord
             , HttpServletRequest request
+            , HttpSession session
             ) {
         logger.info("/pj_mn20/pj_mn21");
         
@@ -41,6 +44,7 @@ public class EmployController {
         int end = paging.getEndRecord();
         
         List<ModelEmploy> rs = svremp.getEmployList(searchWord, start, end);
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         model.addAttribute("emplist",rs);
         model.addAttribute("no", paging.getListNo());
         model.addAttribute("prevLink", paging.getPrevLink());
