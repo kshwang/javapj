@@ -18,7 +18,7 @@
             <div class="navbar-collapse collapse">                          
                 <div class="menu">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="intro">회사소개</a></li>
+                        <li role="presentation" class="active"><a href="">회사소개</a></li>
                         <li role="presentation"><a href="/pj_mn20/pj_mn21">입사지원</a></li>
                         <li role="presentation"><a href="/pj_mn30/pj_mn31">고객지원</a></li>
                         <li role="presentation"><a href="/pj_mn40/pj_mn41">교육</a></li>
