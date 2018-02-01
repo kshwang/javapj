@@ -71,7 +71,7 @@ public class DaoQnaBoard implements IDaoQnaBoard {
         Map<String, Object> map = new HashMap<>();
         map.put("searchWord", searchWord);
         map.put("bno", bno);
-        return session.selectOne("mapper.mapperBoard.getNextQna", bno);
+        return session.selectOne("mapper.mapperBoard.getNextQna", map);
     }
 
     @Override
@@ -79,6 +79,6 @@ public class DaoQnaBoard implements IDaoQnaBoard {
         Map<String, Object> map = new HashMap<>();
         map.put("searchWord", searchWord);
         map.put("bno", bno);
-        return session.selectOne("mapper.mapperBoard.getPrevQna", bno);
+        return session.selectOne("mapper.mapperBoard.getPrevQna", map);
     }
 }

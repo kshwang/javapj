@@ -63,12 +63,13 @@
     
     
     <select id="getQnaList" parameterType="java.util.Map" resultType="ModelQnaBoard">
-        SELECT bno, title, updatedt, hit, commentNum 
+        SELECT bno, title, userid, updatedt, hit, commentNum 
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
                     SELECT a.bno bno, 
                            a.title, 
+                           a.userid, 
                            a.updatedt, 
                            a.hit, 
                            count(distinct(c.commentno)) commentNum

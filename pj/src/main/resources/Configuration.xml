@@ -20,6 +20,7 @@
     <mappers>
         <mapper resource="mapper/mapperUser.xml" />
         <mapper resource="mapper/mapperBoard.xml" />
+        <mapper resource="mapper/mapperEmploy.xml" />
     </mappers>
     
 </configuration>

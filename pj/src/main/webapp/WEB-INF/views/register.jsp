@@ -28,7 +28,7 @@
     <![endif]-->
     <style type="text/css">
         form label {
-            width: 80px;
+            width: 100px;
         }
     </style>
     <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -48,6 +48,9 @@
         			}
         			else if ($('input[name="email"]').val() === ''){
                         alert('이메일을 입력하세요');
+        			}
+        			else if ($('input[name="passwd"]').val() !== $('input[name="confirm"]').val()) {
+        				alert('비밀번호가 일치하지 않습니다');
         			}
         			else {
         				alert('회원가입이 완료되었습니다.');
@@ -90,9 +93,19 @@
             		});
         		}
         	});
-        	$('input[name="userid"]').change(function(event) {
+        	$('input[name="userid"]').keyup(function(event) {
         		$('#check').text('0');
         	});
+        	$('input[name="confirm"]').keyup(function(event) {
+                if ($('input[name="passwd"]').val() === $('input[name="confirm"]').val()) {
+                	$('#passwordcheck').html('비밀번호 일치');
+                	$('#passwordcheck').css('color', 'green');
+                }
+                else {
+                	$('#passwordcheck').html('<b>일치하지 않음</b>');
+                	$('#passwordcheck').css('color', 'red');
+                }
+            });
         });
     </script>
   </head>
@@ -110,7 +123,7 @@
             <form action="register" method="post" enctype="application/x-www-form-urlencoded">
                 <table>
                     <tr>
-                        <td><label>아이디</td>
+                        <td><label>아이디*</label></td>
                         <td>
                             <input type="text" name="userid" placeholder="아이디를 입력하세요">
                             <input type="button" id="checkuserid" value="아이디 중복체크">
@@ -118,19 +131,23 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>비밀번호</td>
+                        <td><label>비밀번호*</label></td>
                         <td><input type="password" name="passwd" placeholder="비밀번호를 입력하세요"></td>
                     </tr>
                     <tr>
-                        <td><label>이름</td>
+                        <td><label>비밀번호확인*</label></td>
+                        <td><input type="password" name="confirm"><span id="passwordcheck"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label>이름</label></td>
                         <td><input type="text" name="name"></td>
                     </tr>
                     <tr>
-                        <td><label>이메일</td>
+                        <td><label>이메일*</label></td>
                         <td><input type="text" name="email"></td>
                     </tr>
                     <tr>
-                        <td><label>전화번호</td>
+                        <td><label>전화번호</label></td>
                         <td><input type="text" name="mobile"></td>
                     </tr>
                 </table>
