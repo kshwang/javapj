@@ -1,7 +1,5 @@
 package com.spring.pj.model;
 
-import java.util.Date;
-
 public class ModelUser {
     
     private Integer userno    = null;// `userno` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -11,6 +9,7 @@ public class ModelUser {
     private String  name      = ""  ;// `name` VARCHAR(30) NULL DEFAULT NULL,
     private String  mobile    = ""  ;// `mobile` VARCHAR(20) NULL DEFAULT NULL,
     private Integer userclass = null;
+    private Boolean retireYN  = null;
     public ModelUser() {
         super();
     }
@@ -55,6 +54,12 @@ public class ModelUser {
     }
     public void setUserclass(Integer userclass) {
         this.userclass = userclass;
+    }
+    public Boolean getRetireYN() {
+        return retireYN;
+    }
+    public void setRetireYN(Boolean retireYN) {
+        this.retireYN = retireYN;
     }
     @Override
     public String toString() {
