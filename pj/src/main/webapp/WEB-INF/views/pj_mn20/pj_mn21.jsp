@@ -31,7 +31,9 @@
     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
-    
+    var goList = function( page ) {
+        window.location.href = '/pj_mn20/pj_mn21?searchWord=${searchWord}&curPage=' + page;
+    }
     
     </script>
     <style type="text/css">
