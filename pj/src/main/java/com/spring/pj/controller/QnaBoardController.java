@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -155,6 +156,43 @@ public class QnaBoardController {
         
         
         return "redirect:/pj_mn30/pj_mn31view/" + qna.getBno();
+    }
+    @RequestMapping(value = "pj_mn30/pj_mn31modify/{bno}", method = RequestMethod.GET)
+    public String pj_mn31modify( Model model
+            , @PathVariable Integer bno
+            , @RequestParam(defaultValue="1") Integer curPage
+            , @RequestParam(defaultValue="") String searchWord
+            , HttpSession session
+            , HttpServletRequest request) {
+        logger.info("/pj_mn30/pj_mn31modify : get");
+        
+        ModelQnaBoard thisBoard = svrboard.getQna(bno);
+        
+        model.addAttribute("thisBoard", thisBoard);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("searchWord", searchWord);
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+        model.addAttribute("actionurl", request.getRequestURL().toString());
+        
+        return "pj_mn30/pj_mn31modify";
+    }
+
+
+    @RequestMapping(value = "pj_mn30/pj_mn31modify/{bno}", method = RequestMethod.POST)
+    public String pj_mn31modify( Model model
+            , @RequestParam(defaultValue="1") Integer curPage
+            , @RequestParam(defaultValue="") String searchWord
+            , @ModelAttribute ModelQnaBoard updateValue
+            , HttpSession session) {
+        logger.info("/pj_mn30/pj_mn31modify : post");
+        
+        ModelQnaBoard searchValue = new ModelQnaBoard();
+        searchValue.setBno(updateValue.getBno());
+        
+        int rs = svrboard.updateQna(searchValue, updateValue);
+        
+        
+        return "redirect:/pj_mn30/pj_mn31view/" + searchValue.getBno();
     }
     
 }
