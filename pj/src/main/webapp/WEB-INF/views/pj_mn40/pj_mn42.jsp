@@ -30,7 +30,7 @@
 <link href="../../resources/css/style.css" rel="stylesheet">
 
 <style type="text/css">
-h2 {    margin: 9px 0 0 0;    padding: 0;    font-size: 13px;
+/* h2 {    margin: 9px 0 0 0;    padding: 0;    font-size: 13px;
     border-bottom: 1px solid #ebebeb;
 }
 
@@ -57,6 +57,18 @@ content h1 {
     padding: 7px 0 7px 12px;
     font-size: 15px;
     
+} */
+table { margin-left: 292.500px; width: 555px;}
+      /*   table tr {background: #36CBD4; } */
+        table td { text-align: center;}
+        .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        url-navi {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    font-size: 11px;
+    color: #666;
+    border-bottom: 1px solid #DAEAAA;
 }
 </style>
 
@@ -86,13 +98,13 @@ content h1 {
     </div>  --%>
 
         <div id="container">
+        <div class="col-md-6 col-md-offset-3">
             <div id="content" style="min-height: 800px;">
                 <div id="url-navi">BBS</div>
-
                 <!-- 본문 시작 -->
                 <h1>${boardnm }</h1>
                 <div id="bbs">
-                    <h2>글쓰기</h2>
+                    <h2 align=center>교육 등록</h2>
                     <form id="writeForm" action="articlewrite"
                         method="post" enctype="multipart/form-data"
                         onsubmit="return check()">
@@ -107,8 +119,7 @@ content h1 {
                                     size="50" /></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><textarea
-                                        name="content" rows="17"></textarea>
+                                <td><textarea name="content" rows="17" size="50" ></textarea>
                                 </td>
                             </tr>
 

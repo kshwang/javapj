@@ -30,7 +30,13 @@
 
 <style type = "text/css">
 
-table { margin: 5px 0 5px 0;    width: 100%;    color: #555; }
+table {    margin-right: auto;
+    margin-left: auto;
+    width: 1143px;   color: #555; }
+    div#list-menu{text-align:right;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1143px;}
 th {color: #2e3532; border-top: 3px solid #109173;  border-bottom: 3px solid #109173;}
 tr { cursor: pointer;  }
 tr:hover { background: pink;  }
@@ -73,20 +79,21 @@ fr {    float: right;}
 </head>
 <body>
 
-    <div id="wrap">
-
-        <div id="header">
             <%@ include file="../header.jsp"%>
-
-        </div>
-
-
-
-        <div id="container">
-            <div id="content" style="min-height: 800px;">
-                <div id="url-navi">
-                    <h2>교육 목록</h2>
+ <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="portfolios">
+                    <div class="text-center">
+                        <h2>교육</h2>
+                        <p>이번 달 교육입니다. <br>
+                        </p>
+                    </div>
+                    <hr>
                 </div>
+            </div>
+        </div>
+    </div>
 
                 <!-- 본문 시작 -->
                 <h1>${boardnm }</h1>
@@ -94,7 +101,7 @@ fr {    float: right;}
                     <table>
                         <tr>
                             <th style="width: 60px;">NO</th>
-                            <th>교육 목록</th>
+                            <th style="text-ailgn:center;">교육 목록</th>
                             <th style="width: 84px;">날짜</th>
                             <th style="width: 60px;">조회수</th>
                         </tr>
@@ -146,7 +153,7 @@ fr {    float: right;}
                     </div>
 
                     <div id="list-menu" style="text-align: right;">
-                        <input type="button" value="새글쓰기" />
+                        <br><input type="button" value="새글쓰기" />
                     </div>
 
                     <div id="search" style="text-align: center;">
