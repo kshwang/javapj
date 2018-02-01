@@ -45,14 +45,15 @@
                 + page;
     };
 
-    /* var goView= function(articleno){
-        location.href = '/board/articleview/${boardcd}/' + articleno + location.search;
+    var goView= function(bno){
+        location.href = '/pj_mn30/pj_mn31view/' + bno;
     };
-
     var goWrite = function(){
-        location.href = "/board/articlewrite/${boardcd}";
-    }; */
-    
+        location.href = "/pj_mn30/pj_mn31write";
+    };
+    var goModify = function(){
+    	location.href = "/pj_mn30/pj_mn31modify/${bno}";
+    };
     </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
