@@ -21,7 +21,7 @@
                         <li role="presentation" class="active"><a href="index.html">회사소개</a></li>
                         <li role="presentation"><a href="services.html">사업실적</a></li>
                         <li role="presentation"><a href="blog.html">상품</a></li>
-                        <li role="presentation"><a href="portfolio.html">고객지원</a></li>
+                        <li role="presentation"><a href="/pj_mn40/pj_mn41">고객지원</a></li>
                         <li role="presentation"><a href="contact.html">사이트맵</a></li>
                     </ul>
                     
