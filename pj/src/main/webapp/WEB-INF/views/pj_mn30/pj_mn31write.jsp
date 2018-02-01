@@ -22,10 +22,13 @@
     <link href="/resources/css/style.css" rel="stylesheet">
     
     <style type="text/css">
-        table { margin-left: 292.500px; width: 555px;}
+        .portfolio { width: 555px; margin-left: 292.500px;}
+        table {  width: 555px;}
         table tr {background: #36CBD4; }
         table td { text-align: center;}
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        
+        #qnatexta { width: 550px;}
     </style>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -36,9 +39,9 @@
     <script src="/resources/js/jquery.isotope.min.js"></script>
     <script src="/resources/js/jquery.bxslider.min.js"></script>
 <!--     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
- -->    <script src="/resources/js/functions.js"></script><!-- 
-    <script type="text/javascript">$('.portfolio').flipLightBox()</script> -->
-    <script type="text/javascript">
+ -->    <script src="/resources/js/functions.js"></script>
+<!--     <script type="text/javascript">$('.portfolio').flipLightBox()</script>
+ -->    <script type="text/javascript">
     var goList = function(page) {
         location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage="
                 + page;
@@ -50,6 +53,7 @@
     var goWrite = function(){
         location.href = "/pj_mn30/pj_mn31write";
     };
+
     </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,73 +83,48 @@
     
     <div class="portfolio">
         <div class="container">
-            <table>
-                <tr class="sthead">
-                    <th>no.</th>
-                    <th>title</th>
-                    <th>id</th>
-                    <th>hit</th>
-                    <th>date</th>
-                </tr>
-                
-                <c:forEach var="board" items="${boardlist }" varStatus="status">
-                    <tr>
-                        <td>${no - status.index }</td>
-                        <td><a href="javascript:goView('${board.bno }')">${board.title }</a></td>
-                        <td>${board.userid }</td>
-                        <td>${board.hit }</td>
-                        <td>${board.updatedt }</td>
-                    </tr>
-                </c:forEach>
-                
-                
-            </table>
-            
-            <div id="paging" style="text-align: center;">
+            <div id="container">
+            <div id="content" style="min-height: 800px;">
+                <div id="url-navi">BBS</div>
 
-                        <c:if test="${prevLink > 0 }">
-                            <a href="javascript:goList(${prevLink })">[이전]</a>
-                        </c:if>
+                <!-- 본문 시작 -->
+                <div id="bbs">
+                    <h2>글쓰기</h2>
+                    <form id="writeForm" action="/pj_mn30/pj_mn31write" method="post" enctype="multipart/form-data" onsubmit="return check()">
+                        <p style="margin: 0; padding: 0;">
+                            <input type="hidden" name="boardcd" value="${boardcd }" />
+                        </p>
+                        <table id="write-form">
+                            <tr>
+                                <td>제목</td>
+                                <td><input type="text" name="title" size="50" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><textarea name="content" rows="17" id="qnatexta"></textarea>
+                                </td>
+                            </tr>
 
-                        <c:forEach var="i" items="${pageLinks }"
-                            varStatus="stat">
-                            <c:choose>
-                                <c:when test="${curPage == i}">
-                                    <span class="bbs-strong">${i }</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="javascript:goList(${i })">${i }</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
+                        </table>
+                        <div style="text-align: center; padding-bottom: 15px;">
+                            <input type="submit" value="전송" />
+<%--                            <c:if test="${!empty articleno }"> --%>
+<!--                                <input type="button" value="상세보기" onclick="goView()" /> -->
+<%--                            </c:if> --%>
+                            <input type="button" value="목록" onclick="goList()" />
+                        </div>
+                    </form>
+                </div>
+                <!--  본문 끝 -->
 
-                        <c:if test="${nextLink > 0 }">
-                            <a href="javascript:goList(${nextLink })">[다음]</a>
-                        </c:if>
-
-                    </div>
-                    
-                    
-                    <div id="list-menu" style="text-align: right;">
-                        <input type="button" value="새글쓰기"
-                            onclick="goWrite()" />
-                    </div>
-
-                    <div id="search" style="text-align: center;">
-                        <form id="searchForm" action="${url }"
-                            method="get" style="margin: 0; padding: 0;">
-                            <p style="margin: 0; padding: 0;">
-                                <input
-                                    type="text" name="searchWord"
-                                    size="15" maxlength="30" value="${searchWord }"  /> <input
-                                    type="submit" value="검색" />
-                            </p>
-                        </form>
-                    </div>
-                    
             </div>
+            <!-- content 끝 -->
+            
+        </div>
+        <!--  container 끝 -->
+                    
         </div>
     </div>
+   
     
     
       <%@ include file="../footer.jsp"%>
