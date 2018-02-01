@@ -110,7 +110,7 @@
             <form action="register" method="post" enctype="application/x-www-form-urlencoded">
                 <table>
                     <tr>
-                        <td><label>아이디</td>
+                        <td><label>아이디*</label></td>
                         <td>
                             <input type="text" name="userid" placeholder="아이디를 입력하세요">
                             <input type="button" id="checkuserid" value="아이디 중복체크">
@@ -118,19 +118,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>비밀번호</td>
+                        <td><label>비밀번호*</label></td>
                         <td><input type="password" name="passwd" placeholder="비밀번호를 입력하세요"></td>
                     </tr>
                     <tr>
-                        <td><label>이름</td>
+                        <td><label>이름</label></td>
                         <td><input type="text" name="name"></td>
                     </tr>
                     <tr>
-                        <td><label>이메일</td>
+                        <td><label>이메일*</label></td>
                         <td><input type="text" name="email"></td>
                     </tr>
                     <tr>
-                        <td><label>전화번호</td>
+                        <td><label>전화번호</label></td>
                         <td><input type="text" name="mobile"></td>
                     </tr>
                 </table>
