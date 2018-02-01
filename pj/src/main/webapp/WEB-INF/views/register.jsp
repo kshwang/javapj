@@ -49,7 +49,7 @@
         			else if ($('input[name="email"]').val() === ''){
                         alert('이메일을 입력하세요');
         			}
-        			else if ($('input[name="passwd"]').val() === $('input[name="confirm"]').val()) {
+        			else if ($('input[name="passwd"]').val() !== $('input[name="confirm"]').val()) {
         				alert('비밀번호가 일치하지 않습니다');
         			}
         			else {
