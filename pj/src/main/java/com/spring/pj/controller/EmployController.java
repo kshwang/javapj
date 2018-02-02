@@ -28,14 +28,14 @@ public class EmployController {
     IServiceEmploy svremp;
 	
 	
-	@RequestMapping(value = "/pj_mn20/pj_mn21_jobs", method = RequestMethod.GET)
-    public String pj_mn21_jobs( Model model
+	@RequestMapping(value = "/pj_mn20/pj_mn21", method = RequestMethod.GET)
+    public String pj_mn21( Model model
             , @RequestParam(defaultValue="1") Integer curPage
             , @RequestParam(defaultValue="") String searchWord
             , HttpServletRequest request
             , HttpSession session
             ) {
-        logger.info("/pj_mn20/pj_mn21_jobs");
+        logger.info("/pj_mn20/pj_mn21");
         
         int totalRecord = svremp.getEmployTotalRecord(searchWord);
         
@@ -51,8 +51,9 @@ public class EmployController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("curPage", curPage);
         model.addAttribute("nextLink", paging.getNextLink());
-        return "pj_mn20/pj_mn21_jobs";
+        return "pj_mn20/pj_mn21";
     }
+<<<<<<< HEAD
 	@RequestMapping(value = "/pj_mn20/pj_mn22_view", method = RequestMethod.GET)
     public String pj_mn22( Model model , HttpSession session) {
         logger.info("/pj_mn20/pj_mn22");
@@ -64,6 +65,14 @@ public class EmployController {
         logger.info("/pj_mn20/pj_mn23");
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         return "pj_mn20/pj_mn23";
+=======
+	@RequestMapping(value = "/pj_mn20/pj_mn22", method = RequestMethod.GET)
+    public String pj_mn22( Model model) {
+        logger.info("/pj_mn20/pj_mn22");
+     
+        return "pj_mn20/pj_mn22";
+>>>>>>> 704a94892a65fd7311bfd2c11987dafa7ec4291b
     }
+    
     
 }

@@ -42,7 +42,7 @@ public class ServiceEmploy implements IServiceEmploy {
         try {
             rs = dao.getEmployTotalRecord(searchWord);
         } catch (Exception e) {
-            logger.error("getEmployTotalRecord" + e.getMessage());
+            logger.error("getQnaBoardTotalRecord" + e.getMessage());
             throw e;
             
         }
@@ -56,7 +56,7 @@ public class ServiceEmploy implements IServiceEmploy {
         try {
             rs = dao.getEmployList(searchWord, start, end);
         } catch (Exception e) {
-            logger.error("getEmployList" + e.getMessage());
+            logger.error("getQnaList" + e.getMessage());
             throw e;
             
         }

@@ -37,6 +37,19 @@ public class ServiceUser implements IServiceUser {
 		
         return result;
     }
+    
+    @Override
+    public ModelUser selectUserOne(String userid) {
+        
+        ModelUser result = null;
+        
+        try {
+            result = daouser.selectUserOne(userid);
+        } catch (Exception e) {
+            logger.error("selectUserOne " + e.getMessage() );
+        }
+        return result;
+    }
 
     @Override
     public ModelUser login(String userid, String passwd) {

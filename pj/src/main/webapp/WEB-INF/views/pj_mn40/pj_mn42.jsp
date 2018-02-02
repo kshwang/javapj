@@ -58,24 +58,11 @@ content h1 {
     font-size: 15px;
     
 } */
-table {
-    margin-right: auto;
-    margin-left: auto;
-    width: 555px;
-}
-/*   table tr {background: #36CBD4; } */
-table td {
-    text-align: center;
-        box-sizing: border-box;
-
-}
-
-.sthead {
-    border-top: solid, 2px, black;
-    border-bottom: solid, 2px, black;
-}
-
-url-navi {
+table { margin-left: 292.500px; width: 555px;}
+      /*   table tr {background: #36CBD4; } */
+        table td { text-align: center;}
+        .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        url-navi {
     margin: 0;
     padding-top: 10px;
     padding-bottom: 8px;
@@ -83,80 +70,81 @@ url-navi {
     color: #666;
     border-bottom: 1px solid #DAEAAA;
 }
-
-table.content {
-    margin: 9px 0 9px 0;
-    padding: 7px 0 7px 12px;
-    font-size: 15px;
-}
 </style>
 
 
 <script>
-	$(document).ready(function(evnet) {
-		$('#golist').click(function(event) {
-			location.href = "/pj_mn40/pj_mn41";/* "articlelist/${boardcd}?searchWord=${searchWord}&curPage=${curPage}" ;*/
-		});
-	});
+	$(document)
+			.ready(
+					function(evnet) {
+						$('#golist')
+								.click(
+										function(event) {
+											location.href = "/pj_mn40/pj_mn41";/* "articlelist/${boardcd}?searchWord=${searchWord}&curPage=${curPage}" ;*/
+										});
+					});
 </script>
 </head>
 <body>
 
+    <div id="wrap">
 
-    <%@ include file="../header.jsp"%>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="portfolios">
-                    <div class="text-center">
-                        <h2>교육 등록</h2>
-
-                        </p>
-                    </div>
-                    <hr>
-                </div>
-            </div>
+        <div id="header">
+            <%@ include file="../header.jsp"%>
         </div>
-    </div>
-    <!-- 본문 시작 -->
-    <h1>${boardnm }</h1>
-    <div id="bbs">
 
-        <form id="writeForm" action="articlewrite" method="post"
-            enctype="multipart/form-data" onsubmit="return check()">
-            <p style="margin: 0; padding: 0;">
-                <input type="hidden" name="boardcd" value="${boardcd }" />
-            </p>
-            <table id="write-form">
-                <tr>
-                    <td>제목</td>
-                    <td><input type="text" name="title" size="50" /></td>
-                </tr>
-                <tr>
-                    <td><textarea name="content" rows="17"
-                            size="50"></textarea></td>
-                </tr>
+        <%--    <div id="main-menu">
+        <%@ include file="../inc/main-menu.jsp" %>
+    </div>  --%>
 
-                <tr>
-                    <td>파일첨부</td>
-                    <td><input type="file" name="upload" /></td>
-                </tr>
-            </table>
-            <div style="text-align: center; padding-bottom: 15px;">
-                <input type="submit" value="전송" /> <input type="button"
-                    value="목록" id="golist" />
+        <div id="container">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="content" style="min-height: 800px;">
+                <div id="url-navi">BBS</div>
+                <!-- 본문 시작 -->
+                <h1>${boardnm }</h1>
+                <div id="bbs">
+                    <h2 align=center>교육 등록</h2>
+                    <form id="writeForm" action="articlewrite"
+                        method="post" enctype="multipart/form-data"
+                        onsubmit="return check()">
+                        <p style="margin: 0; padding: 0;">
+                            <input type="hidden" name="boardcd"
+                                value="${boardcd }" />
+                        </p>
+                        <table id="write-form">
+                            <tr>
+                                <td>제목</td>
+                                <td><input type="text" name="title"
+                                    size="50" /></td>
+                            </tr>
+                            <tr>
+                                <td><textarea name="content" rows="17" size="50" ></textarea>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>파일첨부</td>
+                                <td><input type="file"
+                                    name="upload" /></td>
+                            </tr>
+                        </table>
+                        <div
+                            style="text-align: center; padding-bottom: 15px;">
+                            <input type="submit" value="전송" /> 
+                            <input type="button" value="목록" id="golist" />
+                        </div>
+                    </form>
+                </div>
+                <!--  본문 끝 -->
+
             </div>
-        </form>
-    </div>
-    <!--  본문 끝 -->
+            <!-- content 끝 -->
 
-    </div>
-    <!-- content 끝 -->
+        </div>
+        <!--  container 끝 -->
 
-    </div>
-    <!--  container 끝 -->
-
-    <%--  <div id="sidebar">
+        <%--  <div id="sidebar">
             <%@ include file="bbs-menu.jsp"%>
         </div>
 
@@ -164,9 +152,9 @@ table.content {
             <%@ include file="extra.jsp"%>
         </div> --%>
 
-    <div id="footer">
-        <%@ include file="../footer.jsp"%>
-    </div>
+        <div id="footer">
+            <%@ include file="../footer.jsp"%>
+        </div>
 
     </div>
 

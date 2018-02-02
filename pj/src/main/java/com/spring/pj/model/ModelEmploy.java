@@ -1,23 +1,23 @@
 package com.spring.pj.model;
 
 public class ModelEmploy {
-    private String jobname  ="";        //` VARCHAR(50) NOT NULL,
-    private String jobtitle ="";        //` VARCHAR(50) NULL DEFAULT NULL,
+    private String empname  ="";        //` VARCHAR(50) NOT NULL,
+    private String emptitle ="";        //` VARCHAR(50) NULL DEFAULT NULL,
     private String empexpiry="";        //` VARCHAR(50) NULL DEFAULT NULL,
     
     
     
-    public String getJobname() {
-        return jobname;
+    public String getEmpname() {
+        return empname;
     }
-    public void setJobname(String jobname) {
-        this.jobname = jobname;
+    public void setEmpname(String empname) {
+        this.empname = empname;
     }
-    public String getJobtitle() {
-        return jobtitle;
+    public String getEmptitle() {
+        return emptitle;
     }
-    public void setJobtitle(String jobtitle) {
-        this.jobtitle = jobtitle;
+    public void setEmptitle(String emptitle) {
+        this.emptitle = emptitle;
     }
     public String getEmpexpiry() {
         return empexpiry;
@@ -27,16 +27,12 @@ public class ModelEmploy {
     }
     @Override
     public String toString() {
-        return "ModelEmploy [jobname=" + jobname + ", jobtitle=" + jobtitle
+        return "ModelEmploy [empname=" + empname + ", emptitle=" + emptitle
                 + ", empexpiry=" + empexpiry + "]";
     }
     public ModelEmploy() {
         super();
     }
-    
-    
-    
-    
     
     
 }

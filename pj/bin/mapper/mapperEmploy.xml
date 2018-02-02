@@ -11,25 +11,25 @@
     <select id="getEmployTotalRecord" resultType="int" parameterType="String">
        SELECT count(*) FROM pj_employ       
            where 1=1                      
-                 AND ( jobname LIKE CONCAT('%',#{searchWord}, '%') OR jobtitle LIKE CONCAT('%', #{searchWord}, '%') );
+                 AND ( empname LIKE CONCAT('%',#{searchWord}, '%') OR emptitle LIKE CONCAT('%', #{searchWord}, '%') );
     </select>
     
     
     <select id="getEmployList" parameterType="java.util.Map" resultType="ModelEmploy">
-        SELECT jobname, jobtitle, empexpiry
+        SELECT empname, emptitle, empexpiry
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
                     SELECT  
-                           a.jobname, 
-                           a.jobtitle, 
+                           a.empname, 
+                           a.emptitle, 
                            a.empexpiry 
                     FROM 
                         pj_employ a
                       WHERE
                         1 = 1
-                    GROUP BY a.jobname,a.jobtitle, a.empexpiry 
-                    ORDER BY jobname DESC
+                    GROUP BY a.empname,a.emptitle, a.empexpiry 
+                    ORDER BY empname DESC
                  ) a, (SELECT @RNUM:=0) b
             ) temp
         WHERE r BETWEEN #{start} AND #{end}
