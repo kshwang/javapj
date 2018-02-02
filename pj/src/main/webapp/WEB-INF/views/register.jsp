@@ -45,9 +45,15 @@
         		if ($('#check').text() === '1') {
         			if ($('input[name="passwd"]').val() === '') {
         				alert('비밀번호를 입력하세요');
+        				$('input[name="passwd"]').focus();
         			}
+                    else if ($('input[name="confirm"]').val() === ''){
+                        alert('비밀번호확인을 입력하세요');
+                        $('input[name="confirm"]').focus();
+                    }
         			else if ($('input[name="email"]').val() === ''){
                         alert('이메일을 입력하세요');
+                        $('input[name="email"]').focus();
         			}
         			else if ($('input[name="passwd"]').val() !== $('input[name="confirm"]').val()) {
         				alert('비밀번호가 일치하지 않습니다');
@@ -66,6 +72,7 @@
         		var userid = $('input[name="userid"]').val();
         		if (userid === '') {
         			alert('아이디를 입력하세요');
+        			$('input[name="userid"]').focus();
         		}
         		else {
             		$.ajax({
@@ -85,6 +92,7 @@
             		    else if (data === 1) {
             		    	alert('중복');
             		    	$('input[name="userid"]').val('');
+            		    	$('input[name="userid"]').focus();
             		    }
             		}).fail( function(xhr, textStatus, error ) {
             		    // 통신이 실패했을 때 이 함수를 타게 된다.
@@ -96,7 +104,7 @@
         	$('input[name="userid"]').keyup(function(event) {
         		$('#check').text('0');
         	});
-        	$('input[name="confirm"]').keyup(function(event) {
+        	$('input[name="passwd"], input[name="confirm"]').keyup(function(event) {
                 if ($('input[name="passwd"]').val() === $('input[name="confirm"]').val()) {
                 	$('#passwordcheck').html('비밀번호 일치');
                 	$('#passwordcheck').css('color', 'green');
