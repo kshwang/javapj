@@ -88,7 +88,8 @@ public class UserController {
             , @RequestParam String name
             , @RequestParam String address
             , @RequestParam String email
-            , @RequestParam String mobile) {
+            , @RequestParam String mobile
+            , @RequestParam Integer userclass) {
         logger.info("register:post");
         
         ModelUser user = new ModelUser();
@@ -98,6 +99,7 @@ public class UserController {
         user.setAddress(address);
         user.setEmail(email);
         user.setMobile(mobile);
+        user.setUserclass(userclass);
         
         srvuser.insertUser(user);
         
