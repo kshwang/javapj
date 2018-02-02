@@ -31,7 +31,9 @@
     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
-    
+    var goList = function( page ) {
+        window.location.href = '/pj_mn20/pj_mn21?searchWord=${searchWord}&curPage=' + page;
+    }
     
     </script>
     <style type="text/css">
@@ -49,6 +51,15 @@
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
         .select{float: right;}
           hr {width: 1413px;} 
+          .btu1{
+          overflow:visible; 
+          border: 0px;
+          padding: 0px;
+          margin: 0px;
+          cursor: pointer;
+          vertical-align: middle;
+          text-align: left;
+          background: none;}
     </style>
     
    
@@ -101,10 +112,13 @@
                 
                 <c:forEach var="emp" items="${emplist }" varStatus="status">
                     <tr>
-                        <td>${emp.empname }</td>
-                        <td>${emp.emptitle }</td>
+                        <td>${emp.jobname }</td>
+                        <td><button type="button" class="btu1">
+                                    <span>${emp.jobtitle }</span>   
+                                </button>
+                        </td>
                         <td>채용시까지 </td>
-                        <td><a href="pj_mn22">${emp.empexpiry }</a></td>
+                        <td><a href="pj_mn22_view">${emp.empexpiry }</a></td>
                     </tr>
                 </c:forEach>
                 
