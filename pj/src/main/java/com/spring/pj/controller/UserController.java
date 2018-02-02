@@ -86,6 +86,7 @@ public class UserController {
             , @RequestParam String userid
             , @RequestParam String passwd
             , @RequestParam String name
+            , @RequestParam String address
             , @RequestParam String email
             , @RequestParam String mobile) {
         logger.info("register:post");
@@ -94,6 +95,7 @@ public class UserController {
         user.setUserid(userid);
         user.setPasswd(passwd);
         user.setName(name);
+        user.setAddress(address);
         user.setEmail(email);
         user.setMobile(mobile);
         
