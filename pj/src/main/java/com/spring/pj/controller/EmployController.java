@@ -54,15 +54,15 @@ public class EmployController {
         return "pj_mn20/pj_mn21_jobs";
     }
 	@RequestMapping(value = "/pj_mn20/pj_mn22_view", method = RequestMethod.GET)
-    public String pj_mn22( Model model) {
+    public String pj_mn22( Model model , HttpSession session) {
         logger.info("/pj_mn20/pj_mn22");
-     
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         return "pj_mn20/pj_mn22_view";
     }
 	@RequestMapping(value = "/pj_mn20/pj_mn23", method = RequestMethod.GET)
-    public String pj_mn23( Model model) {
+    public String pj_mn23( Model model, HttpSession session) {
         logger.info("/pj_mn20/pj_mn23");
-     
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         return "pj_mn20/pj_mn23";
     }
     
