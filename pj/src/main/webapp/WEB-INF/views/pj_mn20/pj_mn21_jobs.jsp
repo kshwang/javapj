@@ -32,7 +32,7 @@
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
     var goList = function( page ) {
-        window.location.href = '/pj_mn20/pj_mn21?searchWord=${searchWord}&curPage=' + page;
+        window.location.href = '/pj_mn20/pj_mn21_jobs?searchWord=${searchWord}&curPage=' + page;
     }
     
     </script>
@@ -113,10 +113,7 @@
                 <c:forEach var="emp" items="${emplist }" varStatus="status">
                     <tr>
                         <td>${emp.jobname }</td>
-                        <td><button type="button" class="btu1">
-                                    <span>${emp.jobtitle }</span>   
-                                </button>
-                        </td>
+                        <td><button type="button" class="btu1"><span>${emp.jobtitle }</span> </button></td>
                         <td>채용시까지 </td>
                         <td><a href="pj_mn22_view">${emp.empexpiry }</a></td>
                     </tr>

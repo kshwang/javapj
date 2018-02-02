@@ -31,7 +31,25 @@
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-    
+        $('.ok').click( function(){
+        	var checkbox = $('.checkbox');
+        	if($(checkbox[0]).prop('checked') === false){
+        		alert('개인정보 수집 및 이용동의에 체크해주세요.');
+        		return false;
+        	}
+        	if($(checkbox[1]).prop('checked') === false){
+                alert('민감정보의 수집 및 이용동의에 체크해주세요.');
+                return false;
+            }
+        	else{
+        		 alert('완료되었습니다.');
+        		 $('form').attr('action','/pj_mn20/pj_mn23');
+        	}
+        	 });
+        $('.no').click( function(){
+        	 $('form').attr('action','/pj_mn20/pj_mn21_jobs');
+        });
+        
         });
     
     
@@ -104,14 +122,14 @@
                 - 입사지원자가 개인정보의 삭제를 원하는 경우 지체 없이 해당 정보를 파기합니다. 다만, 관련 법령에 의해 보유가 허용된 정보는 법령이 정한 기간 동안 보관합니다.</textarea>
         </p>
         <div>
-        <input type="checkbox" name="agreement" >
+        <input class="checkbox" type="checkbox" name="agreement" >
         개인정보 수집 및 이용에 동의 합니다.
         <br>
         <br>
         <br>
         <br>
         </div>
-      <li>민감정보의 수집 및 이용동의</li>
+             <li>민감정보의 수집 및 이용동의</li>
         <p> 
         
             <textarea cols="40" rows="25" >
@@ -128,14 +146,14 @@
         </p>
         
     <div>
-        <input type="checkbox" name="agreement" >
+        <input class="checkbox"  type="checkbox" name="agreement" >
         민감정보의 수집 및 이용에 동의 합니다.
         <br>
         <br>
         <br>
         <br>
         </div>
-        <center><input type="submit" value="동의 ">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="동의하지 않습니다."></center>
+        <center><input class="ok" type="submit" value="동의 " >&nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit" value="동의하지 않습니다." onclick=""></center>
     </form>
     </ul>
 </div>
