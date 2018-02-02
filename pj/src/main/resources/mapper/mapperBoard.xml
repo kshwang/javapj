@@ -139,7 +139,10 @@
         select * from pj_comments where bno = #{bno} and useYN = 1
     </select>
     
-    <insert id="insertComment" parameterType="ModelComments">
+    <select id="getCommentOne" parameterType="int" resultType="ModelComments">
+        select * from pj_comments where commentno = #{commentno}
+    </select>
+    <insert id="insertComment" parameterType="ModelComments" useGeneratedKeys="true" keyProperty="commentno" >
         insert into pj_comments(bno,userid, memo, regdate)
                     values ( #{bno}, #{userid}, #{memo}, #{regdate})
     </insert>

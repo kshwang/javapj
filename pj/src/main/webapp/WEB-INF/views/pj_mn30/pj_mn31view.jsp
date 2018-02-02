@@ -29,7 +29,7 @@
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
     </style>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/resources/js/jquery-2.1.1.min.js"></script>
+    <script src="/resources/js/jquery-3.1.1.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/resources/js/bootstrap.min.js"></script>
     <script src="/resources/js/wow.min.js"></script>
@@ -54,6 +54,37 @@
     var goModify = function(){
     	location.href = "/pj_mn30/pj_mn31modify/${bno}";
     };
+    
+    $(document).ready(function(e){
+
+        $('#insertc').click(function(e){
+        	
+            var memo = $('#addComment textarea').val();
+            var bno = ${bno};  // 컨트롤러에서 넘겨 받는 값.
+            
+            // ajax 호출
+            
+            $.ajax({
+                url : '/pj_mn30/pj_mn31insertc'
+                , data: JSON.stringify(  {'bno':bno, 'memo': memo}  )       // 사용하는 경우에는 { data1:'test1', data2:'test2' }
+                , type: 'post'       // get, post
+                , timeout: 30000    // 30초
+                , dataType: 'html'  // text, html, xml, json, jsonp, script
+                    , headers: {'Accept': 'application/json', 'Content-Type':'application/json'}
+            }).done( function(data, textStatus, xhr ){
+                // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                alert(data);
+                
+                $('#commentlist').prepend(data);
+                $('#addComment textarea').val('');
+            }).fail( function(xhr, textStatus, error ) {
+                // 통신이 실패했을 때 이 함수를 타게 된다.
+                alert('jjjj');
+            }).always( function(data, textStatus, xhr ) {
+                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+            }); 
+        });
+    });
     </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -110,7 +141,7 @@
                         <textarea name="memo" rows="7" cols="50"></textarea>
                     </div>
                     <div style="text-align: right;">
-                        <input type="button" value="덧글남기기" />
+                        <input type="button" value="덧글남기기" id="insertc"/>
                     </div>
                 </div>
                 

@@ -28,7 +28,8 @@ public class DaoComments implements IDaoComments {
     
     @Override
     public int insertComment(ModelComments comment) {
-        return session.insert("mapper.mapperBoard.insertComment", comment);
+        int rs = session.insert("mapper.mapperBoard.insertComment", comment);
+        return  rs;
     }
     
     @Override
@@ -44,5 +45,10 @@ public class DaoComments implements IDaoComments {
     @Override
     public int deleteComment(int commentno) {
         return session.update("mapper.mapperBoard.deleteComment", commentno);
+    }
+
+    @Override
+    public ModelComments getCommentOne(int commentno) {
+        return session.selectOne("mapper.mapperBoard.getCommentOne", commentno);
     }
 }

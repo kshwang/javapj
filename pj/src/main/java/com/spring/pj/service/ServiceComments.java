@@ -70,4 +70,17 @@ public class ServiceComments implements IServiceComments {
         }
         return rs;
     }
+
+    @Override
+    public ModelComments getCommentOne(int commentno) {
+        ModelComments rs = null;
+        try {
+            rs = dao.getCommentOne(commentno);
+        } catch (Exception e) {
+            logger.error("getCommentOne" + e.getMessage());
+            throw e;
+            
+        }
+        return rs;
+    }
 }
