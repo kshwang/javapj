@@ -66,7 +66,7 @@ table {
 /*   table tr {background: #36CBD4; } */
 table td {
     text-align: center;
-        box-sizing: border-box;
+    
 
 }
 
