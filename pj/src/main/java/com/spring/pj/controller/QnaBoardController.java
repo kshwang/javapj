@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
+import com.spring.pj.inf.IServiceComments;
 import com.spring.pj.inf.IServiceQnaBoard;
+import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelQnaBoard;
 import com.spring.pj.model.ModelUser;
 
@@ -33,6 +35,8 @@ public class QnaBoardController {
 	
 	@Autowired
 	IServiceQnaBoard svrboard;
+	@Autowired
+	IServiceComments svrcomment;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -118,6 +122,8 @@ public class QnaBoardController {
         model.addAttribute("PrevLink", paging.getPrevLink());
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("nextLink", paging.getNextLink());
+        List<ModelComments> commentList = svrcomment.getComment(bno);
+        if(commentList!=null) model.addAttribute("commentList", commentList);
 
         // actionurl
         String url = request.getRequestURL().toString();

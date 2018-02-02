@@ -97,12 +97,12 @@
                     <p>${board.content }</p>
                 </div>
                 
-                <!--  덧글 반복 시작
+                <!--  덧글 반복 시작 -->
                 <div id="commentlist">
                     <c:forEach var="comment" items="${commentList }" varStatus="status">    
-                    <%-- <%@ include file="qnaview-commentlistbody.jsp" %> --%>
+                    <%@ include file="qnaview-commentlistbody.jsp" %>
                     </c:forEach>
-                </div> -->
+                </div>
                 <!--  덧글 반복 끝 -->
                 
                 <div id="addComment">
