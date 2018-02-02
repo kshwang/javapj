@@ -18,11 +18,11 @@
 	</select>
 
     <!-- 회원 정보 수정  -->
-    <select id="selectUserOne" parameterType="int" resultType="ModelUser">
+    <select id="selectUserOne" parameterType="string" resultType="ModelUser">
              SELECT *
              FROM pj_user
              WHERE 1 = 1 
-             AND userno = #{userno}
+             AND userid = #{userid}
     </select>
 
     <select id="selectUserList" parameterType="ModelUser" resultType="ModelUser">

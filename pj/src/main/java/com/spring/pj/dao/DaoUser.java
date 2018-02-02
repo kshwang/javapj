@@ -19,6 +19,11 @@ public class DaoUser implements IDaoUser {
     public int insertUser(ModelUser user) {
         return session.insert("mapper.mapperUser.insertUser", user);   
     }
+    
+    @Override
+    public ModelUser selectUserOne(String userid) {
+        return session.selectOne("mapper.mapperUser.selectUserOne", userid);
+    }
 
     @Override
     public ModelUser login(String userid, String passwd) {

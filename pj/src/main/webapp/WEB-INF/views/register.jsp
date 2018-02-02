@@ -143,6 +143,10 @@
                         <td><input type="text" name="name"></td>
                     </tr>
                     <tr>
+                        <td><label>주소</label></td>
+                        <td><input type="text" name="address"></td>
+                    </tr>
+                    <tr>
                         <td><label>이메일*</label></td>
                         <td><input type="text" name="email"></td>
                     </tr>

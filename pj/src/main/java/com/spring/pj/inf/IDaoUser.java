@@ -8,6 +8,8 @@ public interface IDaoUser {
 
    int insertUser(ModelUser user);
    
+   ModelUser selectUserOne(String userid);
+   
    ModelUser login(String userid, String passwd);
    
    int logout(String userid);
