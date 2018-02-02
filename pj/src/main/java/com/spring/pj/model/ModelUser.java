@@ -7,6 +7,7 @@ public class ModelUser {
     private String  email     = ""  ;// `email` VARCHAR(100) NOT NULL,
     private String  passwd    = ""  ;// `passwd` VARCHAR(30) NULL DEFAULT NULL,
     private String  name      = ""  ;// `name` VARCHAR(30) NULL DEFAULT NULL,
+    private String  address   = ""  ;
     private String  mobile    = ""  ;// `mobile` VARCHAR(20) NULL DEFAULT NULL,
     private Integer userclass = null;
     private Boolean retireYN  = null;
@@ -43,6 +44,12 @@ public class ModelUser {
     public void setName(String name) {
         this.name = name;
     }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public String getMobile() {
         return mobile;
     }
@@ -64,8 +71,9 @@ public class ModelUser {
     @Override
     public String toString() {
         return "ModelUser [userno=" + userno + ", userid=" + userid + ", email="
-                + email + ", passwd=" + passwd + ", name=" + name + ", mobile="
-                + mobile + ",userclass=" + userclass + "]";
+                + email + ", passwd=" + passwd + ", name=" + name + ", address="
+                + address + ", mobile=" + mobile + ", userclass=" + userclass
+                + ", retireYN=" + retireYN + "]";
     }
     
     
