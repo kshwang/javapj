@@ -10,7 +10,7 @@
 	</insert>
 
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">
-	        select userid, name, email, mobile, userno 
+	        select userid, name, email, mobile, userno ,address
 	          from pj_user
                WHERE retireYN=0
 	           AND userid = #{userid}

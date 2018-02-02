@@ -28,12 +28,22 @@
     <script src="/resources/js/jquery.easing.1.3.js"></script>
     <script src="/resources/js/jquery.isotope.min.js"></script>
     <script src="/resources/js/jquery.bxslider.min.js"></script>
-    <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
+    <!-- <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script> -->
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
     var goList = function( page ) {
         window.location.href = '/pj_mn20/pj_mn21_jobs?searchWord=${searchWord}&curPage=' + page;
     }
+    $(document).ready(function() {
+    $('.title').click( function(){
+    	$(this).attr('href','/pj_mn20/pj_mn22_view');
+    	var title = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
+    	alert(title);
+    	return false;
+    });
+    
+    });
+    
     
     </script>
     <style type="text/css">
@@ -115,7 +125,7 @@
                         <td>${emp.jobname }</td>
                         <td><button type="button" class="btu1"><span>${emp.jobtitle }</span> </button></td>
                         <td>채용시까지 </td>
-                        <td><a href="pj_mn22_view">${emp.empexpiry }</a></td>
+                        <td><a class="title" href="#">${emp.empexpiry }</a></td>
                     </tr>
                 </c:forEach>
                 

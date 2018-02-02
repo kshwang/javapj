@@ -75,6 +75,7 @@
     
    
   </head>
+  
   <body>
     
       <%@ include file="../header.jsp"%>
@@ -122,8 +123,8 @@
                 - 입사지원자가 개인정보의 삭제를 원하는 경우 지체 없이 해당 정보를 파기합니다. 다만, 관련 법령에 의해 보유가 허용된 정보는 법령이 정한 기간 동안 보관합니다.</textarea>
         </p>
         <div>
-        <input class="checkbox" type="checkbox" name="agreement" >
-        개인정보 수집 및 이용에 동의 합니다.
+        
+        <div><input class="checkbox" type="checkbox" name="agreement" > 개인정보 수집 및 이용에 동의 합니다.</div>
         <br>
         <br>
         <br>
@@ -146,8 +147,7 @@
         </p>
         
     <div>
-        <input class="checkbox"  type="checkbox" name="agreement" >
-        민감정보의 수집 및 이용에 동의 합니다.
+        <div><input class="checkbox"  type="checkbox" name="agreement" > 민감정보의 수집 및 이용에 동의 합니다.</div>
         <br>
         <br>
         <br>
@@ -159,6 +159,7 @@
 </div>
 </div>
 </div>
+<span style=display:none;>${jobtitle}</span>
 
 
       <%@ include file="../footer.jsp"%>
