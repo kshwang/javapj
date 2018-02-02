@@ -5,12 +5,16 @@
 <mapper namespace="mapper.mapperUser">
     
 	<insert id="insertUser" parameterType="ModelUser">
-	    INSERT INTO pj_user (userid, email, passwd, name, mobile, userclass, retireYN)
-	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{mobile}, 2, 0)
+	    INSERT INTO pj_user (userid, email, passwd, name, address, mobile, userclass, retireYN)
+	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{address}, #{mobile}, #{userclass}, 0)
 	</insert>
 
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">
+<<<<<<< HEAD
 	        select userid, name, email, mobile, userno ,address
+=======
+	        select userid, name, address, email, mobile, userno 
+>>>>>>> f39ccc6fb45598374e6d1d8a284403204de88b81
 	          from pj_user
                WHERE retireYN=0
 	           AND userid = #{userid}

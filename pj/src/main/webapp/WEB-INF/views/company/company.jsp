@@ -26,9 +26,6 @@
             margin:auto;
             width:1100px;
         }
-        ul > div {
-            
-        }
         #company ul {
             text-align: center;
             padding-top:20px;
@@ -56,6 +53,11 @@
         }
         .selected {
             background-color: darkgreen !important;
+        }
+        .content hr {
+            height: 10px;
+            margin:0;
+            padding:0;
         }
         .greet {
             margin 0;

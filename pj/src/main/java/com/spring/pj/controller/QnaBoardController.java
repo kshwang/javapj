@@ -13,13 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
+import com.spring.pj.inf.IServiceComments;
 import com.spring.pj.inf.IServiceQnaBoard;
+import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelQnaBoard;
 import com.spring.pj.model.ModelUser;
 
@@ -33,6 +37,8 @@ public class QnaBoardController {
 	
 	@Autowired
 	IServiceQnaBoard svrboard;
+	@Autowired
+	IServiceComments svrcomment;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -118,6 +124,8 @@ public class QnaBoardController {
         model.addAttribute("PrevLink", paging.getPrevLink());
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("nextLink", paging.getNextLink());
+        List<ModelComments> commentList = svrcomment.getComment(bno);
+        if(commentList!=null) model.addAttribute("commentList", commentList);
 
         // actionurl
         String url = request.getRequestURL().toString();
@@ -193,6 +201,32 @@ public class QnaBoardController {
         
         
         return "redirect:/pj_mn30/pj_mn31view/" + searchValue.getBno();
+    }
+    
+    //코멘트
+    @RequestMapping(value = "pj_mn30/pj_mn31insertc", method = RequestMethod.POST)
+    //@ResponseBody
+    public String pj_mn31insertc( Model model
+            , @RequestBody ModelComments comment
+            , HttpSession session
+            ) {
+        logger.info("/pj_mn30/pj_mn31insertc : post");
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        long date = new Date().getTime();
+        
+        java.sql.Date regdate = new java.sql.Date(date);
+        comment.setUserid(user.getUserid());
+        comment.setRegdate(regdate);
+        
+        
+        int rs = svrcomment.insertComment(comment);
+        
+        ModelComments result = svrcomment.getCommentOne(rs);
+        
+        model.addAttribute("comment", result);
+        
+        
+        return "pj_mn30/qnaview-commentlistbody" ;
     }
     
 }
