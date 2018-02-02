@@ -58,7 +58,7 @@ content h1 {
     font-size: 15px;
     
 } */
-table { margin-left: 292.500px; width: 555px;}
+table { margin-right: auto; margin-left: auto; width: 555px;}
       /*   table tr {background: #36CBD4; } */
         table td { text-align: center;}
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
@@ -86,21 +86,21 @@ table { margin-left: 292.500px; width: 555px;}
 </script>
 </head>
 <body>
-
-    <div id="wrap">
-
-        <div id="header">
             <%@ include file="../header.jsp"%>
+ <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="portfolios">
+                    <div class="text-center">
+                        <h2>교육</h2>
+                        <p>이번 달 교육입니다. <br>
+                        </p>
+                    </div>
+                    <hr>
+                </div>
+            </div>
         </div>
-
-        <%--    <div id="main-menu">
-        <%@ include file="../inc/main-menu.jsp" %>
-    </div>  --%>
-
-        <div id="container">
-        <div class="col-md-6 col-md-offset-3">
-            <div id="content" style="min-height: 800px;">
-                <div id="url-navi">BBS</div>
+    </div>
                 <!-- 본문 시작 -->
                 <h1>${boardnm }</h1>
                 <div id="bbs">

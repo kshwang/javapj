@@ -67,10 +67,9 @@ fr {    float: right;}
 											location.href = '/board/articleview/${boardcd}/'
 													+ articleno;
 										});
-						$('#list-menu input[type="button"]')
-								.click(
+						$('#list-menu input[type="button"]').click(
 										function(event) {
-											location.href = 'pj_mn40/pj_mn42/${boardcd}?searchWord=${searchWord}&curPage=${curPage}';/* '/board/articlewrite/${boardcd}?searchWord=${searchWord}&curPage=${curPage}'; */
+											location.href = "pj_mn42";  /* '/board/articlewrite/${boardcd}?searchWord=${searchWord}&curPage=${curPage}'; */
 										});
 					});
 		
