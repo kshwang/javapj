@@ -22,30 +22,40 @@
     
     <style type="text/css">
         #company {
-            margin-left:auto;
-            margin-right:auto;
-            width: 80%;
+            display:block;
+            margin:auto;
+            width:1100px;
+        }
+        ul > div {
+            
         }
         #company ul {
-            padding-top:20px
+            text-align: center;
+            padding-top:20px;
             display:inline-block;
             float:left;
         }
         #company li {
-            padding: 10px;
-            border: 2px solid orange;
+            text-align: left;
+            text-weight: 10px;
+            color: white;
+            background-color: green;
+            margin: 2px;
+            padding: 5px 30px;
         }
-        #company #content {
+        #company .content {
             color: darkgray;
             width:80%;
             height: 100px;
             padding: 10px 40px;
             display:inline-block;
             float:left;
-            background-color:blue;
         }
-        #content > div {
+        .content > div {
             font-size: 20px;
+        }
+        .selected {
+            background-color: darkgreen !important;
         }
     </style>
     
@@ -57,6 +67,20 @@
     <script src="/resources/js/jquery.isotope.min.js"></script>
     <script src="/resources/js/jquery.bxslider.min.js"></script>
     <script src="/resources/js/functions.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(event) {
+        	$('.list').hover(function(event) {
+        		$(this).addClass('selected');
+        	}, function(event) {
+        		$(this).removeClass('selected');
+        	})
+        	$('.list').click(function(event) {
+        		var index = $(this).index() - 2;
+        		$('#company > .content').hide();
+        		$('#company > .content').eq(index).show();
+        	});
+        });
+    </script>
 </head>
 <body>
     <%@ include file="../header.jsp"%>
@@ -64,19 +88,39 @@
     <div class="row">
         <div style="height:100px;"></div>
     </div>
-    <div id="company">
-        <ul type="none">
-            <br>
-            <li>연혁</li>
-            <li>인사말</li>
-            <li>오시는길</li>
-        </ul>
-        <div id="content">
-            <h1><b>연혁</b></h1>
-            <div><b>○○○이 설립 이래 걸어온 발자취 입니다.</b></div>
+    <div class="row">
+        <div id="company">
+            <ul type="none">
+                <br>
+                <div><img src="/resources/images/title01.gif"></div>
+                <li class="list">인사말</li>
+                <li class="list">일반현황</li>
+                <li class="list">연혁</li>
+                <li class="list">조직도</li>
+                <li class="list">오시는길</li>
+            </ul>
+            <div class="content">
+                <h1><b>인사말</b></h1>
+                <div></div>
+            </div>
+            <div class="content" style="display:none;">
+                <h1><b>일반현황</b></h1>
+                <div></div>
+            </div>
+            <div class="content" style="display:none;">
+                <h1><b>연혁</b></h1>
+                <div><b>○○○이 설립 이래 걸어온 발자취 입니다.</b></div>
+            </div>
+            <div class="content" style="display:none;">
+                <h1><b>조직도</b></h1>
+                <div></div>
+            </div>
+            <div class="content" style="display:none;">
+                <h1><b>오시는길</b></h1>
+                <div></div>
+            </div>
         </div>
     </div>
-    
     <%@ include file="../footer.jsp"%>
 </body>
 </html>
