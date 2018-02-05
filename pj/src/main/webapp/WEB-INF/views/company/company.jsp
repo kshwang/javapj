@@ -165,7 +165,7 @@
                 else if (index === 5) {
                     $(this).children('a').children('img').attr('src', '/resources/images/company/history03_on.gif');
                 }
-        	})
+        	});
         });
     </script>
 </head>
