@@ -2,13 +2,12 @@ package com.spring.pj.inf;
 
 import java.util.List;
 
+import com.spring.pj.model.ModelQuestionForPW;
 import com.spring.pj.model.ModelUser;
 
 public interface IDaoUser {
 
    int insertUser(ModelUser user);
-   
-   ModelUser selectUserOne(String userid);
    
    ModelUser login(String userid, String passwd);
    
@@ -27,4 +26,6 @@ public interface IDaoUser {
    int checkuserid(String userid); // id 중복확인
    
    int checkpassword(String id, String cur_pw);// password 확인
+   
+   List<ModelQuestionForPW> getQuestionForPW(); // 패스워드 찾기 질문
 }

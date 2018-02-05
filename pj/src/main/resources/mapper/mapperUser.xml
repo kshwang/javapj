@@ -5,8 +5,8 @@
 <mapper namespace="mapper.mapperUser">
     
 	<insert id="insertUser" parameterType="ModelUser">
-	    INSERT INTO pj_user (userid, email, passwd, name, address, mobile, userclass, retireYN)
-	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{address}, #{mobile}, #{userclass}, 0)
+	    INSERT INTO pj_user (userid, email, passwd, name, address, mobile, userclass, q_no, q_answer, retireYN)
+	    VALUES( #{userid}, #{email}, #{passwd}, #{name}, #{address}, #{mobile}, #{userclass}, #{q_no}, #{q_answer}, 0)
 	</insert>
 
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">
@@ -18,11 +18,28 @@
 	</select>
 
     <!-- 회원 정보 수정  -->
-    <select id="selectUserOne" parameterType="string" resultType="ModelUser">
+    <select id="selectUserOne" parameterType="ModelUser" resultType="ModelUser">
              SELECT *
              FROM pj_user
-             WHERE 1 = 1 
-             AND userid = #{userid}
+             WHERE 1 = 1
+            <if test= "userid != null and userid != '' ">
+                 AND userid = #{userid}
+            </if>
+            <if test= "name != null and name != '' ">
+                 AND name = #{name}
+            </if>
+            <if test= "email != null and email != '' ">
+                 AND email = #{email}
+            </if>
+            <if test= "mobile != null and mobile != '' ">
+                 AND mobile = #{mobile}
+            </if>
+            <if test= "q_no != null">
+                 AND q_no = #{q_no}
+            </if>
+            <if test= "q_answer != null and q_answer != '' ">
+                 AND q_answer = #{q_answer}
+            </if>
     </select>
 
     <select id="selectUserList" parameterType="ModelUser" resultType="ModelUser">
@@ -86,6 +103,10 @@
     
     <select id="checkpassword" parameterType="java.util.Map" resultType="int">
         select count(*) from pj_user where userid = #{id} and passwd = #{pw}
+    </select>
+    
+    <select id="getQuestionForPW" resultType="ModelQuestionForPW">
+        select * from pj_user_pw_question
     </select>
 
 </mapper>

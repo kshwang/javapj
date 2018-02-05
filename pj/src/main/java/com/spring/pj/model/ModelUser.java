@@ -9,6 +9,8 @@ public class ModelUser {
     private String  name      = ""  ;// `name` VARCHAR(30) NULL DEFAULT NULL,
     private String  address   = ""  ;
     private String  mobile    = ""  ;// `mobile` VARCHAR(20) NULL DEFAULT NULL,
+    private Integer q_no      = null  ;
+    private String  q_answer  = ""  ;
     private Integer userclass = null;
     private Boolean retireYN  = null;
     public ModelUser() {
@@ -55,6 +57,18 @@ public class ModelUser {
     }
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+    public Integer getQ_no() {
+        return q_no;
+    }
+    public void setQ_no(Integer q_no) {
+        this.q_no = q_no;
+    }
+    public String getQ_answer() {
+        return q_answer;
+    }
+    public void setQ_answer(String q_answer) {
+        this.q_answer = q_answer;
     }
     public Integer getUserclass() {
         return userclass;
