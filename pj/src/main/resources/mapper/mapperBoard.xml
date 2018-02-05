@@ -13,6 +13,7 @@
         where 1=1
             
              AND ( title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE CONCAT('%', #{searchWord}, '%') )
+             AND useYN = 1
     </select>
     
     <update id="increaseQnaHit" parameterType="int">
@@ -39,7 +40,7 @@
                  content   = #{updateValue.content  },  
                  </if>
                  <if test = "updateValue.useyn    !=null" >
-                 useY/n     = #{updateValue.useyn    },
+                 useYN     = #{updateValue.useyn    },
                  </if>
                  <if test = "updateValue.updatedt !=null" >
                  updatedt  = #{updateValue.updatedt },
@@ -56,7 +57,7 @@
               AND userid      = #{searchValue.userid}
               </if>
               <if test="searchValue.useyn != null">
-              AND useY/n      = #{searchValue.useyn}
+              AND useYN      = #{searchValue.useyn}
               </if>
               
     </update>
@@ -133,6 +134,28 @@
         ) c
         WHERE r = 1
     </select>
+    
+    <select id="getComment" parameterType="int" resultType="ModelComments">
+        select * from pj_comments where bno = #{bno} and useYN = 1
+    </select>
+    
+    <select id="getCommentOne" parameterType="int" resultType="ModelComments">
+        select * from pj_comments where commentno = #{commentno}
+    </select>
+    <insert id="insertComment" parameterType="ModelComments" useGeneratedKeys="true" keyProperty="commentno" >
+        insert into pj_comments(bno,userid, memo, regdate)
+                    values ( #{bno}, #{userid}, #{memo}, #{regdate})
+    </insert>
+    
+    <update id="updateComment" parameterType="java.util.Map">
+        update pj_comments set memo = #{memo}
+                        where commentno = #{commentno};
+    </update>
+    
+    <update id="deleteComment" parameterType="int">
+        update pj_comments set useYN = 0
+                        where commentno = #{commentno};
+    </update>
     
     
  </mapper>

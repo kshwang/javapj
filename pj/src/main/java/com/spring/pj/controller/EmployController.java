@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import com.spring.pj.common.WebConstants;
 import com.spring.pj.inf.IServiceEmploy;
 import com.spring.pj.model.ModelEmploy;
 import com.spring.pj.model.ModelQnaBoard;
+import com.spring.pj.model.ModelUser;
 
 @Controller
 public class EmployController {
@@ -53,17 +55,39 @@ public class EmployController {
         model.addAttribute("nextLink", paging.getNextLink());
         return "pj_mn20/pj_mn21_jobs";
     }
+	
+	
 	@RequestMapping(value = "/pj_mn20/pj_mn22_view", method = RequestMethod.GET)
-    public String pj_mn22( Model model , HttpSession session) {
+    public String pj_mn22( Model model , HttpSession session, @RequestParam String title) {
         logger.info("/pj_mn20/pj_mn22");
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+       
+        model.addAttribute("jobtitle", title);
+        
+        
         return "pj_mn20/pj_mn22_view";
     }
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/pj_mn20/pj_mn23", method = RequestMethod.GET)
     public String pj_mn23( Model model, HttpSession session) {
         logger.info("/pj_mn20/pj_mn23");
+        
+        
+        
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
-        return "pj_mn20/pj_mn23";
+        
+       ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+       if (user == null) {
+           return "pj_mn20/pj_mn23";
+       }
+       else {
+           model.addAttribute("user",user);
+           return "pj_mn20/pj_mn23";
+       }
     }
     
 }

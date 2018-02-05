@@ -34,7 +34,9 @@
             ) temp
         WHERE r BETWEEN #{start} AND #{end}
     </select>  
-
+    <select id="getEmployjobtitle" resultType="String" parameterType="String">
+      select jobtitle from pj_employ
+    </select>
     
     
     
