@@ -81,4 +81,9 @@ public class DaoQnaBoard implements IDaoQnaBoard {
         map.put("bno", bno);
         return session.selectOne("mapper.mapperBoard.getPrevQna", map);
     }
+
+    @Override
+    public int deleteQna(int bno) {
+        return session.update("mapper.mapperBoard.deleteQna", bno);
+    }
 }

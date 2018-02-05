@@ -91,7 +91,10 @@
                 <c:forEach var="board" items="${boardlist }" varStatus="status">
                     <tr>
                         <td>${no - status.index }</td>
-                        <td><a href="javascript:goView('${board.bno }')">${board.title }</a></td>
+                        <td><a href="javascript:goView('${board.bno }')">${board.title }</a>
+                            <c:if test="${board.commentNum > 0 }">
+                                <span class="bbs-strong">[${board.commentNum }]</span>
+                            </c:if></td>
                         <td>${board.userid }</td>
                         <td>${board.hit }</td>
                         <td>${board.updatedt }</td>

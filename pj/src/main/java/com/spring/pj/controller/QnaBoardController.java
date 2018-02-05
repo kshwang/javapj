@@ -203,6 +203,17 @@ public class QnaBoardController {
         return "redirect:/pj_mn30/pj_mn31view/" + searchValue.getBno();
     }
     
+    @RequestMapping(value = "pj_mn30/pj_mn31delete", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31delete( @RequestBody ModelQnaBoard board) {
+        logger.info("/pj_mn30/pj_mn31delete : post");
+        
+        int rs = svrboard.deleteQna(board.getBno());
+        
+        
+        return rs;
+    }
+    
     //코멘트
     @RequestMapping(value = "pj_mn30/pj_mn31insertc", method = RequestMethod.POST)
     //@ResponseBody
@@ -227,6 +238,32 @@ public class QnaBoardController {
         
         
         return "pj_mn30/qnaview-commentlistbody" ;
+    }
+    
+    @RequestMapping(value = "pj_mn30/pj_mn31updatec", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31updatec( Model model
+            , @RequestBody ModelComments setValue
+            ) {
+        logger.info("/pj_mn30/pj_mn31updatec : post");
+        
+        int rs = -1;
+        
+        rs = svrcomment.updateComment(setValue.getMemo(), setValue.getCommentno());
+        return rs ;
+    }
+    
+    @RequestMapping(value = "pj_mn30/pj_mn31deletec", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31deletec( Model model
+            , @RequestBody ModelComments comment
+            ) {
+        logger.info("/pj_mn30/pj_mn31deletec : post");
+        
+        int rs = -1;
+        
+        rs = svrcomment.deleteComment(comment.getCommentno());
+        return rs ;
     }
     
 }

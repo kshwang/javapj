@@ -40,6 +40,7 @@
  -->    <script src="/resources/js/functions.js"></script>
 <!--     <script type="text/javascript">$('.portfolio').flipLightBox()</script>
  -->    <script type="text/javascript">
+    // 게시판기능
     var goList = function(page) {
         location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage="
                 + page;
@@ -54,6 +55,82 @@
     var goModify = function(){
     	location.href = "/pj_mn30/pj_mn31modify/${bno}";
     };
+    
+    var goDelete = function(){
+    	var bno = ${bno};
+    	$.ajax({
+            url : '/pj_mn30/pj_mn31delete'
+            , data: JSON.stringify( {'bno':bno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+            , type: 'post'       // get, post
+            , timeout: 30000    // 30초
+            , dataType: 'json'  // text, html, xml, json, jsonp, script
+            , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+        }).done( function(data, textStatus, xhr ){
+            if(data===1){
+            	alert('삭제되었습니다.');
+            	goList(1);
+            }
+        }).fail( function(xhr, textStatus, error ) {
+            // 통신이 실패했을 때 이 함수를 타게 된다.
+            alert('error');
+        }).always( function(data, textStatus, xhr ) {
+            // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+        })
+    };
+    
+    // 댓글 기능
+    var commentModifyShowHide = function(commentno){
+        $('div[commentno="'+commentno+'"] div.modify-comment').toggle();
+    };
+    var commentupdate = function(commentno){
+        var memo = $('div[commentno="'+commentno+'"] .modify-comment-ta').val();
+        
+        $.ajax({
+            url : '/pj_mn30/pj_mn31updatec'
+            , data: JSON.stringify( {'commentno':commentno , 'memo' : memo} )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+            , type: 'post'       // get, post
+            , timeout: 30000    // 30초
+            , dataType: 'json'  // text, html, xml, json, jsonp, script
+            , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+        }).done( function(data, textStatus, xhr ){
+            if(data===1){
+                $('#comment'+commentno).html(memo);
+            }
+        }).fail( function(xhr, textStatus, error ) {
+            // 통신이 실패했을 때 이 함수를 타게 된다.
+            alert('error');
+        }).always( function(data, textStatus, xhr ) {
+            // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+        })
+    };
+    
+    var commentdelete = function(commentno){
+        if(confirm("정말로 삭제하시겠습니까?")){
+            $.ajax({
+                url : '/pj_mn30/pj_mn31deletec'
+                , data: JSON.stringify( {'commentno':commentno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                , type: 'post'       // get, post
+                , timeout: 30000    // 30초
+                , dataType: 'json'  // text, html, xml, json, jsonp, script
+                , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+            }).done( function(data, textStatus, xhr ){
+                // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                
+                if(data === 1){// 삭제 성공
+                    $('div.comments[commentno="'+commentno+'"]').remove();
+                }
+                else {// 삭제 실패
+                    
+                }
+            }).fail( function(xhr, textStatus, error ) {
+                // 통신이 실패했을 때 이 함수를 타게 된다.
+                alert('error');
+            }).always( function(data, textStatus, xhr ) {
+                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+            })
+        }
+    };
+
     
     $(document).ready(function(e){
 
@@ -73,13 +150,12 @@
                     , headers: {'Accept': 'application/json', 'Content-Type':'application/json'}
             }).done( function(data, textStatus, xhr ){
                 // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-                alert(data);
                 
                 $('#commentlist').prepend(data);
                 $('#addComment textarea').val('');
             }).fail( function(xhr, textStatus, error ) {
                 // 통신이 실패했을 때 이 함수를 타게 된다.
-                alert('jjjj');
+                alert('error');
             }).always( function(data, textStatus, xhr ) {
                 // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
             }); 
