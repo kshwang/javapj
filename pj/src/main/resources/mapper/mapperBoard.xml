@@ -63,6 +63,14 @@
     </update>
     
     
+    <update id="deleteQna" parameterType="int">
+        UPDATE pj_qnaboard  
+               set  useYN = 0
+         WHERE bno  = #{bno}
+              
+    </update>
+    
+    
     <select id="getQnaList" parameterType="java.util.Map" resultType="ModelQnaBoard">
         SELECT bno, title, userid, updatedt, hit, commentNum 
         FROM (
