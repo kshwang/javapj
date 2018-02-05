@@ -22,10 +22,34 @@
     <link href="/resources/css/style.css" rel="stylesheet">
     
     <style type="text/css">
-        table { margin-left: 292.500px; width: 555px;}
-        table tr {background: #36CBD4; }
-        table td { text-align: center;}
+/*         table { margin-left: 292.500px; width: 555px;} */
+/*         table tr {background: #36CBD4; } */
+/*         table td { text-align: center;} */
+/*         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; } */
+        
+        table { margin-left: auto; width: 1143px;}
+        table tr th {
+        text-align: center;
+         background:#ebf5fc;
+         border-bottom:  1px solid #5ea5d6;
+         border-top: 3px solid #5ea5d6;}
+        table td {
+         text-align: center;
+         border-bottom:  1px solid #adb1b4;
+         padding: 10px;
+         }
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        .select{float: right;}
+          hr {width: 1413px;} 
+          .btu1{
+          overflow:visible; 
+          border: 0px;
+          padding: 0px;
+          margin: 0px;
+          cursor: pointer;
+          vertical-align: middle;
+          text-align: left;
+          background: none;}
     </style>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -87,11 +111,11 @@
         <div class="container">
             <table>
                 <tr class="sthead">
-                    <th>no.</th>
-                    <th>title</th>
-                    <th>id</th>
-                    <th>hit</th>
-                    <th>date</th>
+                    <th width="100px">no.</th>
+                    <th width="443px">제목</th>
+                    <th width="300px">아이디</th>
+                    <th width="100px">조회수</th>
+                    <th width="200px">작성일</th>
                 </tr>
                 
                 <c:forEach var="board" items="${boardlist }" varStatus="status">

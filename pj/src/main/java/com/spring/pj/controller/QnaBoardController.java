@@ -23,6 +23,7 @@ import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
 import com.spring.pj.inf.IServiceComments;
 import com.spring.pj.inf.IServiceQnaBoard;
+import com.spring.pj.inf.IServiceUser;
 import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelQnaBoard;
 import com.spring.pj.model.ModelUser;
@@ -39,6 +40,8 @@ public class QnaBoardController {
 	IServiceQnaBoard svrboard;
 	@Autowired
 	IServiceComments svrcomment;
+    @Autowired
+    IServiceUser svruser;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -224,7 +227,8 @@ public class QnaBoardController {
         logger.info("/pj_mn30/pj_mn31match : post");
         board = svrboard.getQna(board.getBno());
         ModelUser sq = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-        if(sq.getUserid().equals(board.getUserid())) {
+        ModelUser user = svruser.selectUserOne(sq);
+        if(sq.getUserid().equals(board.getUserid())||user.getUserclass()==0) {
             return 1;
         }
         else {
@@ -241,7 +245,8 @@ public class QnaBoardController {
         logger.info("/pj_mn30/pj_mn31matchc : post");
         comment = svrcomment.getCommentOne(comment.getCommentno());
         ModelUser sq = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-        if(sq.getUserid().equals(comment.getUserid())) {
+        ModelUser user = svruser.selectUserOne(sq);
+        if(sq.getUserid().equals(comment.getUserid())||user.getUserclass()==0) {
             return 1;
         }
         else {
