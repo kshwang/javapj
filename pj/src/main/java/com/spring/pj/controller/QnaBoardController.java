@@ -87,6 +87,7 @@ public class QnaBoardController {
             , HttpServletRequest request
             , HttpSession session) {
         logger.info("/pj_mn30/pj_mn31_view");
+        svrboard.increaseQnaHit(bno);
         
         // searchWord
         // boardcd
@@ -213,6 +214,41 @@ public class QnaBoardController {
         
         return rs;
     }
+
+    @RequestMapping(value = "pj_mn30/pj_mn31match", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31match(
+              @RequestBody ModelQnaBoard board
+            , HttpSession session
+            ) {
+        logger.info("/pj_mn30/pj_mn31match : post");
+        board = svrboard.getQna(board.getBno());
+        ModelUser sq = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if(sq.getUserid().equals(board.getUserid())) {
+            return 1;
+        }
+        else {
+            return 0 ;
+        }
+    }
+    
+    @RequestMapping(value = "pj_mn30/pj_mn31matchc", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31matchc(
+              @RequestBody ModelComments comment
+            , HttpSession session
+            ) {
+        logger.info("/pj_mn30/pj_mn31matchc : post");
+        comment = svrcomment.getCommentOne(comment.getCommentno());
+        ModelUser sq = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if(sq.getUserid().equals(comment.getUserid())) {
+            return 1;
+        }
+        else {
+            return 0 ;
+        }
+    }
+    
     
     //코멘트
     @RequestMapping(value = "pj_mn30/pj_mn31insertc", method = RequestMethod.POST)
@@ -237,7 +273,7 @@ public class QnaBoardController {
         model.addAttribute("comment", result);
         
         
-        return "pj_mn30/qnaview-commentlistbody" ;
+        return "redirect:/pj_mn30/pj_mn31view/"+bno ;
     }
     
     @RequestMapping(value = "pj_mn30/pj_mn31updatec", method = RequestMethod.POST)

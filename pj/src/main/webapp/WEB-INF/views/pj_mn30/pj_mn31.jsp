@@ -48,7 +48,13 @@
         location.href = '/pj_mn30/pj_mn31view/' + bno;
     };
     var goWrite = function(){
-        location.href = "/pj_mn30/pj_mn31write";
+    	if(${empty user}===true){
+            alert('로그인하세요');
+            location.href = "/login";
+        }
+        else {
+            location.href = "/pj_mn30/pj_mn31write";
+        }
     };
     </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
