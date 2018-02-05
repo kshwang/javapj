@@ -273,7 +273,7 @@ public class QnaBoardController {
         model.addAttribute("comment", result);
         
         
-        return "redirect:/pj_mn30/pj_mn31view/"+bno ;
+        return "pj_mn30/qnaview-commentlistbody" ;
     }
     
     @RequestMapping(value = "pj_mn30/pj_mn31updatec", method = RequestMethod.POST)
