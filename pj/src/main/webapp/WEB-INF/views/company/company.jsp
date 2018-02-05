@@ -26,13 +26,13 @@
             margin:auto;
             width:1100px;
         }
-        #company ul {
+        #company > ul {
             text-align: center;
             padding-top:20px;
             display:inline-block;
             float:left;
         }
-        #company li {
+        #company > ul > li {
             text-align: left;
             text-weight: 10px;
             color: white;
@@ -59,6 +59,18 @@
             margin:0;
             padding:0;
         }
+        .content li {
+            text-align: left;
+            line-height: 2em;
+            margin:0;
+        }
+        .content ul {
+            margin:0;
+            padding:0;
+        }
+        .content > ul > #co {
+            margin: 5px 0;
+        }
         .greet {
             margin 0;
             padding 0;
@@ -81,6 +93,7 @@
         .unline {
             text-decoration: underline;
         }
+        
     </style>
     
     <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -150,7 +163,20 @@
             <div class="content" style="display:none;">
                 <h1><b>일반현황</b></h1>
                 <hr>
-                <div></div>
+                <div class="sub-title"><img src="/resources/images/company/p01_02.gif" alt="비인텍 현황 및 사업영역에 대한 소개입니다. " /></div>
+                <img src="/resources/images/company/company_copy.gif" alt="비인텍은 IT서비스 전문기업으로 SI(System Integration)을 포함하여 ITO, 솔루션, 소프트웨어 및 컨설팅등 토탈 IT서비스를 제공하고 있습니다
+         " />
+                <ul type="none">
+                    <li><img src="/resources/images/company/company01.gif" alt="회사명:(주)비인텍" /></li>
+                    <li><img src="/resources/images/company/company02.gif" alt="영문표기:BEINTECH" /></li>
+                    <li><img src="/resources/images/company/company03.gif" alt="설립일:2003년 3월" /></li>
+                    <li><img src="/resources/images/company/company04.gif" alt="대표이사:장성학" /></li>
+                    <li><img src="/resources/images/company/company05.gif" alt="주소:  서울시 구로구 구로3동 212-30 에이스트윈타워 2차 1301호" /></li>
+                    <li><img src="/resources/images/company/company06.gif" alt="업종:  SI, 정보시스템 구축 및 컨설팅, 솔루션사업" /></li>
+                    <li id="co"><img src="/resources/images/company/company07.gif" alt="사업분야:si service,술루션서비스,컨설팅서비스,IT아우소싱" /></li>
+                    <li><img src="/resources/images/company/company08.gif" alt="사업영역:비인텍은 비즈니스 컨설팅에서부터 IT Outsourcing, System Integration에 이르는 포괄적이고 
+        통합적인 서비스를 제공하고 있습니다. " /></li>
+                </ul>
             </div>
             <div class="content" style="display:none;">
                 <h1><b>연혁</b></h1>

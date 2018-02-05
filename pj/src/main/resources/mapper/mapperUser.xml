@@ -10,11 +10,7 @@
 	</insert>
 
 	<select id="login" parameterType="java.util.Map" resultType="ModelUser">
-<<<<<<< HEAD
-	        select userid, name, email, mobile, userno ,address
-=======
 	        select userid, name, address, email, mobile, userno 
->>>>>>> f39ccc6fb45598374e6d1d8a284403204de88b81
 	          from pj_user
                WHERE retireYN=0
 	           AND userid = #{userid}
