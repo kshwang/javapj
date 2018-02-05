@@ -22,11 +22,14 @@
     <link href="/resources/css/style.css" rel="stylesheet">
     
     <style type="text/css">
+        .container { margin: 0px;}
         .portfolio { width: 555px; margin-left: 292.500px;}
         table {  width: 555px;}
         table tr {background: #36CBD4; }
         table td { text-align: center;}
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        hr {width: 555px;}
+        
     </style>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/resources/js/jquery-3.1.1.js"></script>
@@ -275,7 +278,7 @@
                 }).done( function(data, textStatus, xhr ){
                     // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
                     
-                    $('#commentlist').prepend(data);
+                    $('#commentlist').append(data);
                     $('#addComment textarea').val('');
                 }).fail( function(xhr, textStatus, error ) {
                     // 통신이 실패했을 때 이 함수를 타게 된다.
@@ -329,10 +332,11 @@
                     <h6>작성자 ${board.userid }, 조회수 ${board.hit }</h6>
                     <p>${board.content }</p>
                 </div>
-                
+                <hr>
                 <!--  덧글 반복 시작 -->
                 <div id="commentlist">
-                    <c:forEach var="comment" items="${commentList }" varStatus="status">    
+                    <c:forEach var="comment" items="${commentList }" varStatus="status">   
+                    <hr> 
                     <%@ include file="qnaview-commentlistbody.jsp" %>
                     </c:forEach>
                 </div>
