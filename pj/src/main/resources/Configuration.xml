@@ -21,6 +21,7 @@
         <mapper resource="mapper/mapperUser.xml" />
         <mapper resource="mapper/mapperBoard.xml" />
         <mapper resource="mapper/mapperEmploy.xml" />
+        <mapper resource="mapper/mapperTraining.xml" />
     </mappers>
     
 </configuration>

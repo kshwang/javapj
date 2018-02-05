@@ -28,64 +28,118 @@
 <link href="../../resources/css/overwrite.css" rel="stylesheet">
 <link href="../../resources/css/style.css" rel="stylesheet">
 
-<style type = "text/css">
 
-table {    margin-right: auto;
-    margin-left: auto;
-    width: 1143px;   color: #555; }
-    div#list-menu{text-align:right;
+
+
+
+
+<style type="text/css">
+table {
     margin-right: auto;
     margin-left: auto;
-    width: 1143px;}
-th {color: #2e3532; border-top: 3px solid #109173;  border-bottom: 3px solid #109173;}
-tr { cursor: pointer;  }
-tr:hover { background: pink;  }
-td {    padding-top: 3px;   padding-bottom: 3px; border-bottom: silver 1px solid;}
-td a {  color: #555; text-decoration: none;}
-td a:hover {color:#555; text-decoration: underline;}
-#bbs-strong {    color: #FFA500; font-weight: bold;}
-fl {    float: left;}
+    width: 1143px;
+    color: #555;
+}
 
-fr {    float: right;}
+div#list-menu {
+    text-align: right;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1143px;
+}
+
+th {
+    color: #2e3532;
+    border-top: 3px solid #109173;
+    border-bottom: 3px solid #109173;
+}
+
+tr {
+    cursor: pointer;
+}
+
+tr:hover {
+    background: pink;
+}
+
+td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: silver 1px solid;
+}
+
+td a {
+    color: #555;
+    text-decoration: none;
+}
+
+td a:hover {
+    color: #555;
+    text-decoration: underline;
+}
+
+#bbs-strong {
+    color: #FFA500;
+    font-weight: bold;
+}
+
+fl {
+    float: left;
+}
+
+fr {
+    float: right;
+}
 </style>
-
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/resources/js/jquery-2.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/wow.min.js"></script>
+<script src="/resources/js/jquery.easing.1.3.js"></script>
+<script src="/resources/js/jquery.isotope.min.js"></script>
+<script src="/resources/js/jquery.bxslider.min.js"></script>
+<!--     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
+ -->
+<script src="/resources/js/functions.js"></script>
+<!-- 
+    <script type="text/javascript">$('.portfolio').flipLightBox()</script> -->
 <script>
 	var goList = function(page) {
-		window.location.href = '/pj_mn40/pj_mn42';/* "/board/articlelist/${boardcd}?searchWord=${searchWord}&curPage="
-				+ page; */
+		window.location.href = '/pj_mn40/pj_mn41';/* "/board/articlelist/${boardcd}?searchWord=${searchWord}&curPage="
+						+ page; */
 	};
 </script>
 
 
 <script>
-	$(document).ready( function(event) {
-						$('#bbs tr[articleno]')
-								.click(
-										function(event) {
-											var articleno = $(this).attr(
-													'articleno');
-											location.href = '/board/articleview/${boardcd}/'
-													+ articleno;
-										});
-						$('#list-menu input[type="button"]').click(
-										function(event) {
-											location.href = "pj_mn42";  /* '/board/articlewrite/${boardcd}?searchWord=${searchWord}&curPage=${curPage}'; */
-										});
-					});
-		
+	$(document).ready(function(event) {
+		/* 		$('#bbs tr[articleno]')
+						.click(
+								function(event) {
+									var articleno = $(this).attr(
+											'articleno');
+									location.href = '/board/articleview/${boardcd}/'
+											+ articleno;
+								}); */
+		$('#list-menu input[type="button"]').click(function(event) {
+			location.href = 'pj_mn42'; /* '/board/articlewrite/${boardcd}?searchWord=${searchWord}&curPage=${curPage}'; */
+		});
+	});
 </script>
 
 </head>
 <body>
 
-            <%@ include file="../header.jsp"%>
- <div class="container">
+    <%@ include file="../header.jsp"%>
+    <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="portfolios">
                     <div class="text-center">
                         <h2>교육</h2>
-                        <p>이번 달 교육입니다. <br>
+                        <p>
+                            이번 달 교육입니다. <br>
                         </p>
                     </div>
                     <hr>
@@ -94,90 +148,85 @@ fr {    float: right;}
         </div>
     </div>
 
-                <!-- 본문 시작 -->
-                <h1>${boardnm }</h1>
-                <div id="bbs">
-                    <table>
-                        <tr>
-                            <th style="width: 60px;">NO</th>
-                            <th style="text-ailgn:center;">교육 목록</th>
-                            <th style="width: 84px;">날짜</th>
-                            <th style="width: 60px;">조회수</th>
-                        </tr>
-                        <!--  반복 구간 시작 -->
-                        <c:forEach var="article"
-                            items="${ articleList }" varStatus="status">
-                            <tr articleno="${article.articleno }">
-                                <td style="text-align: center;">${no - status.index}</td>
-                                <td><span>${article.title }</span>
-                                    <c:if
-                                        test="${article.attachFileNum > 0 }">
-                                        <img
-                                            src="/resources/images/attach.png"
-                                            alt="첨부파일" />
-                                    </c:if> <c:if
-                                        test="${article.commentNum > 0 }">
-                                        <span class="bbs-strong">[${article.commentNum }]</span>
-                                    </c:if></td>
-                                <td style="text-align: center;"><fmt:formatDate
-                                        pattern="yyyy-MM-dd"
-                                        value="${article.regdate }" />
-                                </td>
-                                <td style="text-align: center;">${article.hit }</td>
-                            </tr>
-                        </c:forEach>
-                        <!--  반복 구간 끝 -->
-                    </table>
+    <!-- 본문 시작 -->
+    <h1>${boardnm }</h1>
+    <div id="bbs">
+        <table>
+            <tr>
+                <th style="width: 60px;">NO</th>
+                <th style="text-ailgn: center;">교육 목록</th>
+                <th style="width: 84px;">날짜</th>
+                <th style="width: 60px;">조회수</th>
+            </tr>
+            <!--  반복 구간 시작 -->
+            <c:forEach var="article" items="${ articleList }"
+                varStatus="status">
+                <tr articleno="${article.articleno }">
+                    <td style="text-align: center;">${no - status.index}</td>
+                    <td><span>${article.title }</span> <c:if
+                            test="${article.attachFileNum > 0 }">
+                            <img src="/resources/images/attach.png"
+                                alt="첨부파일" />
+                        </c:if> <c:if test="${article.commentNum > 0 }">
+                            <span class="bbs-strong">[${article.commentNum }]</span>
+                        </c:if></td>
+                    <td style="text-align: center;"><fmt:formatDate
+                            pattern="yyyy-MM-dd"
+                            value="${article.regdate }" /></td>
+                    <td style="text-align: center;">${article.hit }</td>
+                </tr>
+            </c:forEach>
+            <!--  반복 구간 끝 -->
+        </table>
 
-                    <div id="paging" style="text-align: center;">
-                        <c:if test="${prevLink > 0 }">
-                            <a href="javascript:goList( ${prevLink} )">[이전]</a>
-                        </c:if>
+        <div id="paging" style="text-align: center;">
+            <c:if test="${prevLink > 0 }">
+                <a href="javascript:goList( ${prevLink} )">[이전]</a>
+            </c:if>
 
-                        <c:forEach var="i" items="${pageLinks }"
-                            varStatus="stat">
-                            <c:choose>
-                                <c:when test="${curPage == i}">
-                                    <span class="bbs-strong">${i }</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="javascript:goList( ${i} )">${i }</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
+            <c:forEach var="i" items="${pageLinks }" varStatus="stat">
+                <c:choose>
+                    <c:when test="${curPage == i}">
+                        <span class="bbs-strong">${i }</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="javascript:goList( ${i} )">${i }</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
 
-                        <c:if test="${nextLink > 0 }">
-                            <a href="javascript:goList( ${nextLink} )">[다음]</a>
-                        </c:if>
-                    </div>
-
-                    <div id="list-menu" style="text-align: right;">
-                        <br><input type="button" value="새글쓰기" />
-                    </div>
-
-                    <div id="search" style="text-align: center;">
-                        <form id="searchForm" action="${actionurl }"
-                            method="get" style="margin: 0; padding: 0;">
-                            <p style="margin: 0; padding: 0;">
-                                <input type="hidden" name="boardcd"
-                                    value="${boardcd }" /> <input
-                                    type="text" name="searchWord"
-                                    value="${searchWord }" size="15"
-                                    maxlength="30" /> <input
-                                    type="submit" value="검색" />
-                            </p>
-                        </form>
-                    </div>
-
-                </div>
-                <!--  본문 끝 -->
-
-            </div>
-            <!-- content 끝 -->
+            <c:if test="${nextLink > 0 }">
+                <a href="javascript:goList( ${nextLink} )">[다음]</a>
+            </c:if>
         </div>
-        <!--  container 끝 -->
 
-        <%--    <div id="sidebar">
+        <div id="list-menu" style="text-align: right;">
+            <br>
+            <input type="button" value="새글쓰기" />
+        </div>
+
+        <div id="search" style="text-align: center;">
+            <form id="searchForm" action="${actionurl }" method="get"
+                style="margin: 0; padding: 0;">
+                <p style="margin: 0; padding: 0;">
+                    <input type="hidden" name="boardcd"
+                        value="${boardcd }" /> <input type="text"
+                        name="searchWord" value="${searchWord }"
+                        size="15" maxlength="30" /> <input
+                        type="submit" value="검색" />
+                </p>
+            </form>
+        </div>
+
+    </div>
+    <!--  본문 끝 -->
+
+    </div>
+    <!-- content 끝 -->
+    </div>
+    <!--  container 끝 -->
+
+    <%--    <div id="sidebar">
             <%@ include file="bbs-menu.jsp"%>
         </div>
 
@@ -185,10 +234,10 @@ fr {    float: right;}
             <%@ include file="../inc/extra.jsp"%>
         </div> --%>
 
-        <div id="footer">
-            <%@ include file="../footer.jsp"%>
+    <div id="footer">
+        <%@ include file="../footer.jsp"%>
 
-        </div>
+    </div>
 
     </div>
 

@@ -71,7 +71,19 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
     border-bottom: 1px solid #DAEAAA;
 }
 </style>
-
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/resources/js/jquery-2.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/wow.min.js"></script>
+<script src="/resources/js/jquery.easing.1.3.js"></script>
+<script src="/resources/js/jquery.isotope.min.js"></script>
+<script src="/resources/js/jquery.bxslider.min.js"></script>
+<!--     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
+ -->
+<script src="/resources/js/functions.js"></script>
+<!-- 
+    <script type="text/javascript">$('.portfolio').flipLightBox()</script> -->
 
 <script>
 	$(document)
@@ -105,7 +117,7 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
                 <h1>${boardnm }</h1>
                 <div id="bbs">
                     <h2 align=center>교육 등록</h2>
-                    <form id="writeForm" action="articlewrite"
+                    <form id="writeForm" action="pj_mn42"
                         method="post" enctype="multipart/form-data"
                         onsubmit="return check()">
                         <p style="margin: 0; padding: 0;">
