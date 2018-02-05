@@ -54,6 +54,14 @@
                         alert('비밀번호확인을 입력하세요');
                         $('input[name="confirm"]').focus();
                     }
+                    else if ($('select').val() === '0'){
+                        alert('비밀번호질문을 선택하세요');
+                        $('select').focus();
+                    }
+                    else if ($('input[name="q_answer"]').val() === ''){
+                        alert('비밀번호답변을 입력하세요');
+                        $('input[name="q_answer"]').focus();
+                    }
                     else if ($('input[name="name"]').val() === ''){
                         alert('이름을 입력하세요');
                         $('input[name="name"]').focus();
@@ -160,6 +168,21 @@
                     <tr>
                         <td><label>비밀번호확인*</label></td>
                         <td><input type="password" name="confirm"><span id="passwordcheck"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label>비밀번호질문*</label></td>
+                        <td>
+                            <select name="q_no">
+                                <option value="0">질문을 선택하세요</option>
+                                <c:forEach var="q" items="${q_for_pw }" varStatus="status">    
+                                    <option value="${q.q_no }">${q.q_statement }</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>비밀번호답변*</label></td>
+                        <td><input type="text" name="q_answer"></td>
                     </tr>
                     <tr>
                         <td><label>이름*</label></td>

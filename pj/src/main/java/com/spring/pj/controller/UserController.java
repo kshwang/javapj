@@ -1,5 +1,7 @@
 package com.spring.pj.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.pj.common.WebConstants;
 import com.spring.pj.inf.IServiceUser;
+import com.spring.pj.model.ModelQuestionForPW;
 import com.spring.pj.model.ModelUser;
 
 @Controller
@@ -70,6 +73,10 @@ public class UserController {
     public String register(Model model) {
         logger.info("register:get");
         
+        List<ModelQuestionForPW> q = srvuser.getQuestionForPW();
+        
+        model.addAttribute("q_for_pw", q);
+        
         return "register";
     }
     
@@ -85,6 +92,8 @@ public class UserController {
     public String register(Model model
             , @RequestParam String userid
             , @RequestParam String passwd
+            , @RequestParam Integer q_no
+            , @RequestParam String q_answer
             , @RequestParam String name
             , @RequestParam String address
             , @RequestParam String email
@@ -99,11 +108,82 @@ public class UserController {
         user.setAddress(address);
         user.setEmail(email);
         user.setMobile(mobile);
+        user.setQ_no(q_no);
+        user.setQ_answer(q_answer);
         user.setUserclass(userclass);
         
         srvuser.insertUser(user);
         
         return "redirect:/";
     }
+    
+    @RequestMapping(value = "/findid", method = RequestMethod.GET)
+    public String findid(Model model) {
+        logger.info("findpw:get");
+        
+        return "finduserinfo/findid";
+    }
+    
+    @RequestMapping(value = "/findid", method = RequestMethod.POST)
+    public String findid(Model model
+            , @RequestParam String name
+            , @RequestParam String email
+            , @RequestParam String mobile
+            , RedirectAttributes rttr) {
+        logger.info("findid:post");
+        
+        ModelUser user = new ModelUser();
+        user.setName(name);
+        user.setEmail(email);
+        user.setMobile(mobile);
+        
+        ModelUser result = srvuser.selectUserOne(user);
+        
+        if (result == null) {
+            rttr.addFlashAttribute("msg", "아이디 찾기 실패");
+            return "redirect:/findid";
+        }
+        else {
+            model.addAttribute("result", result);
+            return "finduserinfo/findidresult";
+        }
+    }
+    
+    @RequestMapping(value = "/findpw", method = RequestMethod.GET)
+    public String findpw(Model model) {
+        logger.info("findpw:get");
+        
+        List<ModelQuestionForPW> q = srvuser.getQuestionForPW();
+        
+        model.addAttribute("q_for_pw", q);
+        
+        return "finduserinfo/findpw";
+    }
+    
+    @RequestMapping(value = "/findpw", method = RequestMethod.POST)
+    public String findpw(Model model
+            , @RequestParam String userid
+            , @RequestParam Integer q_no
+            , @RequestParam String q_answer
+            , RedirectAttributes rttr) {
+        logger.info("findpw:post");
+        
+        ModelUser user = new ModelUser();
+        user.setUserid(userid);
+        user.setQ_no(q_no);
+        user.setQ_answer(q_answer);
+        
+        ModelUser result = srvuser.selectUserOne(user);
+        
+        if (result == null) {
+            rttr.addFlashAttribute("msg", "비밀번호질문 또는 답변이 틀렸습니다.");
+            return "redirect:/findpw";
+        }
+        else {
+            model.addAttribute("result", result);
+            return "finduserinfo/findpwresult";
+        }
+    }
+    
     
 }

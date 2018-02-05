@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.pj.inf.IDaoUser;
 import com.spring.pj.inf.IServiceUser;
+import com.spring.pj.model.ModelQuestionForPW;
 import com.spring.pj.model.ModelUser;
 
 import java.util.*;
@@ -38,19 +39,6 @@ public class ServiceUser implements IServiceUser {
         return result;
     }
     
-    @Override
-    public ModelUser selectUserOne(String userid) {
-        
-        ModelUser result = null;
-        
-        try {
-            result = daouser.selectUserOne(userid);
-        } catch (Exception e) {
-            logger.error("selectUserOne " + e.getMessage() );
-        }
-        return result;
-    }
-
     @Override
     public ModelUser login(String userid, String passwd) {
         
@@ -143,6 +131,17 @@ public class ServiceUser implements IServiceUser {
             result = daouser.checkpassword(id, cur_pw);
         } catch (Exception e) {
             logger.error("checkpassword " + e.getMessage() );
+        }
+        return result;
+    }
+
+    @Override
+    public List<ModelQuestionForPW> getQuestionForPW() {
+        List<ModelQuestionForPW> result = null;
+        try {
+            result = daouser.getQuestionForPW();
+        } catch (Exception e) {
+            logger.error("getQuestionForPW " + e.getMessage() );
         }
         return result;
     }
