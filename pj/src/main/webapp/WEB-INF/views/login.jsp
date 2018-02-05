@@ -54,18 +54,18 @@
             $('#findid').click(function(event) {
         	    var popUrl = "/findid";   //팝업창에 출력될 페이지 URL
 
-        	    var popOption = "width=370, height=360, resizable=no, toolbar=no, menubar=no, directories=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+        	    var popOption = 'width=370, height=360, resizable=no, toolbar=no, menubar=no, directories=no, scrollbars=no, status=no, location=no';    //팝업창 옵션(optoin)
 
-    	        window.open(popUrl,"",popOption);
+    	        window.open(popUrl, '_blank', popOption);
 
             	return false;
             });
             $('#findpw').click(function(event) {
                 var popUrl = "/findpw";   //팝업창에 출력될 페이지 URL
 
-                var popOption = "width=370, height=360, resizable=no, menubar=no, directories=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+                var popOption = 'width=370, height=360, resizable=no, toolbar=no, menubar=no, directories=no, scrollbars=no, status=no, location=no';    //팝업창 옵션(optoin)
 
-                window.open(popUrl,"",popOption);
+                window.open(popUrl, '_blank', popOption);
                 
             	return false;
             });

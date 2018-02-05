@@ -18,7 +18,7 @@
     <script type="text/javascript" src="/resources/js/jquery-3.1.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function(event) {
-            $('a').eq(0).click(function(event) {
+            $('a').click(function(event) {
                 window.close();
                 return false;
             });

@@ -27,7 +27,6 @@ public class ServiceUser implements IServiceUser {
 
     @Override
     public int insertUser(ModelUser user) {
-        
         int result = -1;
         try {
             result = daouser.insertUser(user);
@@ -35,15 +34,14 @@ public class ServiceUser implements IServiceUser {
         } catch (Exception e) {
             logger.error("insertUser " + e.getMessage() );
         }
-		
+        
         return result;
     }
-    
+
     @Override
     public ModelUser login(String userid, String passwd) {
-        
         ModelUser result = null;
-		
+        
         try {
             result = daouser.login(userid, passwd);
         } catch (Exception e) {
@@ -70,7 +68,8 @@ public class ServiceUser implements IServiceUser {
     }
 
     @Override
-    public int updatePasswd(String userid, String currentPasswd, String newPasswd) {
+    public int updatePasswd(String userid, String currentPasswd,
+            String newPasswd) {
         int result = -1;
         try {
             result = daouser.updatePasswd( userid, currentPasswd, newPasswd);
