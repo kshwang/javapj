@@ -38,7 +38,20 @@
     $('.title').click( function(){
     	$(this).attr('href','/pj_mn20/pj_mn22_view');
     	var title = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
-    	alert(title);
+        
+        var f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/pj_mn20/pj_mn22_view');
+        f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+        
+        var i = document.createElement('input');
+        i.setAttribute('type', 'hidden');
+        i.setAttribute('name', 'title');
+        i.setAttribute('value', title);
+        f.appendChild(i);
+        
+        document.body.appendChild(f);
+        f.submit();
     	return false;
     });
     

@@ -57,7 +57,7 @@ public class EmployController {
     }
 	
 	
-	@RequestMapping(value = "/pj_mn20/pj_mn22_view", method = RequestMethod.GET)
+	@RequestMapping(value = "/pj_mn20/pj_mn22_view", method = RequestMethod.POST)
     public String pj_mn22( Model model , HttpSession session, @RequestParam String title) {
         logger.info("/pj_mn20/pj_mn22");
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
