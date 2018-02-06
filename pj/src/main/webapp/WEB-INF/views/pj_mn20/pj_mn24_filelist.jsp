@@ -31,43 +31,12 @@
     <!-- <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script> -->
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
-    var goList = function( page ) {
-        window.location.href = '/pj_mn20/pj_mn21_jobs?searchWord=${searchWord}&curPage=' + page;
+    var goList = function(  ) {
+        window.location.href = '/pj_mn20/pj_mn21_jobs ';
     }
     var fileList = function(  ){
-    	  window.location.href = '/pj_mn20/pj_mn24_filelist' ;
-    };
-    $(document).ready(function() {
-    $('.title').click( function(){
-    	$(this).attr('href','/pj_mn20/pj_mn22_view');
-    	var title = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
-    	
-        var f = document.createElement('form');
-        f.setAttribute('method', 'post');
-        f.setAttribute('action', '/pj_mn20/pj_mn22_view');
-        f.setAttribute('enctype', 'application/x-www-form-urlencoded');
-        
-        var i = document.createElement('input');
-        i.setAttribute('type', 'hidden');
-        i.setAttribute('name', 'title');
-        i.setAttribute('value', title);
-        f.appendChild(i);
-        
-        document.body.appendChild(f);
-        f.submit();
-    	return false;
-    });
-    
-    function SetSelectBox(){
-    	
-    }
-    $('.tr1').hide();
-    
-     $('.btu1').click( function(){
-    	 $(this).parent('td').parent('tr').next('.tr1').toggle();
-    }); 
-     
-    });
+    	window.location.href = '/pj_mn20/pj_mn24_filelist' ;
+  };
     
     
     </script>
@@ -125,45 +94,35 @@
         <div class="container">
             <div class="emp">
             
-            <h3>채용 분야</h3>
-            우수한 인재를 상시적으로 채용하고 있습니다 .
-           <select class="select" name = "empname"  onchange="SetSelectBox()">
-                <option value="전체직군">전체직군</option>
-                <option value="마케팅">마케팅</option>
-                <option value="기획/운영">기획/운영</option>
-                <option value="개발/시스템">개발/시스템</option>
-                <option value="디자인">디자인</option>
-                <option value="경영지원">경영지원</option>
-                <option value="제휴/영업">제휴/영업</option>
-                <option value="고객지원">고객지원</option>
-            </select>
-            
+            <h3>채용 현황</h3>
+            <br>
+           
             </div>
             <br>
             <table>
                 <tr class="sthead">
                     <th>모집부분</th>
                     <th>모집분야</th>
-                    <th>모집기간</th>
-                    <th>지원</th>
+                    <th>이름</th>
+                    <th>핸드폰번호</th>
+                    <th>mail</th>
+                    <th>주소</th>
+                    <th>url</th>
+                    <th>포토폴리오</th>
                 </tr>
                 
-                <c:forEach var="emp" items="${emplist }" varStatus="status">
+                <c:forEach var="empfile" items="${empfilelist }" varStatus="status">
                     <tr>
-                        <td>${emp.jobname }</td>
-                        <td><button type="button" class="btu1" ><span>${emp.jobtitle }</span> </button></td>
-                        <td>${emp.period } </td>
-                        <td><a class="title" href="#">${emp.empexpiry }</a></td>
+                        <td>${empfile.jobname }</td>
+                        <td>${empfile.jobtitle } </td>
+                        <td>${empfile.userid }</td>
+                        <td>${empfile.phone }</td>
+                        <td>${empfile.mail }</td>
+                        <td>${empfile.address }</td>
+                        <td>${empfile.url }</td>
+                        <td>${empfile.fileno }</td>
                     </tr>
-                    
-                   <tr class="tr1" >
-                   <td class="td1" colspan="4">
-                   <div class="info">${emp.jobtitleinfo }</div>
-                   </td>
-                   </tr>
-                   
-                    
-                </c:forEach>
+                  </c:forEach>
                 
                 
             </table>
@@ -179,11 +138,9 @@
                                 </c:when>
                                 
                                 <c:otherwise>
-                                 <input type="button" value="수정" onclick="javascript:goModify();" />
-                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="button" value="삭제" onclick="javascript:goDelete();" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                  <input type="button" value="목록" onclick="javascript:goList( ${curPage } );" />
+                                  <input type="button" value="목록" onclick="javascript:goList( );" />
                                   &nbsp;&nbsp;&nbsp;&nbsp;
                                   <input type="button" value="새글쓰기" onclick="javascript:goWrite();" />
                                   &nbsp;&nbsp;&nbsp;&nbsp;

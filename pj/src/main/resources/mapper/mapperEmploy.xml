@@ -16,7 +16,7 @@
     
     
     <select id="getEmployList" parameterType="java.util.Map" resultType="ModelEmploy">
-        SELECT jobname, jobtitle, empexpiry, period
+        SELECT jobname, jobtitle, empexpiry, period, jobtitleinfo
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
@@ -24,12 +24,13 @@
                            a.jobname, 
                            a.jobtitle, 
                            a.empexpiry,
-                           a.period
+                           a.period,
+                           a.jobtitleinfo
                     FROM 
                         pj_employ a
                       WHERE
                         1 = 1
-                    GROUP BY a.jobname,a.jobtitle, a.empexpiry, a.period
+                    GROUP BY a.jobname,a.jobtitle, a.empexpiry, a.period, a.jobtitleinfo
                     ORDER BY jobname DESC
                  ) a, (SELECT @RNUM:=0) b
             ) temp
@@ -43,6 +44,10 @@
       select jobname, jobtitle, empexpiry, period from pj_employ where jobname like CONCAT ('%',#{searchWord}, '%') ;
     </select>
     
-    
+    <insert id="insertEmploy" parameterType="ModelEmploy"  >
+        INSERT INTO 
+        pj_employ  (     jobname   , jobtitle   , period   , empexpiry  ,jobtitleinfo,useYN  )
+            VALUES     (  #{jobname}, #{jobtitle}, #{period}, #{empexpiry} , #{jobtitleinfo} , #{useYN}  )
+    </insert>   
     
  </mapper>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.pj.inf.IDaoEmploy;
 import com.spring.pj.model.ModelEmploy;
+import com.spring.pj.model.ModelQnaBoard;
 @Repository
 public class DaoEmploy implements IDaoEmploy {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -40,7 +41,10 @@ public class DaoEmploy implements IDaoEmploy {
     }
 
     
-    
+    @Override
+    public int insertEmploy(ModelEmploy emp) {
+        return session.insert("mapper.mapperEmploy.insertEmploy", emp);
+    }
    
     
 }
