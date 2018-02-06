@@ -284,6 +284,11 @@
 
     
     $(document).ready(function(e){
+    	
+    	
+    	
+    	// .replaceAll(/\n/g, '<br>')
+    	
 
         $('#insertc').click(function(e){
         	
@@ -358,7 +363,7 @@
             
                 <div id="gul-content">
                     <h6>작성자 ${board.userid } ㅣ 조회수 ${board.hit }</h6>
-                    <p>${board.content }</p>
+                    <p id="qnaVM">${board.content }</p>
                 </div>
                 <hr>
                 <!--  덧글 반복 시작 -->

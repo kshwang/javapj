@@ -101,6 +101,10 @@ public class QnaBoardController {
         model.addAttribute("searchWord", searchWord);
         model.addAttribute("curPage", curPage);
         ModelQnaBoard board = svrboard.getQna(bno);
+        
+        String content = board.getContent();
+        String contents = content.replace("\r\n", "<br>");
+        board.setContent(contents);
         model.addAttribute("board", board);
         
         /*// commentList --> 댓글 목록을 출력하는 경우.
@@ -129,7 +133,15 @@ public class QnaBoardController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("nextLink", paging.getNextLink());
         List<ModelComments> commentList = svrcomment.getComment(bno);
-        if(commentList!=null) model.addAttribute("commentList", commentList);
+        
+        if(commentList!=null) {
+            String memo = "";
+            for(int i=0; i<commentList.size(); i++) {
+                memo = commentList.get(i).getMemo();
+                commentList.get(i).setMemo(memo.replace("\n", "<br>"));
+            }
+            model.addAttribute("commentList", commentList);
+        }
 
         // actionurl
         String url = request.getRequestURL().toString();

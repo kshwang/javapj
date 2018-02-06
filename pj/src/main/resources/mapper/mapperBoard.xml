@@ -83,7 +83,8 @@
                            a.hit, 
                            count(distinct(c.commentno)) commentNum
                     FROM 
-                        pj_qnaboard a
+                        (select * from pj_qnaboard where 
+                        useYN = 1 ) a
                         LEFT OUTER JOIN (select * from pj_comments where 
                         UseYN = 1 )   c ON a.bno = c.bno
                     WHERE
