@@ -153,6 +153,7 @@ h3 {
                                         type="text" name="mail">
                                         <select name="email"
                                         style="width: 143px;">
+                                            <option value="직접입력">직접입력</option>
                                             <option value="naver.com">naver.com</option>
                                             <option value="daum.net">daum.net</option>
                                             <option value="nate.com">nate.com</option>
@@ -184,10 +185,10 @@ h3 {
                         <tr>
                             <th>홈페이지 URL</th>
                             <td><input type="text" size="20"
-                                name="name" style="width: 543px;"></td>
+                                name="name" style="width: 543px;" ></td>
                         </tr>
                         <tr>
-                            <th>이력서 파일첨부</th>
+                            <th>이력서 파일첨부 & 포토폴리오 파일첨부</th>
                             <td><input type="file" name="file1"
                                 size="20" name="name"
                                 style="width: 80%;"> <input

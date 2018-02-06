@@ -55,6 +55,10 @@
     	return false;
     });
     
+    function SetSelectBox(){
+    	
+    }
+   
     });
     
     
@@ -112,7 +116,7 @@
             
             <h3>채용 분야</h3>
             우수한 인재를 상시적으로 채용하고 있습니다 .
-           <select class="select" name = "empname" >
+           <select class="select" name = "empname"  onchange="SetSelectBox()">
                 <option value="전체직군">전체직군</option>
                 <option value="마케팅">마케팅</option>
                 <option value="기획/운영">기획/운영</option>
@@ -136,8 +140,8 @@
                 <c:forEach var="emp" items="${emplist }" varStatus="status">
                     <tr>
                         <td>${emp.jobname }</td>
-                        <td><button type="button" class="btu1"><span>${emp.jobtitle }</span> </button></td>
-                        <td>채용시까지 </td>
+                        <td><button type="button" class="btu1" ><span>${emp.jobtitle }</span> </button></td>
+                        <td>${emp.period } </td>
                         <td><a class="title" href="#">${emp.empexpiry }</a></td>
                     </tr>
                 </c:forEach>

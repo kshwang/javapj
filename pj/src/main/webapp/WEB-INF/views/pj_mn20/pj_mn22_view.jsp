@@ -153,7 +153,7 @@
         <br>
         <br>
         </div>
-        <center><input class="ok" type="submit" value="동의 " >&nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit" value="동의하지 않습니다." onclick=""></center>
+        <center><input class="ok" type="submit" value="동의 " >&nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit" value="동의하지 않습니다."></center>
     </form>
     </ul>
 </div>

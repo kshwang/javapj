@@ -16,26 +16,31 @@
     
     
     <select id="getEmployList" parameterType="java.util.Map" resultType="ModelEmploy">
-        SELECT jobname, jobtitle, empexpiry
+        SELECT jobname, jobtitle, empexpiry, period
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
                     SELECT  
                            a.jobname, 
                            a.jobtitle, 
-                           a.empexpiry 
+                           a.empexpiry,
+                           a.period
                     FROM 
                         pj_employ a
                       WHERE
                         1 = 1
-                    GROUP BY a.jobname,a.jobtitle, a.empexpiry 
+                    GROUP BY a.jobname,a.jobtitle, a.empexpiry, a.period
                     ORDER BY jobname DESC
                  ) a, (SELECT @RNUM:=0) b
             ) temp
         WHERE r BETWEEN #{start} AND #{end}
     </select>  
     <select id="getEmployjobtitle" resultType="String" parameterType="String">
-      select jobtitle from pj_employ
+      select jobname, jobtitle, empexpiry ,period from pj_employ
+    </select>
+    
+    <select id="getEmployjobname" resultType="ModelEmploy" parameterType="java.util.Map">
+      select jobname, jobtitle, empexpiry, period from pj_employ where jobname like CONCAT ('%',#{searchWord}, '%') ;
     </select>
     
     

@@ -4,7 +4,7 @@ public class ModelEmploy {
     private String jobname  ="";        //` VARCHAR(50) NOT NULL,
     private String jobtitle ="";        //` VARCHAR(50) NULL DEFAULT NULL,
     private String empexpiry="";        //` VARCHAR(50) NULL DEFAULT NULL,
-    
+    private String period = "";
     
     
     public String getJobname() {
@@ -25,10 +25,19 @@ public class ModelEmploy {
     public void setEmpexpiry(String empexpiry) {
         this.empexpiry = empexpiry;
     }
+   
+    public String getPeriod() {
+        return period;
+    }
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+    
+    
     @Override
     public String toString() {
         return "ModelEmploy [jobname=" + jobname + ", jobtitle=" + jobtitle
-                + ", empexpiry=" + empexpiry + "]";
+                + ", empexpiry=" + empexpiry + ", period=" + period + "]";
     }
     public ModelEmploy() {
         super();
