@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.spring.pj.inf.IDaoEmploy;
 import com.spring.pj.inf.IServiceEmploy;
 import com.spring.pj.model.ModelEmploy;
-import com.spring.pj.model.ModelQnaBoard;
 @Service
 public class ServiceEmploy implements IServiceEmploy {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -57,6 +56,19 @@ public class ServiceEmploy implements IServiceEmploy {
             rs = dao.getEmployList(searchWord, start, end);
         } catch (Exception e) {
             logger.error("getEmployList" + e.getMessage());
+            throw e;
+            
+        }
+        return rs;
+    }
+
+    @Override
+    public int insertEmploy(ModelEmploy emp) {
+        int rs = -1;
+        try {
+            dao.insertEmploy(emp);
+        } catch (Exception e) {
+            logger.error("insertQna" + e.getMessage());
             throw e;
             
         }

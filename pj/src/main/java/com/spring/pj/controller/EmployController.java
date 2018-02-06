@@ -33,13 +33,24 @@ public class EmployController {
             , HttpServletRequest request
             , HttpSession session
             ) {
-        logger.info("/pj_mn20/pj_mn21_jobs");
+        logger.info("/pj_mn20/pj_mn21_jobs  :g");
         
         int totalRecord = svremp.getEmployTotalRecord(searchWord);
         
         PagingHelper paging = new PagingHelper(totalRecord, curPage);
         int start = paging.getStartRecord();
         int end = paging.getEndRecord();
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if(user == null || user.getUserclass() >0){
+            
+        }
+        else{
+            model.addAttribute("mgs",user.getUserclass());
+        }
+        
+        /*if(user.getUserclass() == 0){
+            model.addAttribute("mgs",user.getUserclass());
+        }*/
         
         List<ModelEmploy> rs = svremp.getEmployList(searchWord, start, end);
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
@@ -66,6 +77,12 @@ public class EmployController {
         PagingHelper paging = new PagingHelper(totalRecord, curPage);
         int start = paging.getStartRecord();
         int end = paging.getEndRecord();
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if(user.getUserclass() == 0){
+            model.addAttribute("mgs",user.getUserclass());
+        }
+        
+        
         
         List<ModelEmploy> rs = svremp.getEmployList(searchWord, start, end);
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
@@ -107,6 +124,30 @@ public class EmployController {
            model.addAttribute("user",user);
            return "pj_mn20/pj_mn23";
        }
+    }
+	@RequestMapping(value = "/pj_mn20/pj_mn24_filelist", method = RequestMethod.GET)
+    public String pj_mn24_filelist( Model model
+            , @RequestParam(defaultValue="1") Integer curPage
+            , @RequestParam(defaultValue="") String searchWord
+            , HttpServletRequest request
+            , HttpSession session
+            ) {
+        logger.info("/pj_mn20/pj_mn24_filelist  :g");
+        int totalRecord = svremp.getEmployTotalRecord(searchWord);
+        
+        PagingHelper paging = new PagingHelper(totalRecord, curPage);
+        int start = paging.getStartRecord();
+        int end = paging.getEndRecord();
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if(user == null || user.getUserclass() >0){
+            
+        }
+        else{
+            model.addAttribute("mgs",user.getUserclass());
+        }
+        
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+        return "pj_mn20/pj_mn24_filelist";
     }
     
 }
