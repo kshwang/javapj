@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,6 +61,7 @@ public class EmployController {
 	@RequestMapping(value = "/pj_mn20/pj_mn22_view", method = RequestMethod.POST)
     public String pj_mn22( Model model , HttpSession session, @RequestParam String title) {
         logger.info("/pj_mn20/pj_mn22");
+        
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
        
         model.addAttribute("jobtitle", title);
@@ -72,14 +74,14 @@ public class EmployController {
 	
 	
 	
-	@RequestMapping(value = "/pj_mn20/pj_mn23", method = RequestMethod.GET)
-    public String pj_mn23( Model model, HttpSession session) {
+	@RequestMapping(value = "/pj_mn20/pj_mn23", method = RequestMethod.POST)
+    public String pj_mn23( Model model, HttpSession session , @RequestParam String title) {
         logger.info("/pj_mn20/pj_mn23");
         
         
         
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
-        
+        model.addAttribute("jobtitle", title);
        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
        if (user == null) {
            return "pj_mn20/pj_mn23";

@@ -31,7 +31,7 @@
 <script src="/resources/js/jquery.easing.1.3.js"></script>
 <script src="/resources/js/jquery.isotope.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
-<script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
+
 <script src="/resources/js/functions.js"></script>
 <script type="text/javascript">
     
