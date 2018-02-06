@@ -2,7 +2,7 @@ package com.spring.pj.model;
 
 public class ModelQuestionForPW {
     private Integer q_no        = null;
-    private String  q_statement = ""  ;
+    private String  q_st        = ""  ;
     
     public ModelQuestionForPW() {
         super();
@@ -16,12 +16,12 @@ public class ModelQuestionForPW {
         this.q_no = q_no;
     }
 
-    public String getQ_statement() {
-        return q_statement;
+    public String getQ_st() {
+        return q_st;
     }
 
-    public void setQ_statement(String q_statement) {
-        this.q_statement = q_statement;
+    public void setQ_st(String q_st) {
+        this.q_st = q_st;
     }
     
     

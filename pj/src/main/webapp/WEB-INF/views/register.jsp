@@ -175,7 +175,7 @@
                             <select name="q_no">
                                 <option value="0">질문을 선택하세요</option>
                                 <c:forEach var="q" items="${q_for_pw }" varStatus="status">    
-                                    <option value="${q.q_no }">${q.q_statement }</option>
+                                    <option value="${q.q_no }">${q.q_st }</option>
                                 </c:forEach>
                             </select>
                         </td>
