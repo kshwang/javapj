@@ -48,9 +48,6 @@
             display:inline-block;
             float:left;
         }
-        .content > div {
-            font-size: 20px;
-        }
         .selected {
             background-color: darkgreen !important;
         }
@@ -114,7 +111,11 @@
             margin-bottom:40px;
         }
         .history-list li{ height:30px;}
-        
+        .sub-title {
+            color: #666;
+            font-size: 14px;
+            font-weight: 800;
+        }
     </style>
     
     <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -189,7 +190,7 @@
             <div class="content">
                 <h1><b>인사말</b></h1>
                 <hr>
-                <div class="sub-title"><img src="/resources/images/company/p01_01.gif" alt="비인텍을 찾아주신 모든 분께 깊이 감사드립니다" /></div>
+                <div class="sub-title">더조은을 찾아주신 모든 분께 깊이 감사드립니다</div>
                 <br>
                 <div class="greet"><img src="/resources/images/company/greet_img.jpg" alt="비인텍은 신뢰를 바탕으로 가치를 창조하는 IT전문기업입니다." /></div>
                 <dl class="greet-txt">
@@ -207,13 +208,13 @@
         
                       <br />
                       <br />
-                  <span class="unline">비인텍은 신 가치 창출, 고객가치 실현 의지, 창의성을 기업 최우선 핵심가치로 삼고 한 걸음 더 목표를 향해 전진하고자 합니다.</span></dd>
+                  <span class="unline">더조은은 신 가치 창출, 고객가치 실현 의지, 창의성을 기업 최우선 핵심가치로 삼고 한 걸음 더 목표를 향해 전진하고자 합니다.</span></dd>
                 </dl>
             </div>
             <div class="content" style="display:none;">
                 <h1><b>일반현황</b></h1>
                 <hr>
-                <div class="sub-title"><img src="/resources/images/company/p01_02.gif" alt="비인텍 현황 및 사업영역에 대한 소개입니다. " /></div>
+                <div class="sub-title">더조은 현황 및 사업영역에 대한 소개입니다.</div>
                 <img src="/resources/images/company/company_copy.gif" alt="비인텍은 IT서비스 전문기업으로 SI(System Integration)을 포함하여 ITO, 솔루션, 소프트웨어 및 컨설팅등 토탈 IT서비스를 제공하고 있습니다
          " />
                 <ul type="none">
@@ -231,7 +232,7 @@
             <div class="content" style="display:none;">
                 <h1><b>연혁</b></h1>
                 <hr>
-                <div class="sub-title"><img src="/resources/images/company/p01_03.gif" alt="비인텍이 설립 이래 걸어온 발자취입니다." /></div>
+                <div class="sub-title">더조은이 설립 이래 걸어온 발자취입니다.</div>
                 <ul class="history-tab" type="none">
                     <li><a href="#history15"><img src="/resources/images/company/history2015_on.gif" alt="2015" /></a></li>
                     <li><a href="#history13_14"><img src="/resources/images/company/history05_off.gif" alt="2013~2014" /></a></li>
@@ -421,7 +422,7 @@
             <div class="content" style="display:none;">
                 <h1><b>조직도</b></h1>
                 <hr>
-                <div class="sub-title"><img src="/resources/images/company/p01_04.gif" alt="파트별 전문가들로 구성된 조직체계로 사업을 성공적으로 이끌겠습니다." /></div>
+                <div class="sub-title">파트별 전문가들로 구성된 조직체계로 사업을 성공적으로 이끌겠습니다.</div>
                 <div><img src="/resources/images/company/group_img.gif" alt="비인텍 임직원 모두는 한마음 한뜻으로 
         모두가 함께 노력해 나가고 있습니다" /></div>
                 <div class="mgB30"><img src="/resources/images/company/group_img02.gif" alt="조직도" /><br />
@@ -432,7 +433,7 @@
             <div class="content" style="display:none;">
                 <h1><b>오시는길</b></h1>
                 <hr>
-                <div class="sub-title"><img src="/resources/images/company/p01_05.gif" alt="비인텍은 항상 고객을 맞이할 준비가 되어있습니다" /></div>
+                <div class="sub-title">더조은은 항상 고객을 맞이할 준비가 되어있습니다.</div>
                 <ul type="none">
                     <li class="mgB30">
                         <div id="beintech_Map" style="border:1px solid #000; width:740px; height:400px; margin:20px;">
