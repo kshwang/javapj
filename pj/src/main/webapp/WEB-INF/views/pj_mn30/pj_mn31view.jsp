@@ -22,13 +22,41 @@
     <link href="/resources/css/style.css" rel="stylesheet">
     
     <style type="text/css">
-        .container { margin: 0px;}
+        /* .container { margin: 0px;}
         .portfolio { width: 555px; margin-left: 292.500px;}
         table {  width: 555px;}
         table tr {background: #36CBD4; }
         table td { text-align: center;}
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
-        hr {width: 555px;}
+        hr {width: 555px;} */
+        
+        table { margin-left: auto; width: 1143px;}
+        table tr th {
+        text-align: center;
+         background:#ebf5fc;
+         border-bottom:  1px solid #5ea5d6;
+         border-top: 3px solid #5ea5d6;}
+        table td {
+         text-align: center;
+         border-bottom:  1px solid #adb1b4;
+         padding: 10px;
+         }
+        .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        .select{float: right;}
+          hr {width: 1413px;} 
+          .btu1{
+          overflow:visible; 
+          border: 0px;
+          padding: 0px;
+          margin: 0px;
+          cursor: pointer;
+          vertical-align: middle;
+          text-align: left;
+          background: none;}
+          
+          #commentId {border-top: solid 1px #333; border-bottom: solid 1px #333; }
+          
+          
         
     </style>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -321,33 +349,33 @@
         <div class="container">
             <table>
                 <tr>
-                    <th style="width: 50px;">TITLE</th>
+                    <th style="width: 50px;">제목</th>
                     <th style="text-align: left;color: #555;">${board.title }</th>
-                    <th style="width: 50px;">DATE</th>
+                    <th style="width: 50px;">작성일</th>
                     <th style="width: 130px;color: #555;"><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedt }" /></th>
                 </tr>   
                 </table>
             
                 <div id="gul-content">
-                    <h6>작성자 ${board.userid }, 조회수 ${board.hit }</h6>
+                    <h6>작성자 ${board.userid } ㅣ 조회수 ${board.hit }</h6>
                     <p>${board.content }</p>
                 </div>
                 <hr>
                 <!--  덧글 반복 시작 -->
                 <div id="commentlist">
-                    <c:forEach var="comment" items="${commentList }" varStatus="status">   
-                    <hr> 
+                    <c:forEach var="comment" items="${commentList }" varStatus="status">  
                     <%@ include file="qnaview-commentlistbody.jsp" %>
                     </c:forEach>
                 </div>
+                <br>
                 <!--  덧글 반복 끝 -->
                 
                 <div id="addComment">
                     <div>
-                        <textarea name="memo" rows="7" cols="50"></textarea>
+                        <textarea name="memo" rows="2" cols="100"></textarea>
                     </div>
-                    <div style="text-align: right;">
-                        <input type="button" value="덧글남기기" id="insertc"/>
+                    <div style="text-align: left;">
+                        <input type="button" value="댓글 달기" id="insertc"/>
                     </div>
                 </div>
                 
@@ -381,11 +409,11 @@
             
                 <table id="bbs" style="clear: both;">
                     <tr>
-                        <th>no.</th>
-                        <th>title</th>
-                        <th>userid</th>
-                        <th>hit</th>
-                        <th>date</th>
+                        <th width="100px">no.</th>
+                        <th width="443px">제목</th>
+                        <th width="300px">아이디</th>
+                        <th width="100px">조회수</th>
+                        <th width="200px">작성일</th>
                     </tr>
                     
                     <!--  반복 구간 시작 -->
