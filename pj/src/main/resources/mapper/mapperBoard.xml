@@ -63,6 +63,14 @@
     </update>
     
     
+    <update id="deleteQna" parameterType="int">
+        UPDATE pj_qnaboard  
+               set  useYN = 0
+         WHERE bno  = #{bno}
+              
+    </update>
+    
+    
     <select id="getQnaList" parameterType="java.util.Map" resultType="ModelQnaBoard">
         SELECT bno, title, userid, updatedt, hit, commentNum 
         FROM (
@@ -75,13 +83,16 @@
                            a.hit, 
                            count(distinct(c.commentno)) commentNum
                     FROM 
-                        pj_qnaboard a
-                        LEFT OUTER JOIN pj_comments   c ON a.bno = c.bno
+                        (select * from pj_qnaboard where 
+                        useYN = 1 ) a
+                        LEFT OUTER JOIN (select * from pj_comments where 
+                        UseYN = 1 )   c ON a.bno = c.bno
                     WHERE
                         1 = 1
                         <if test="searchWord != null">
                         AND ( title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE CONCAT('%', #{searchWord}, '%') )
                         </if>
+                        
                     GROUP BY a.bno, title, a.updatedt, hit
                     ORDER BY bno DESC
                  ) a, (SELECT @RNUM:=0) b
@@ -143,7 +154,7 @@
         select * from pj_comments where commentno = #{commentno}
     </select>
     <insert id="insertComment" parameterType="ModelComments" useGeneratedKeys="true" keyProperty="commentno" >
-        insert into pj_comments(bno,userid, memo, regdate)
+        insert into pj_comments(bno, userid, memo, regdate)
                     values ( #{bno}, #{userid}, #{memo}, #{regdate})
     </insert>
     

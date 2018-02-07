@@ -29,7 +29,7 @@ public class DaoComments implements IDaoComments {
     @Override
     public int insertComment(ModelComments comment) {
         int rs = session.insert("mapper.mapperBoard.insertComment", comment);
-        return  rs;
+        return  comment.getCommentno();
     }
     
     @Override

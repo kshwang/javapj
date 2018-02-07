@@ -22,11 +22,42 @@
     <link href="/resources/css/style.css" rel="stylesheet">
     
     <style type="text/css">
+        /* .container { margin: 0px;}
         .portfolio { width: 555px; margin-left: 292.500px;}
         table {  width: 555px;}
         table tr {background: #36CBD4; }
         table td { text-align: center;}
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        hr {width: 555px;} */
+        
+        table { margin-left: auto; width: 1143px;}
+        table tr th {
+        text-align: center;
+         background:#ebf5fc;
+         border-bottom:  1px solid #5ea5d6;
+         border-top: 3px solid #5ea5d6;}
+        table td {
+         text-align: center;
+         border-bottom:  1px solid #adb1b4;
+         padding: 10px;
+         }
+        .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        .select{float: right;}
+          hr {width: 1413px;} 
+          .btu1{
+          overflow:visible; 
+          border: 0px;
+          padding: 0px;
+          margin: 0px;
+          cursor: pointer;
+          vertical-align: middle;
+          text-align: left;
+          background: none;}
+          
+          #commentId {border-top: solid 1px #333; border-bottom: solid 1px #333; }
+          
+          
+        
     </style>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/resources/js/jquery-3.1.1.js"></script>
@@ -40,6 +71,7 @@
  -->    <script src="/resources/js/functions.js"></script>
 <!--     <script type="text/javascript">$('.portfolio').flipLightBox()</script>
  -->    <script type="text/javascript">
+    // 게시판기능
     var goList = function(page) {
         location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage="
                 + page;
@@ -49,13 +81,214 @@
         location.href = '/pj_mn30/pj_mn31view/' + bno;
     };
     var goWrite = function(){
-        location.href = "/pj_mn30/pj_mn31write";
+    	if(${empty user}===true){
+    		alert('로그인하세요');
+            location.href = "/login";
+    	}
+    	else {
+            location.href = "/pj_mn30/pj_mn31write";
+    	}
     };
     var goModify = function(){
-    	location.href = "/pj_mn30/pj_mn31modify/${bno}";
+    	
+    	var bno = ${bno};
+        if(${empty user}){
+            alert('권한이 없습니다. 로그인 하세요.');
+            location.href = "/login";
+        }
+        else {
+
+            $.ajax({
+                url : '/pj_mn30/pj_mn31match'
+                , data: JSON.stringify( {'bno':bno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                , type: 'post'       // get, post
+                , timeout: 30000    // 30초
+                , dataType: 'json'  // text, html, xml, json, jsonp, script
+                , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+            }).done( function(data, textStatus, xhr ){
+                if(data===1){
+                    location.href = "/pj_mn30/pj_mn31modify/${bno}";
+                }
+                else {
+                    alert('권한이 없습니다.');
+                }
+            }).fail( function(xhr, textStatus, error ) {
+                // 통신이 실패했을 때 이 함수를 타게 된다.
+                alert('error');
+            }).always( function(data, textStatus, xhr ) {
+                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+            })
+        }
     };
     
+    var goDelete = function(){
+    	var bno = ${bno};
+    	if(${empty user}){
+    		alert('권한이 없습니다. 로그인 하세요.');
+            location.href = "/login";
+    	}
+    	else {
+
+            $.ajax({
+                url : '/pj_mn30/pj_mn31match'
+                , data: JSON.stringify( {'bno':bno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                , type: 'post'       // get, post
+                , timeout: 30000    // 30초
+                , dataType: 'json'  // text, html, xml, json, jsonp, script
+                , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+            }).done( function(data, textStatus, xhr ){
+                if(data===1){
+                    $.ajax({
+                        url : '/pj_mn30/pj_mn31delete'
+                        , data: JSON.stringify( {'bno':bno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                        , type: 'post'       // get, post
+                        , timeout: 30000    // 30초
+                        , dataType: 'json'  // text, html, xml, json, jsonp, script
+                        , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+                    }).done( function(data, textStatus, xhr ){
+                        if(data===1){
+                            alert('삭제되었습니다.');
+                            goList(1);
+                        }
+                    }).fail( function(xhr, textStatus, error ) {
+                        // 통신이 실패했을 때 이 함수를 타게 된다.
+                        alert('error');
+                    }).always( function(data, textStatus, xhr ) {
+                        // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+                    }) 
+                }
+                else {
+                    alert('삭제 권한이 없습니다.');
+                }
+            }).fail( function(xhr, textStatus, error ) {
+                // 통신이 실패했을 때 이 함수를 타게 된다.
+                alert('error');
+            }).always( function(data, textStatus, xhr ) {
+                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+            })
+    	}
+    	
+    	
+    };
+    
+    // 댓글 기능
+    var commentModifyShowHide = function(commentno){
+        $('div[commentno="'+commentno+'"] div.modify-comment').toggle();
+    };
+    var commentupdate = function(commentno){
+        var memo = $('div[commentno="'+commentno+'"] .modify-comment-ta').val();
+        
+        if(${empty user}){
+            alert('권한이 없습니다. 로그인 하세요.');
+            location.href = "/login";
+        }
+        else {
+
+            $.ajax({
+                url : '/pj_mn30/pj_mn31matchc'
+                , data: JSON.stringify( {'commentno':commentno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                , type: 'post'       // get, post
+                , timeout: 30000    // 30초
+                , dataType: 'json'  // text, html, xml, json, jsonp, script
+                , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+            }).done( function(data, textStatus, xhr ){
+                if(data===1){
+                	 $.ajax({
+                         url : '/pj_mn30/pj_mn31updatec'
+                         , data: JSON.stringify( {'commentno':commentno , 'memo' : memo} )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                         , type: 'post'       // get, post
+                         , timeout: 30000    // 30초
+                         , dataType: 'json'  // text, html, xml, json, jsonp, script
+                         , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+                     }).done( function(data, textStatus, xhr ){
+                         if(data===1){
+                        	 alert('수정되었습니다.')
+                             $('#comment'+commentno).html(memo);
+                         }
+                     }).fail( function(xhr, textStatus, error ) {
+                         // 통신이 실패했을 때 이 함수를 타게 된다.
+                         alert('error');
+                     }).always( function(data, textStatus, xhr ) {
+                         // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+                     })
+                }
+                else {
+                    alert('본인이 작성한 댓글만 수정 가능합니다.');
+                }
+            }).fail( function(xhr, textStatus, error ) {
+                // 통신이 실패했을 때 이 함수를 타게 된다.
+                alert('error');
+            }).always( function(data, textStatus, xhr ) {
+                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+            })
+        }
+        
+       
+    };
+    
+    var commentdelete = function(commentno){
+    	
+    	if(${empty user}){
+            alert('권한이 없습니다. 로그인 하세요.');
+            location.href = "/login";
+        }
+        else {
+
+            $.ajax({
+                url : '/pj_mn30/pj_mn31matchc'
+                , data: JSON.stringify( {'commentno':commentno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                , type: 'post'       // get, post
+                , timeout: 30000    // 30초
+                , dataType: 'json'  // text, html, xml, json, jsonp, script
+                , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+            }).done( function(data, textStatus, xhr ){
+                if(data===1){
+                	if(confirm("정말로 삭제하시겠습니까?")){
+                        $.ajax({
+                            url : '/pj_mn30/pj_mn31deletec'
+                            , data: JSON.stringify( {'commentno':commentno } )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
+                            , type: 'post'       // get, post
+                            , timeout: 30000    // 30초
+                            , dataType: 'json'  // text, html, xml, json, jsonp, script
+                            , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
+                        }).done( function(data, textStatus, xhr ){
+                            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                            
+                            if(data === 1){// 삭제 성공
+                                $('div.comments[commentno="'+commentno+'"]').remove();
+                            }
+                            else {// 삭제 실패
+                                
+                            }
+                        }).fail( function(xhr, textStatus, error ) {
+                            // 통신이 실패했을 때 이 함수를 타게 된다.
+                            alert('error');
+                        }).always( function(data, textStatus, xhr ) {
+                            // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+                        })
+                    }
+                }
+                else {
+                    alert('본인이 작성한 댓글만 삭제가능합니다.');
+                }
+            }).fail( function(xhr, textStatus, error ) {
+                // 통신이 실패했을 때 이 함수를 타게 된다.
+                alert('error');
+            }).always( function(data, textStatus, xhr ) {
+                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+            })
+        }
+        
+        
+    };
+
+    
     $(document).ready(function(e){
+    	
+    	
+    	
+    	// .replaceAll(/\n/g, '<br>')
+    	
 
         $('#insertc').click(function(e){
         	
@@ -63,26 +296,31 @@
             var bno = ${bno};  // 컨트롤러에서 넘겨 받는 값.
             
             // ajax 호출
+            if(${empty user}){
+            	alert('권한이 없습니다. 로그인 하세요.');
+                location.href = "/login";
+            }
+            else {
+            	$.ajax({
+                    url : '/pj_mn30/pj_mn31insertc'
+                    , data: JSON.stringify(  {'bno':bno, 'memo': memo}  )       // 사용하는 경우에는 { data1:'test1', data2:'test2' }
+                    , type: 'post'       // get, post
+                    , timeout: 30000    // 30초
+                    , dataType: 'html'  // text, html, xml, json, jsonp, script
+                        , headers: {'Accept': 'application/json', 'Content-Type':'application/json'}
+                }).done( function(data, textStatus, xhr ){
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                    
+                    $('#commentlist').append(data);
+                    $('#addComment textarea').val('');
+                }).fail( function(xhr, textStatus, error ) {
+                    // 통신이 실패했을 때 이 함수를 타게 된다.
+                    alert('error');
+                }).always( function(data, textStatus, xhr ) {
+                    // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+                }); 
+            }
             
-            $.ajax({
-                url : '/pj_mn30/pj_mn31insertc'
-                , data: JSON.stringify(  {'bno':bno, 'memo': memo}  )       // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-                , type: 'post'       // get, post
-                , timeout: 30000    // 30초
-                , dataType: 'html'  // text, html, xml, json, jsonp, script
-                    , headers: {'Accept': 'application/json', 'Content-Type':'application/json'}
-            }).done( function(data, textStatus, xhr ){
-                // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-                alert(data);
-                
-                $('#commentlist').prepend(data);
-                $('#addComment textarea').val('');
-            }).fail( function(xhr, textStatus, error ) {
-                // 통신이 실패했을 때 이 함수를 타게 된다.
-                alert('jjjj');
-            }).always( function(data, textStatus, xhr ) {
-                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
-            }); 
         });
     });
     </script>
@@ -116,32 +354,33 @@
         <div class="container">
             <table>
                 <tr>
-                    <th style="width: 50px;">TITLE</th>
+                    <th style="width: 50px;">제목</th>
                     <th style="text-align: left;color: #555;">${board.title }</th>
-                    <th style="width: 50px;">DATE</th>
+                    <th style="width: 50px;">작성일</th>
                     <th style="width: 130px;color: #555;"><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedt }" /></th>
                 </tr>   
                 </table>
             
                 <div id="gul-content">
-                    <h6>작성자 ${board.userid }, 조회수 ${board.hit }</h6>
-                    <p>${board.content }</p>
+                    <h6>작성자 ${board.userid } ㅣ 조회수 ${board.hit }</h6>
+                    <p id="qnaVM">${board.content }</p>
                 </div>
-                
+                <hr>
                 <!--  덧글 반복 시작 -->
                 <div id="commentlist">
-                    <c:forEach var="comment" items="${commentList }" varStatus="status">    
+                    <c:forEach var="comment" items="${commentList }" varStatus="status">  
                     <%@ include file="qnaview-commentlistbody.jsp" %>
                     </c:forEach>
                 </div>
+                <br>
                 <!--  덧글 반복 끝 -->
                 
                 <div id="addComment">
                     <div>
-                        <textarea name="memo" rows="7" cols="50"></textarea>
+                        <textarea name="memo" rows="2" cols="100"></textarea>
                     </div>
-                    <div style="text-align: right;">
-                        <input type="button" value="덧글남기기" id="insertc"/>
+                    <div style="text-align: left;">
+                        <input type="button" value="댓글 달기" id="insertc"/>
                     </div>
                 </div>
                 
@@ -175,11 +414,11 @@
             
                 <table id="bbs" style="clear: both;">
                     <tr>
-                        <th>no.</th>
-                        <th>title</th>
-                        <th>userid</th>
-                        <th>hit</th>
-                        <th>date</th>
+                        <th width="100px">no.</th>
+                        <th width="443px">제목</th>
+                        <th width="300px">아이디</th>
+                        <th width="100px">조회수</th>
+                        <th width="200px">작성일</th>
                     </tr>
                     
                     <!--  반복 구간 시작 -->

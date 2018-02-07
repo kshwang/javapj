@@ -131,7 +131,9 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
                                     size="50" /></td>
                             </tr>
                             <tr>
-                                <td><textarea name="content" rows="17" size="50" ></textarea>
+                                <td>내용</td>
+                                <td>
+                                    <textarea name="content" rows="17" style="width:384px; height:300px;"></textarea>
                                 </td>
                             </tr>
 

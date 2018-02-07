@@ -23,6 +23,7 @@ import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
 import com.spring.pj.inf.IServiceComments;
 import com.spring.pj.inf.IServiceQnaBoard;
+import com.spring.pj.inf.IServiceUser;
 import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelQnaBoard;
 import com.spring.pj.model.ModelUser;
@@ -39,6 +40,8 @@ public class QnaBoardController {
 	IServiceQnaBoard svrboard;
 	@Autowired
 	IServiceComments svrcomment;
+    @Autowired
+    IServiceUser svruser;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -87,6 +90,7 @@ public class QnaBoardController {
             , HttpServletRequest request
             , HttpSession session) {
         logger.info("/pj_mn30/pj_mn31_view");
+        svrboard.increaseQnaHit(bno);
         
         // searchWord
         // boardcd
@@ -97,6 +101,10 @@ public class QnaBoardController {
         model.addAttribute("searchWord", searchWord);
         model.addAttribute("curPage", curPage);
         ModelQnaBoard board = svrboard.getQna(bno);
+        
+        String content = board.getContent();
+        String contents = content.replace("\r\n", "<br>");
+        board.setContent(contents);
         model.addAttribute("board", board);
         
         /*// commentList --> 댓글 목록을 출력하는 경우.
@@ -125,7 +133,15 @@ public class QnaBoardController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("nextLink", paging.getNextLink());
         List<ModelComments> commentList = svrcomment.getComment(bno);
-        if(commentList!=null) model.addAttribute("commentList", commentList);
+        
+        if(commentList!=null) {
+            String memo = "";
+            for(int i=0; i<commentList.size(); i++) {
+                memo = commentList.get(i).getMemo();
+                commentList.get(i).setMemo(memo.replace("\n", "<br>"));
+            }
+            model.addAttribute("commentList", commentList);
+        }
 
         // actionurl
         String url = request.getRequestURL().toString();
@@ -203,6 +219,54 @@ public class QnaBoardController {
         return "redirect:/pj_mn30/pj_mn31view/" + searchValue.getBno();
     }
     
+    @RequestMapping(value = "pj_mn30/pj_mn31delete", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31delete( @RequestBody ModelQnaBoard board) {
+        logger.info("/pj_mn30/pj_mn31delete : post");
+        
+        int rs = svrboard.deleteQna(board.getBno());
+        
+        
+        return rs;
+    }
+
+    @RequestMapping(value = "pj_mn30/pj_mn31match", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31match(
+              @RequestBody ModelQnaBoard board
+            , HttpSession session
+            ) {
+        logger.info("/pj_mn30/pj_mn31match : post");
+        board = svrboard.getQna(board.getBno());
+        ModelUser sq = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        ModelUser user = svruser.selectUserOne(sq);
+        if(sq.getUserid().equals(board.getUserid())||user.getUserclass()==0) {
+            return 1;
+        }
+        else {
+            return 0 ;
+        }
+    }
+    
+    @RequestMapping(value = "pj_mn30/pj_mn31matchc", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31matchc(
+              @RequestBody ModelComments comment
+            , HttpSession session
+            ) {
+        logger.info("/pj_mn30/pj_mn31matchc : post");
+        comment = svrcomment.getCommentOne(comment.getCommentno());
+        ModelUser sq = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        ModelUser user = svruser.selectUserOne(sq);
+        if(sq.getUserid().equals(comment.getUserid())||user.getUserclass()==0) {
+            return 1;
+        }
+        else {
+            return 0 ;
+        }
+    }
+    
+    
     //코멘트
     @RequestMapping(value = "pj_mn30/pj_mn31insertc", method = RequestMethod.POST)
     //@ResponseBody
@@ -227,6 +291,32 @@ public class QnaBoardController {
         
         
         return "pj_mn30/qnaview-commentlistbody" ;
+    }
+    
+    @RequestMapping(value = "pj_mn30/pj_mn31updatec", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31updatec( Model model
+            , @RequestBody ModelComments setValue
+            ) {
+        logger.info("/pj_mn30/pj_mn31updatec : post");
+        
+        int rs = -1;
+        
+        rs = svrcomment.updateComment(setValue.getMemo(), setValue.getCommentno());
+        return rs ;
+    }
+    
+    @RequestMapping(value = "pj_mn30/pj_mn31deletec", method = RequestMethod.POST)
+    @ResponseBody
+    public int pj_mn31deletec( Model model
+            , @RequestBody ModelComments comment
+            ) {
+        logger.info("/pj_mn30/pj_mn31deletec : post");
+        
+        int rs = -1;
+        
+        rs = svrcomment.deleteComment(comment.getCommentno());
+        return rs ;
     }
     
 }

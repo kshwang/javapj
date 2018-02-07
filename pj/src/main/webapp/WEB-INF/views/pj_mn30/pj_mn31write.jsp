@@ -22,13 +22,39 @@
     <link href="/resources/css/style.css" rel="stylesheet">
     
     <style type="text/css">
-        .portfolio { width: 555px; margin-left: 292.500px;}
+        /* .portfolio { width: 555px; margin-left: 292.500px;}
         table {  width: 555px;}
         table tr {background: #36CBD4; }
         table td { text-align: center;}
         .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
         
-        #qnatexta { width: 550px;}
+        #qnatexta { width: 550px;} */
+        
+        table { margin-left: auto; width: 1143px;}
+        table tr th {
+        text-align: center;
+         background:#ebf5fc;
+         border-bottom:  1px solid #5ea5d6;
+         border-top: 3px solid #5ea5d6;}
+        table td {
+         text-align: center;
+         border-bottom:  1px solid #adb1b4;
+         padding: 10px;
+         }
+        .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
+        .select{float: right;}
+          hr {width: 1413px;} 
+          .btu1{
+          overflow:visible; 
+          border: 0px;
+          padding: 0px;
+          margin: 0px;
+          cursor: pointer;
+          vertical-align: middle;
+          text-align: left;
+          background: none;}
+          
+          #qnatexta { width: 700px;}
     </style>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -85,19 +111,15 @@
         <div class="container">
             <div id="container">
             <div id="content" style="min-height: 800px;">
-                <div id="url-navi">BBS</div>
 
                 <!-- 본문 시작 -->
                 <div id="bbs">
                     <h2>글쓰기</h2>
                     <form id="writeForm" action="/pj_mn30/pj_mn31write" method="post" enctype="multipart/form-data" onsubmit="return check()">
-                        <p style="margin: 0; padding: 0;">
-                            <input type="hidden" name="boardcd" value="${boardcd }" />
-                        </p>
                         <table id="write-form">
                             <tr>
-                                <td>제목</td>
-                                <td><input type="text" name="title" size="50" /></td>
+                                <td width="100px">제목</td>
+                                <td><input type="text" name="title" size="80" /></td>
                             </tr>
                             <tr>
                                 <td colspan="2"><textarea name="content" rows="17" id="qnatexta"></textarea>

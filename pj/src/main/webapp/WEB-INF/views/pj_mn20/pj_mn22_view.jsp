@@ -107,8 +107,8 @@
             <br>
              <ul>
             <li> 개인정보 수집 및 이용동의</li>
-    <form action="" method="get" enctype="application/x-www-form-urlencoded">
-    
+    <form action="" method="post" enctype="application/x-www-form-urlencoded">
+    <input  type="hidden" name="title" value="${jobtitle}"/>
         <p>
             <textarea cols="40" rows="25">
                 1. 개인정보의 수집 및 이용 목적
@@ -153,13 +153,13 @@
         <br>
         <br>
         </div>
-        <center><input class="ok" type="submit" value="동의 " >&nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit" value="동의하지 않습니다." onclick=""></center>
+        <center><input class="ok" type="submit" value="동의 " >&nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit" value="동의하지 않습니다."></center>
     </form>
     </ul>
 </div>
 </div>
 </div>
-<span style=display:none;>${jobtitle}</span>
+
 
 
       <%@ include file="../footer.jsp"%>

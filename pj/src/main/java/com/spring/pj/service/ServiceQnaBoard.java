@@ -140,4 +140,17 @@ public class ServiceQnaBoard implements IServiceQnaBoard {
         }
         return rs;
     }
+
+    @Override
+    public int deleteQna(int bno) {
+        int rs = -1;
+        try {
+            rs = dao.deleteQna(bno);
+        } catch (Exception e) {
+            logger.error("deleteQna" + e.getMessage());
+            throw e;
+            
+        }
+        return rs;
+    }
 }

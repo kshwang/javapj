@@ -51,6 +51,24 @@
             $('#registor').click(function(event) {
                 location.href = 'register';
             });
+            $('#findid').click(function(event) {
+        	    var popUrl = "/findid";   //팝업창에 출력될 페이지 URL
+
+        	    var popOption = 'width=370, height=360, resizable=no, toolbar=no, menubar=no, directories=no, scrollbars=no, status=no, location=no';    //팝업창 옵션(optoin)
+
+    	        window.open(popUrl, '_blank', popOption);
+
+            	return false;
+            });
+            $('#findpw').click(function(event) {
+                var popUrl = "/findpw";   //팝업창에 출력될 페이지 URL
+
+                var popOption = 'width=370, height=360, resizable=no, toolbar=no, menubar=no, directories=no, scrollbars=no, status=no, location=no';    //팝업창 옵션(optoin)
+
+                window.open(popUrl, '_blank', popOption);
+                
+            	return false;
+            });
         });
     </script>
   </head>
@@ -66,13 +84,14 @@
         <c:if test="${not empty msg }">
         <p style="color: red;">로그인에 실패했습니다.</p>
         </c:if>      
-        <div class="login" style="display: inline-block; border: 2px solid green; padding: 30px 30px; margin : 100px;">
+        <div class="login" style="display: inline-block; border: 2px solid green; padding: 30px 30px 0 30px; margin : 100px;">
             <form action="login" method="post" enctype="application/x-www-form-urlencoded">
                 <label>아이디</label><input type="text" name="userid" /><br>
                 <label>비밀번호</label><input type="password" name="passwd" /><br><br>
                 <input type="button" id="login" value="로그인">&nbsp;
                 <input type="button" id="registor" value="회원가입">
             </form>
+            <p><a id="findid" href="#findid">아이디 찾기</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a id="findpw" href="#findpw">비밀번호 찾기</a></p>
         </div>
     </div>
     <%@ include file="footer.jsp"%>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.pj.inf.IDaoUser;
 import com.spring.pj.inf.IServiceUser;
+import com.spring.pj.model.ModelQuestionForPW;
 import com.spring.pj.model.ModelUser;
 
 import java.util.*;
@@ -26,7 +27,6 @@ public class ServiceUser implements IServiceUser {
 
     @Override
     public int insertUser(ModelUser user) {
-        
         int result = -1;
         try {
             result = daouser.insertUser(user);
@@ -34,28 +34,14 @@ public class ServiceUser implements IServiceUser {
         } catch (Exception e) {
             logger.error("insertUser " + e.getMessage() );
         }
-		
-        return result;
-    }
-    
-    @Override
-    public ModelUser selectUserOne(String userid) {
         
-        ModelUser result = null;
-        
-        try {
-            result = daouser.selectUserOne(userid);
-        } catch (Exception e) {
-            logger.error("selectUserOne " + e.getMessage() );
-        }
         return result;
     }
 
     @Override
     public ModelUser login(String userid, String passwd) {
-        
         ModelUser result = null;
-		
+        
         try {
             result = daouser.login(userid, passwd);
         } catch (Exception e) {
@@ -82,7 +68,8 @@ public class ServiceUser implements IServiceUser {
     }
 
     @Override
-    public int updatePasswd(String userid, String currentPasswd, String newPasswd) {
+    public int updatePasswd(String userid, String currentPasswd,
+            String newPasswd) {
         int result = -1;
         try {
             result = daouser.updatePasswd( userid, currentPasswd, newPasswd);
@@ -143,6 +130,17 @@ public class ServiceUser implements IServiceUser {
             result = daouser.checkpassword(id, cur_pw);
         } catch (Exception e) {
             logger.error("checkpassword " + e.getMessage() );
+        }
+        return result;
+    }
+
+    @Override
+    public List<ModelQuestionForPW> getQuestionForPW() {
+        List<ModelQuestionForPW> result = null;
+        try {
+            result = daouser.getQuestionForPW();
+        } catch (Exception e) {
+            logger.error("getQuestionForPW " + e.getMessage() );
         }
         return result;
     }

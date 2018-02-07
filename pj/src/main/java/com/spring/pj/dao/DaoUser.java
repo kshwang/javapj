@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Repository;
 
 import com.spring.pj.inf.IDaoUser;
+import com.spring.pj.model.ModelQuestionForPW;
 import com.spring.pj.model.ModelUser;
 
 import java.util.*;
@@ -20,11 +21,6 @@ public class DaoUser implements IDaoUser {
         return session.insert("mapper.mapperUser.insertUser", user);   
     }
     
-    @Override
-    public ModelUser selectUserOne(String userid) {
-        return session.selectOne("mapper.mapperUser.selectUserOne", userid);
-    }
-
     @Override
     public ModelUser login(String userid, String passwd) {
         Map<String, Object> map = new HashMap<String, Object>(); 
@@ -85,6 +81,11 @@ public class DaoUser implements IDaoUser {
         map.put("id", id);
         map.put("pw", cur_pw);
         return session.selectOne("mapper.mapperUser.checkpassword", map);
+    }
+
+    @Override
+    public List<ModelQuestionForPW> getQuestionForPW() {
+        return session.selectList("mapper.mapperUser.getQuestionForPW");
     }
     
 }
