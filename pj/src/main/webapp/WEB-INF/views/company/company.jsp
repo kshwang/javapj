@@ -182,7 +182,6 @@
                 <br>
                 <div><img src="/resources/images/company/title01.gif"></div>
                 <li class="list">인사말</li>
-                <li class="list">일반현황</li>
                 <li class="list">연혁</li>
                 <li class="list">조직도</li>
                 <li class="list">오시는길</li>
@@ -190,9 +189,9 @@
             <div class="content">
                 <h1><b>인사말</b></h1>
                 <hr>
-                <div class="sub-title">더조은을 찾아주신 모든 분께 깊이 감사드립니다</div>
+                <div class="sub-title">더조은 컴퍼니를 찾아주신 모든 분께 깊이 감사드립니다</div>
                 <br>
-                <div class="greet"><img src="/resources/images/company/greet_img.jpg" alt="비인텍은 신뢰를 바탕으로 가치를 창조하는 IT전문기업입니다." /></div>
+                <div class="greet"><img src="/resources/images/company/greet_img.jpg" width="320px" height="400px" alt="비인텍은 신뢰를 바탕으로 가치를 창조하는 IT전문기업입니다." /></div>
                 <dl class="greet-txt">
                     <dt><img src="/resources/images/company/greet_ti01.gif" alt="신가치창출" /></dt>
                     <dd>최근 IT기술의 급속한 발전과 더불어 정치, 경제, 사회, 문화 등 모든 분야에 혁신적인  변화를 유발하여 지식정보사회로 빠르게 진화하고 새로운 가치질서를 창출하고 있습니다.
@@ -208,31 +207,13 @@
         
                       <br />
                       <br />
-                  <span class="unline">더조은은 신 가치 창출, 고객가치 실현 의지, 창의성을 기업 최우선 핵심가치로 삼고 한 걸음 더 목표를 향해 전진하고자 합니다.</span></dd>
+                  <span class="unline">더조은 컴퍼니는 신 가치 창출, 고객가치 실현 의지, 창의성을 기업 최우선 핵심가치로 삼고 한 걸음 더 목표를 향해 전진하고자 합니다.</span></dd>
                 </dl>
-            </div>
-            <div class="content" style="display:none;">
-                <h1><b>일반현황</b></h1>
-                <hr>
-                <div class="sub-title">더조은 현황 및 사업영역에 대한 소개입니다.</div>
-                <img src="/resources/images/company/company_copy.gif" alt="비인텍은 IT서비스 전문기업으로 SI(System Integration)을 포함하여 ITO, 솔루션, 소프트웨어 및 컨설팅등 토탈 IT서비스를 제공하고 있습니다
-         " />
-                <ul type="none">
-                    <li><img src="/resources/images/company/company01.gif" alt="회사명:(주)비인텍" /></li>
-                    <li><img src="/resources/images/company/company02.gif" alt="영문표기:BEINTECH" /></li>
-                    <li><img src="/resources/images/company/company03.gif" alt="설립일:2003년 3월" /></li>
-                    <li><img src="/resources/images/company/company04.gif" alt="대표이사:장성학" /></li>
-                    <li><img src="/resources/images/company/company05.gif" alt="주소:  서울시 구로구 구로3동 212-30 에이스트윈타워 2차 1301호" /></li>
-                    <li><img src="/resources/images/company/company06.gif" alt="업종:  SI, 정보시스템 구축 및 컨설팅, 솔루션사업" /></li>
-                    <li id="co"><img src="/resources/images/company/company07.gif" alt="사업분야:si service,술루션서비스,컨설팅서비스,IT아우소싱" /></li>
-                    <li><img src="/resources/images/company/company08.gif" alt="사업영역:비인텍은 비즈니스 컨설팅에서부터 IT Outsourcing, System Integration에 이르는 포괄적이고 
-        통합적인 서비스를 제공하고 있습니다. " /></li>
-                </ul>
             </div>
             <div class="content" style="display:none;">
                 <h1><b>연혁</b></h1>
                 <hr>
-                <div class="sub-title">더조은이 설립 이래 걸어온 발자취입니다.</div>
+                <div class="sub-title">더조은 컴퍼니가 설립 이래 걸어온 발자취입니다.</div>
                 <ul class="history-tab" type="none">
                     <li><a href="#history15"><img src="/resources/images/company/history2015_on.gif" alt="2015" /></a></li>
                     <li><a href="#history13_14"><img src="/resources/images/company/history05_off.gif" alt="2013~2014" /></a></li>
@@ -433,7 +414,7 @@
             <div class="content" style="display:none;">
                 <h1><b>오시는길</b></h1>
                 <hr>
-                <div class="sub-title">더조은은 항상 고객을 맞이할 준비가 되어있습니다.</div>
+                <div class="sub-title">더조은 컴퍼니는 항상 고객을 맞이할 준비가 되어있습니다.</div>
                 <ul type="none">
                     <li class="mgB30">
                         <div id="beintech_Map" style="border:1px solid #000; width:740px; height:400px; margin:20px;">
