@@ -9,7 +9,7 @@
     </select>
     
     <select id="selectDetpName" resultType="ModelEmploy">
-        select detpname from pj_employ_detp
+      select distinct(detpname) from pj_employ_detp
     </select>
     
         
@@ -35,24 +35,27 @@
                         pj_employ_detp a
                       WHERE
                         1 = 1
-                    GROUP BY a.detpname,a.detptitle, a.detpexpiry, a.detpperiod, a.detptitleinfo
-                    ORDER BY detpname DESC
+                        <if test = "searchWord!=null and searchWord!=''" >
+                        and detpname = #{searchWord}
+                        </if>
+                    ORDER BY detpno DESC
                  ) a, (SELECT @RNUM:=0) b
             ) temp
         WHERE r BETWEEN #{start} AND #{end}
     </select>  
+    
     <select id="getEmployjobtitle" resultType="String" parameterType="String">
       select detpname, detptitle, detpexpiry ,detpperiod from pj_employ_detp
     </select>
     
     <select id="getEmployjobname" resultType="ModelEmploy" parameterType="java.util.Map">
-      select detpname, detptitle, detpexpiry ,detpperiod  from pj_employ_detp where detpname like CONCAT ('%',#{searchWord}, '%') ;
+       select detpname, detptitle, detpexpiry ,detpperiod ,detptitleinfo  from pj_employ_detp where detpname like CONCAT ('%',#{searchWord}, '%') ;
     </select>
     
     <insert id="insertEmploy" parameterType="ModelEmploy"  >
         INSERT INTO 
-        pj_employ_detp  (     detpname   , detptitle   , detpperiod   , detpexpiry  ,detptitleinfo,useYN  )
-            VALUES     (  #{detpname}, #{detptitle}, #{detpperiod}, #{detpexpiry} , #{detptitleinfo} , #{useYN}  )
+            pj_employ_detp  (     detpname   , detptitle   , detpperiod   , detpexpiry  ,detptitleinfo )
+            VALUES     (  #{detpname}, #{detptitle}, #{detpperiod}, #{detpexpiry} , #{detptitleinfo} )
     </insert>   
     
  </mapper>

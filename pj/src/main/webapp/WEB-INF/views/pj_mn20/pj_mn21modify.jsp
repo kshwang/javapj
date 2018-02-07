@@ -35,37 +35,11 @@
 <script src="/resources/js/functions.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('.ok').click( function(){ // 폼 유효성 검사
-       var select = $('.select').val();
-       var jobtitle=$('.jobtitle').val();
-       var phone2=$('.phone2').val();
-       var mail =$('.mail').val();
-       var address = $('.address').val();
-        if(select === '부서선택' ){
-            alert('부서를 선택해주세요.');
-            return false;
-        }
-        if(jobtitle ===''){
-            alert('모집분야를 작성해주세요.');
-            return false;
-        }  
-        if(phone2 ===''){
-            alert('핸드폰번호를적어주세요');
-            return false;
-        }
-        if(mail === ''){
-            alert('메일을 적어주세요.');
-            return false;
-        }
-        if(address === ''){
-            alert('주소를 적어주세요.');
-            return false;
-        }
-        else{
+    $('.ok').click( function(){ 
+      
              alert('등록되었습니다.');
-             $('form').attr('action','/pj_mn20/pj_mn21write');
-        }
-         });
+             $('form').attr('action','/pj_mn20/pj_mn21modify');
+     });
     $('.no').click( function(){
     	  window.location.href = '/pj_mn20/pj_mn21_jobs' ;
     });
@@ -137,14 +111,14 @@ textarea{
 
             <h1 class="join">입사 지원</h1>
             <hr class="hr1">
-            <h3> 새글 등록</h3>
+            <h3> 수정</h3>
             <hr>
 
             <form id="" action="" method="post" enctype="application/x-www-form-urlencoded">
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="2"><b>모집 정보 입력</th>
+                            <th colspan="2"><b>모집 정보 수정</th>
 
                         </tr>
                     </thead>
@@ -152,19 +126,14 @@ textarea{
                         <tr>
                             <th>모집부분</th>
                             <td>
-                            <select class="select" name = "detpname">
-                            <option >부서선택</option>
-                                <c:forEach var="q" items="${detpname }" varStatus="status">    
-                            <option value="${q.detpname }">${q.detpname }</option>
-                        </c:forEach>
-                            </select>
+                            ${detpname }
                             </td>
 
                         </tr>
                         <tr>
                             <th>모집분야</th>
                            <td><input class="jobtitle" type="text"
-                                        size="20" name="detptitle"
+                                        size="20" name="detptitle" value="${detptitle }"
                                         style="width: 304px;">
                            </td>
                         </tr>
@@ -173,12 +142,7 @@ textarea{
                        <td class="td1" colspan="4">
                        <p>
                             <textarea cols="40" rows="25" name="detptitleinfo">
-                               ■ 업무내용
-                               
-                               ■ 자격요건
-                               
-                               ■ 우대요건
-                               
+                              ${detptitleinfo}
                                </textarea>
                         </p>
                        </td>
@@ -186,13 +150,13 @@ textarea{
                         <tr>
                             <th>모집 기간</th>
                             <td>
-                            <input class="period" type="text" name="detpperiod" value="채용시까지">
+                            <input class="period" type="text" name="detpperiod" value="${detpperiod} }">
                              </td>
                         </tr>
                         <tr>
                             <th>지원</th>
                             <td>
-                            <input class="empexpiry" type="text" name="detpexpiry" value="지원하기">
+                            <input class="empexpiry" type="text" name="detpexpiry" value="${detpexpiry }">
                              </td>
                         </tr>
                     </tbody>

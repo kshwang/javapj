@@ -40,7 +40,12 @@
     var goWrite = function(  ){
         window.location.href = '/pj_mn20/pj_mn21write' ;
   };
-    $(document).ready(function() {
+  
+  function selectEvent(selectObj) {
+	  window.location.href = '/pj_mn20/pj_mn21_jobs?searchWord='+selectObj.value ;
+  };
+  
+  $(document).ready(function() {
     
     	$('.title').click( function(){
     	$(this).attr('href','/pj_mn20/pj_mn22_view');
@@ -66,7 +71,8 @@
     $('.btu1').click( function(){
     	 $(this).parent('td').parent('tr').next('.tr1').toggle();
     }); 
-     
+
+    
        
     });
     
@@ -132,13 +138,15 @@
             
             <h3>채용 분야</h3>
             우수한 인재를 상시적으로 채용하고 있습니다 .
-           <select class="select" name = "detpname">
-                <option value="전체직군">전체직군</option>
+           <select class="select" name = "detpname" onChange="javascript:selectEvent(this)">
+                <option >부서선택</option>
+                <option value="">전체직군</option>
                <c:forEach var="q" items="${detpname }" varStatus="status">    
-                            <option value="${q.detpno }">${q.detpname }</option>
+                            <option value="${q.detpname }">${q.detpname }</option>
                         </c:forEach>
             </select>
             
+
             </div>
             <br>
             <table>

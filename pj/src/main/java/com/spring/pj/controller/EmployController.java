@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +45,6 @@ public class EmployController {
         int end = paging.getEndRecord();
         ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
         if(user == null || user.getUserclass() >0){
-            
         }
         else{
             model.addAttribute("mgs",user.getUserclass());
@@ -59,6 +59,7 @@ public class EmployController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("curPage", curPage);
         model.addAttribute("nextLink", paging.getNextLink());
+        
         return "pj_mn20/pj_mn21_jobs";
     }
 	
@@ -93,6 +94,7 @@ public class EmployController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("curPage", curPage);
         model.addAttribute("nextLink", paging.getNextLink());
+        
         return "pj_mn20/pj_mn21_jobs";
     }
 	
@@ -154,7 +156,6 @@ public class EmployController {
         logger.info("/pj_mn20/pj_mn21write");
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         
-        
         ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
         List<ModelEmploy> select =svremp.selectDetpName();
         model.addAttribute("detpname", select);
@@ -164,6 +165,43 @@ public class EmployController {
         }
         else{
             return "pj_mn20/pj_mn21write";
+        }
+    }
+	
+	@RequestMapping(value = "/pj_mn20/pj_mn21write", method = RequestMethod.POST)
+    public String pj_mn21write( Model model , HttpSession session,
+                                                                @ModelAttribute ModelEmploy empbbs) {
+        logger.info("/pj_mn20/pj_mn21write:post");
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+        
+        
+        int result = svremp.insertEmploy(empbbs);
+        
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        List<ModelEmploy> select =svremp.selectDetpName();
+        model.addAttribute("detpname", select);
+       
+        
+        return "redirect:/pj_mn20/pj_mn21_jobs";
+    }
+	
+	
+	
+	
+	@RequestMapping(value = "/pj_mn20/pj_mn21modify", method = RequestMethod.GET)
+    public String pj_mn21modify( Model model , HttpSession session) {
+        logger.info("/pj_mn20/pj_mn21modify :get");
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+        
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        List<ModelEmploy> select =svremp.selectDetpName();
+        model.addAttribute("detpname", select);
+        if( user.getUserclass() >0){
+            // 권한 없음 메세지 띄우기             
+            return "redirect:/pj_mn20/pj_mn21_jobs";
+        }
+        else{
+            return "pj_mn20/pj_mn21modify";
         }
     }
 }
