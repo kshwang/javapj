@@ -85,11 +85,7 @@ public interface IDaoTraining {
      * 리스트에 들어 있는 항목수 만큼 한번에 multi insert.
      */
     public int insertBoardList(List<ModelTrainingBoard> list);
-    
-    
-    
-    
-    
+       
 
     /*
      * Article테이블. 특정 게시판의 총 게시물 갯수 구하기

@@ -6,31 +6,34 @@
     
     <select id="getBoardName" parameterType="String" resultType="String">        
         SELECT boardnm
-          FROM TB_Bbs_Board
+          FROM pj_training_bbs
          WHERE boardcd = #{boardcd}
     </select>
     
     <select id="getBoardOne" parameterType="String" resultType="ModelTrainingBoard">
         SELECT boardcd, boardnm, UseYN 
-          FROM TB_Bbs_Board 
+          FROM pj_training_bbs 
          WHERE boardcd = #{boardcd}
     </select>
     
     <select id="getBoardList" parameterType="String" resultType="ModelTrainingBoard">
         SELECT boardcd, boardnm, UseYN 
-          FROM TB_Bbs_Board
+          FROM pj_training_bbs
          WHERE 1 =1 
            <if test=" _parameter  != null and _parameter  != '' ">
            AND boardnm LIKE CONCAT( '%' , #{_parameter} , '%' )
            </if>
     </select>
         
-    <select id="getBoardTotalRecord" parameterType="String" resultType="int">
+    <select id="getBoardTotalRecord" parameterType="java.util.Map" resultType="int">
         SELECT count(*) 
-          FROM TB_Bbs_Board 
+          FROM pj_training_bbs
          WHERE 1 = 1
-            <if test=" _parameter  != null and _parameter  != '' ">
-            AND boardnm LIKE CONCAT( '%' , #{_parameter } , '%' )
+          <!--   <if test=" searchWord  != null and searchWord  != '' ">
+            AND boardnm LIKE CONCAT( '%' , #{searchWord } , '%' )
+            </if> -->
+            <if test=" boardcd  != null and boardcd  != '' ">
+            AND boardcd LIKE CONCAT( '%' , #{boardcd } , '%' )
             </if>
     </select>
 
@@ -42,7 +45,7 @@
                     SELECT 
                         boardcd, boardnm, UseYN
                     FROM 
-                        TB_BBS_Board
+                        pj_training_bbs
                     WHERE 1 = 1
                         <if test="searchWord != null and searchWord != ''">
                         AND boardnm LIKE CONCAT( '%' , #{searchWord} , '%' )  
@@ -56,7 +59,7 @@
     
     <insert id="insertBoard" parameterType="ModelTrainingBoard">
         INSERT INTO 
-        TB_Bbs_Board ( boardcd   , boardnm   , UseYN   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
+        pj_training_bbs ( boardcd   , boardnm   , UseYN   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
         VALUES       ( #{boardcd}, #{boardnm}, #{UseYN}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
     </insert>
     
@@ -67,7 +70,7 @@
                     , ('val3_1', 'val3_2', 'val3_3') ;
      -->
     <insert id="insertBoardList" parameterType="java.util.List">
-        INSERT INTO TB_Bbs_Board( boardcd , boardnm , UseYN  )
+        INSERT INTO pj_training_bbs( boardcd , boardnm , UseYN  )
         VALUES
             <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
                 #{item.boardcd} , #{item.boardnm} , #{item.UseYN}
@@ -75,7 +78,7 @@
     </insert>
     
     <update id="updateBoard" parameterType="java.util.Map">
-        UPDATE TB_Bbs_Board 
+        UPDATE pj_training_bbs
             <set>
               <if test=" setValue.boardnm   != null and setValue.boardnm !='' "> boardnm   = #{setValue.boardnm}   , </if>
               <if test=" setValue.UseYN     != null                           "> UseYN     = #{setValue.UseYN}     , </if>
@@ -95,7 +98,7 @@
     </update>
     
     <delete id="deleteBoard" parameterType="ModelTrainingBoard">
-        DELETE FROM TB_Bbs_Board 
+        DELETE FROM pj_training_bbs
          WHERE 1 = 1 
           <if test="boardcd != null and boardcd != ''" >
           AND boardcd  = #{boardcd}
@@ -109,7 +112,7 @@
     </delete>
     
     <select id="getArticleTotalRecord" parameterType="java.util.Map" resultType="int">
-        SELECT count(*) FROM TB_BBS_Article 
+        SELECT count(*) FROM pj_training 
          WHERE boardcd = #{boardcd}
             <if test="searchWord != null and searchWord != ''">
             AND ( title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE CONCAT('%', #{searchWord}, '%') ) 
@@ -129,10 +132,10 @@
                          , count(distinct(c.commentno)) commentNum
                          , m.name
                     FROM 
-                        TB_BBS_Article a
-                        LEFT OUTER JOIN TB_BBS_Attachfile f ON a.articleno = f.articleno
-                        LEFT OUTER JOIN TB_BBS_Comments   c ON a.articleno = c.articleno
-                        LEFT OUTER JOIN TB_User           m ON a.insertUID = m.userid
+                        pj_training  a
+                        LEFT OUTER JOIN pj_training_file f ON a.articleno = f.articleno
+                        LEFT OUTER JOIN pj_comments   c ON a.articleno = c.articleno
+                        LEFT OUTER JOIN pj_user           m ON a.insertUID = m.userid
                     WHERE
                         a.boardcd = #{boardcd}
                         <if test="searchWord != null and searchWord != ''">
@@ -148,18 +151,18 @@
     
     <select id="getArticle" parameterType="int" resultType="ModelTraining">
         SELECT articleno, boardcd, title, content, email, hit, regdate
-        FROM TB_BBS_Article
+        FROM pj_training 
         WHERE articleno = #{articleno}
     </select>
     
     <insert id="insertArticle" parameterType="ModelTraining" useGeneratedKeys="true" keyProperty="articleno" >
         INSERT INTO 
-        TB_BBS_Article ( boardcd   , title   , content   , email   , hit, regdate, InsertUID   , InsertDT   , UpdateUID   , UpdateDT     )
+        pj_training  ( boardcd   , title   , content   , email   , hit, regdate, InsertUID   , InsertDT   , UpdateUID   , UpdateDT     )
             VALUES     ( #{boardcd}, #{title}, #{content}, #{email}, 0  , now()  , #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT}  )
     </insert>   
     
     <update id="updateArticle" parameterType="java.util.Map">
-        UPDATE TB_BBS_Article  
+        UPDATE pj_training   
            <set>
                 <if test=" setValue.title     != null and setValue.title   !='' "> title     = #{setValue.title    } , </if>
                 <if test=" setValue.content   != null and setValue.content !='' "> content   = #{setValue.content  } , </if>
@@ -186,7 +189,7 @@
     </update>
     
     <delete id="deleteArticle" parameterType="ModelTraining">
-        DELETE FROM TB_BBS_Article 
+        DELETE FROM pj_training  
          WHERE 1 = 1 
           <if test="articleno != null and articleno != ''" >
           AND articleno = #{articleno}
@@ -203,7 +206,7 @@
     </delete>
     
     <update id="increaseHit" parameterType="int">
-        UPDATE TB_BBS_Article 
+        UPDATE pj_training 
            SET hit=hit+1 
          WHERE articleno=#{articleno}
     </update>
@@ -215,7 +218,7 @@
             SELECT @RNUM := @RNUM + 1 AS r, a.*
             FROM
                 (SELECT articleno, title 
-                   FROM TB_BBS_Article 
+                   FROM pj_training  
                   WHERE boardcd      =    #{boardcd} 
                     AND articleno   &gt;  #{articleno}
                     <if test=" searchWord != null and searchWord != '' ">
@@ -234,7 +237,7 @@
             SELECT @RNUM := @RNUM + 1 AS r, a.*
             FROM
                 (SELECT articleno, title 
-                   FROM TB_BBS_Article 
+                   FROM pj_training  
                   WHERE boardcd     =    #{boardcd} 
                     AND articleno  &lt;  #{articleno}
                     <if test="searchWord != null and searchWord != ''">
@@ -248,25 +251,25 @@
 
     <select id="getAttachFile" parameterType="int" resultType="ModelTrainingFile">
         SELECT attachfileno, filenameorig, filenametemp, filetype, filesize, articleno
-          FROM TB_BBS_Attachfile
+          FROM pj_training_file
          WHERE attachfileno = #{attachFileNo}
     </select>
     
     <select id="getAttachFileList" parameterType="int" resultType="ModelTrainingFile">
         SELECT attachfileno, filenameorig, filenametemp, filetype, filesize, articleno 
-          FROM TB_BBS_Attachfile 
+          FROM pj_training_file 
          WHERE articleno = #{articleno} 
         ORDER BY attachfileno
     </select>
     
     <insert id="insertAttachFile" parameterType="ModelTrainingFile" useGeneratedKeys="true" keyProperty="attachfileno" >
         INSERT INTO 
-        TB_BBS_Attachfile (filenameorig,    filenametemp, filetype, filesize, articleno, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
+        pj_training_file (filenameorig,    filenametemp, filetype, filesize, articleno, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
         VALUES        ( #{filenameorig}, #{filenametemp}, #{filetype}, #{filesize}, #{articleno}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
     </insert>
     
     <delete id="deleteAttachFile" parameterType="ModelTrainingFile">
-        DELETE FROM TB_BBS_Attachfile          
+        DELETE FROM pj_training_file         
          WHERE 1 = 1 
           <if test="attachfileno != null " >
           AND attachfileno = #{attachfileno}
@@ -282,13 +285,13 @@
     
     <select id="getComment" parameterType="int" resultType="ModelComments">
         SELECT commentno,articleno,email,memo,regdate 
-        FROM TB_BBS_Comments 
+        FROM pj_comments 
         WHERE commentno = #{commentNo}
     </select>
     
     <select id="getCommentList" parameterType="int" resultType="ModelComments">
         SELECT commentno, articleno, email, memo, regdate
-        FROM TB_BBS_Comments
+        FROM pj_comments 
         WHERE articleno = #{articleno}
         ORDER BY commentno DESC
     </select>
@@ -296,12 +299,12 @@
     
     <insert id="insertComment" parameterType="ModelComments" 
                      useGeneratedKeys="true" keyProperty="commentno" >
-        INSERT INTO TB_BBS_Comments (   articleno ,   email ,   memo , regdate, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
+        INSERT INTO pj_comments  (   articleno ,   email ,   memo , regdate, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
                              VALUES ( #{articleno}, #{email}, #{memo}, now()  , #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
     </insert>
     
     <update id="updateComment" parameterType="java.util.Map">
-        UPDATE TB_BBS_Comments 
+        UPDATE pj_comments  
            <set>
                 <if test=" setValue.memo      != null and setValue.memo !='' "> memo      = #{setValue.memo     } , </if>
                 <if test=" setValue.regdate   != null                        "> regdate   = #{setValue.regdate  } , </if>
@@ -322,7 +325,7 @@
     </update>
     
     <delete id="deleteComment" parameterType="ModelComments">
-        DELETE FROM TB_BBS_Comments 
+        DELETE FROM pj_comments  
         WHERE 1 = 1 
           <if test="commentno != null and commentno != ''" >
           AND commentno = #{commentno}

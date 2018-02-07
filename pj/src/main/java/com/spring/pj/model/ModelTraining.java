@@ -5,8 +5,8 @@ import java.util.Date;
 public class ModelTraining {
     
     Integer articleno ;
-    String  boardcd   ;
-    String  title     ;
+    String  boardcd   ; // sql에서는 null 값 여기서느 ㄴ어떻게 하지?
+    String  title     ; //sql하고 값 비교좀.
     String  content   ;
     String  email     ;
     Integer hit       ;

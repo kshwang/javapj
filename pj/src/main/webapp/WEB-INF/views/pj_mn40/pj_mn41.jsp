@@ -106,7 +106,7 @@ fr {
     <script type="text/javascript">$('.portfolio').flipLightBox()</script> -->
 <script>
 	var goList = function(page) {
-		window.location.href = '/pj_mn40/pj_mn41';/* "/board/articlelist/${boardcd}?searchWord=${searchWord}&curPage="
+		window.location.href = "/pj_mn40/pj_mn41/${boardcd}?searchWord=${searchWord}&curPage=";/* "/board/articlelist/${boardcd}?searchWord=${searchWord}&curPage="
 						+ page; */
 	};
 </script>
@@ -114,16 +114,16 @@ fr {
 
 <script>
 	$(document).ready(function(event) {
-		/* 		$('#bbs tr[articleno]')
+			$('#bbs tr[articleno]')
 						.click(
 								function(event) {
 									var articleno = $(this).attr(
 											'articleno');
-									location.href = '/board/articleview/${boardcd}/'
+									location.href = '/pj_mn40/pj_mn43/${boardcd}/'
 											+ articleno;
-								}); */
+								}); 
 		$('#list-menu input[type="button"]').click(function(event) {
-			location.href = 'pj_mn42'; /* '/board/articlewrite/${boardcd}?searchWord=${searchWord}&curPage=${curPage}'; */
+			location.href = '/pj_mn40/pj_mn42'; /* '/board/articlewrite/${boardcd}?searchWord=${searchWord}&curPage=${curPage}'; */
 		});
 	});
 </script>
@@ -159,21 +159,21 @@ fr {
                 <th style="width: 60px;">조회수</th>
             </tr>
             <!--  반복 구간 시작 -->
-            <c:forEach var="article" items="${ articleList }"
+            <c:forEach var="trn" items="${trnList }"
                 varStatus="status">
-                <tr articleno="${article.articleno }">
+                <tr articleno="${trn.articleno }">
                     <td style="text-align: center;">${no - status.index}</td>
-                    <td><span>${article.title }</span> <c:if
-                            test="${article.attachFileNum > 0 }">
+                    <td><span>${trn.title }</span> <c:if
+                            test="${trn.attachFileNum > 0 }">
                             <img src="/resources/images/attach.png"
                                 alt="첨부파일" />
-                        </c:if> <c:if test="${article.commentNum > 0 }">
-                            <span class="bbs-strong">[${article.commentNum }]</span>
+                        </c:if> <c:if test="${trn.commentNum > 0 }">
+                            <span class="bbs-strong">[${trn.commentNum }]</span>
                         </c:if></td>
                     <td style="text-align: center;"><fmt:formatDate
                             pattern="yyyy-MM-dd"
-                            value="${article.regdate }" /></td>
-                    <td style="text-align: center;">${article.hit }</td>
+                            value="${trn.regdate }" /></td>
+                    <td style="text-align: center;">${trn.hit }</td>
                 </tr>
             </c:forEach>
             <!--  반복 구간 끝 -->
