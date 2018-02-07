@@ -20,7 +20,7 @@
         $(document).ready( function(event){
         	$('tr[articleno]').click( function(event){
         		var articleno = $(this).attr('articleno');
-        		location.href = '/pj_mn43/${boardcd}/' + articleno + location.search; 
+        		location.href = '/pj_mn40/pj_mn43' + articleno + location.search; 
         	});
         	
         	$('#addComment input[type="button"]').click( function(event){
@@ -29,7 +29,7 @@
         		
         		// ajax 호출
         		$.ajax({
-                    url : '/rest/insertcomment'
+                    url : '/rest/insertcomment' /* 밑에 bbs에 rest파일 있음. 그거 확인 */
                     , data: JSON.stringify( { 'articleno': articleno, 'memo': memo } )  // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
                     , type: 'post'       // get, post
                     , timeout: 30000    // 30초
@@ -50,7 +50,7 @@
     
     <script>
         var goView = function( articleno ) {
-        	location.href = '/pj_mn43/${boardcd}/' + articleno + location.search;
+        	location.href = '/pj_mn40/pj_mn43'+ articleno + location.search;
         };
         
      /*    var goModify = function( ){
@@ -72,13 +72,13 @@
          */
         var goList = function( curPage, redirect ) {
         	if( redirect === false )
-                location.href = '/pj_mn43/${boardcd}/${articleno}?curPage='+ curPage;
+                location.href = '/pj_mn40/pj_mn43/${articleno}?curPage='+ curPage;
         	else
-        		location.href = '/pj_mn41/${boardcd}?curPage='+ curPage;
+        		location.href = '/pj_mn40/pj_mn41?curPage='+ curPage;
         };
         
         var goWrite = function( ) {
-        	location.href = '/pj_mn42/${boardcd}';
+        	location.href = '/pj_mn40/pj_mn42';
         };
         
         var download = function( filetemp, fileorig ) {
@@ -318,7 +318,7 @@
             	<div id="search" style="text-align: center;">
             		<form id="searchForm" action="${actionurl}" method="get" style="margin: 0;padding: 0;">
             			<p style="margin: 0;padding: 0;">
-            				<input type="hidden" name="boardcd" value="${boardcd }" />
+            				
             				<input type="text" name="searchWord" value="${searchWord}"  size="15" maxlength="30" />
             				<input type="submit" value="검색" />
             			</p>	
