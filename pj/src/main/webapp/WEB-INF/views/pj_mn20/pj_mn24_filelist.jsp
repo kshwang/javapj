@@ -37,9 +37,7 @@
     var fileList = function(  ){
     	window.location.href = '/pj_mn20/pj_mn24_filelist' ;
   };
-  var goWrite = function(  ){
-      window.location.href = '/pj_mn20/pj_mn21write' ;
-};
+  
     
     
     </script>
@@ -117,6 +115,7 @@
                 
                 <c:forEach var="empfile" items="${empfilelist }" varStatus="status">
                     <tr>
+                        <td>x</td>
                         <td>${empfile.jobname }</td>
                         <td>${empfile.jobtitle } </td>
                         <td>${empfile.userid }</td>
@@ -146,6 +145,7 @@
                 
                 <c:forEach var="empfile" items="${empfilelist }" varStatus="status">
                     <tr>
+                        <td>x</td>
                         <td>${empfile.jobname }</td>
                         <td>${empfile.jobtitle } </td>
                         <td>${empfile.userid }</td>
@@ -167,8 +167,6 @@
                                   <input type="button" value="삭제" onclick="javascript:goDelete();" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                   <input type="button" value="목록" onclick="javascript:goList( );" />
-                                  &nbsp;&nbsp;&nbsp;&nbsp;
-                                  <input type="button" value="새글쓰기" onclick="javascript:goWrite();" />
                                   &nbsp;&nbsp;&nbsp;&nbsp;
                                   <input type="button" value="지원현황" onclick="javascript:fileList();" />
                                 </c:when>
