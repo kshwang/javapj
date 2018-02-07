@@ -1,57 +1,94 @@
 package com.spring.pj.model;
 
 public class ModelEmploy {
-    private String jobname  ="";        //` VARCHAR(50) NOT NULL,
-    private String jobtitle ="";        //` VARCHAR(50) NULL DEFAULT NULL,
-    private String empexpiry="";        //` VARCHAR(50) NULL DEFAULT NULL,
-    private String period = "";
-    private String jobtitleinfo="";
+    private Integer detpno = null;
+    private String detpname  ="";        //` VARCHAR(50) NOT NULL,
+    private String detptitle ="";        //` VARCHAR(50) NULL DEFAULT NULL,
+    private String detpperiod="";        //` VARCHAR(50) NULL DEFAULT NULL,
+    private String detpexpiry = "";
+    private String detptitleinfo="";
     private Integer useYN = null;
     
-    public String getJobname() {
-        return jobname;
-    }
-    public void setJobname(String jobname) {
-        this.jobname = jobname;
-    }
-    public String getJobtitle() {
-        return jobtitle;
-    }
-    public void setJobtitle(String jobtitle) {
-        this.jobtitle = jobtitle;
-    }
-    public String getEmpexpiry() {
-        return empexpiry;
-    }
-    public void setEmpexpiry(String empexpiry) {
-        this.empexpiry = empexpiry;
-    }
    
-    public String getPeriod() {
-        return period;
+    public Integer getDetpno() {
+        return detpno;
     }
-    public void setPeriod(String period) {
-        this.period = period;
+
+
+    public void setDetpno(Integer detpno) {
+        this.detpno = detpno;
     }
-   public String getJobtitleinfo() {
-        return jobtitleinfo;
+
+
+    public String getDetpname() {
+        return detpname;
     }
-    public void setJobtitleinfo(String jobtitleinfo) {
-        this.jobtitleinfo = jobtitleinfo;
+
+
+    public void setDetpname(String detpname) {
+        this.detpname = detpname;
     }
+
+
+    public String getDetptitle() {
+        return detptitle;
+    }
+
+
+    public void setDetptitle(String detptitle) {
+        this.detptitle = detptitle;
+    }
+
+
+    public String getDetpperiod() {
+        return detpperiod;
+    }
+
+
+    public void setDetpperiod(String detpperiod) {
+        this.detpperiod = detpperiod;
+    }
+
+
+    public String getDetpexpiry() {
+        return detpexpiry;
+    }
+
+
+    public void setDetpexpiry(String detpexpiry) {
+        this.detpexpiry = detpexpiry;
+    }
+
+
+    public String getDetptitleinfo() {
+        return detptitleinfo;
+    }
+
+
+    public void setDetptitleinfo(String detptitleinfo) {
+        this.detptitleinfo = detptitleinfo;
+    }
+
+
     public Integer getUseYN() {
         return useYN;
     }
+
+
     public void setUseYN(Integer useYN) {
         this.useYN = useYN;
     }
-    
+
+
     @Override
     public String toString() {
-        return "ModelEmploy [jobname=" + jobname + ", jobtitle=" + jobtitle
-                + ", empexpiry=" + empexpiry + ", period=" + period
-                + ", jobtitleinfo=" + jobtitleinfo + ", useYN=" + useYN + "]";
+        return "ModelEmploy [detpno=" + detpno + ", detpname=" + detpname
+                + ", detptitle=" + detptitle + ", detpperiod=" + detpperiod
+                + ", detpexpiry=" + detpexpiry + ", detptitleinfo="
+                + detptitleinfo + ", useYN=" + useYN + "]";
     }
+
+
     public ModelEmploy() {
         super();
     }

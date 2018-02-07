@@ -74,5 +74,18 @@ public class ServiceEmploy implements IServiceEmploy {
         }
         return rs;
     }
+
+    @Override
+    public List<ModelEmploy> selectDetpName() {
+        List<ModelEmploy> rs = null;
+        
+        try {
+            rs = dao.selectDetpName();
+        } catch (Exception e) {
+            logger.error("selectDetpName" + e.getMessage());
+            throw e;
+         }
+        return rs;
+    }
     
 }

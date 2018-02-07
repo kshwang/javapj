@@ -34,7 +34,43 @@
 
 <script src="/resources/js/functions.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+    $('.ok').click( function(){ // 폼 유효성 검사
+       var name = $('.name').val();
+       var phone1=$('.phone1').val();
+       var phone2=$('.phone2').val();
+       var mail =$('.mail').val();
+       var address = $('.address').val();
+    	if(name === '' ){
+            alert('이름을적어주세요.');
+            return false;
+        }
+        if(phone1 ===''){
+            alert('핸드폰번호를적어주세요');
+            return false;
+        }  
+        if(phone2 ===''){
+            alert('핸드폰번호를적어주세요');
+            return false;
+        }
+        if(mail === ''){
+        	alert('메일을 적어주세요.');
+        	return false;
+        }
+        if(address === ''){
+            alert('주소를 적어주세요.');
+            return false;
+        }
+        else{
+             alert('지원완료 되었습니다..');
+             $('form').attr('action','/');
+        }
+         });
+    $('.no').click( function(){
+         $('form').attr('action','/pj_mn20/pj_mn21_jobs');
+    });
     
+    });
     </script>
 <style type="text/css">
 table {
@@ -98,7 +134,7 @@ h3 {
             <h3>입사지원서 작성</h3>
             <hr>
 
-            <form accept="" name="" method="">
+            <form id="" action="" method="post" enctype="application/x-www-form-urlencoded">
                 <table>
                     <thead>
                         <tr>
@@ -116,7 +152,7 @@ h3 {
                             <th>이름</th>
                             <c:choose>
                                 <c:when test="${empty user}">
-                                    <td><input type="text"
+                                    <td><input class="name" type="text"
                                         size="20" name="name"
                                         style="width: 304px;"></td>
                                 </c:when>
@@ -134,8 +170,8 @@ h3 {
                                             <option value="010">010</option>
                                             <option value="011">011</option>
                                             <option value="017">017</option>
-                                    </select> <input type="text" name="phone3">
-                                        - <input type="text"
+                                    </select> <input class="phone1" type="text" name="phone3">
+                                        - <input class="phone2" type="text"
                                         name="phone4"></td>
                                 </c:when>
                                 <c:otherwise>
@@ -148,16 +184,17 @@ h3 {
                             <th>주로 쓰는 메일</th>
                             <c:choose>
                                 <c:when test="${empty user}">
-                                    <td><input type="text"
-                                        name="mail"> @<input
-                                        type="text" name="mail">
-                                        <select name="email"
-                                        style="width: 143px;">
+                                    <td><input class="mail" type="text" name="mail"> 
+                                            @
+                                        <input type="text" name="mail">
+                                        
+                                        <select name="email" style="width: 143px;">
                                             <option value="직접입력">직접입력</option>
                                             <option value="naver.com">naver.com</option>
                                             <option value="daum.net">daum.net</option>
                                             <option value="nate.com">nate.com</option>
-                                    </select></td>
+                                    </select>
+                                    </td>
                                 </c:when>
                                 <c:otherwise>
                                     <td><label>${user.email }</label>
@@ -169,12 +206,8 @@ h3 {
                             <th>거주지</th>
                             <c:choose>
                                 <c:when test="${empty user}">
-                                    <td><select name="location">
-                                            <option value="서울">서울</option>
-                                            <option value="대전">대전</option>
-                                            <option value="대구">대구</option>
-                                            <option value="부산">부산</option>
-                                    </select></td>
+                                    <td><input class="address"  type="text" size="20"
+                                name="name" style="width: 543px;" ></td>
                                 </c:when>
                                 <c:otherwise>
                                     <td><label>${user.address }</label>
@@ -221,8 +254,8 @@ h3 {
                 </table>
                 <br> <br>
                 <center>
-                    <input type="submit" name="확인" value="확인">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit"
+                    <input class="ok" type="submit" name="확인" value="확인">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit"
                         name="확인" value="취소">
                 </center>
             </form>

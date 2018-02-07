@@ -9,5 +9,5 @@ public interface IDaoEmploy {
     int getEmployTotalRecord(String searchWord);
     List<ModelEmploy> getEmployList(String searchWord, int start, int end);
     int insertEmploy(ModelEmploy emp);
-    
+    List<ModelEmploy> selectDetpName();
 }
