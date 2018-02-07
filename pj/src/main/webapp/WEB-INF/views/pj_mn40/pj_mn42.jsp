@@ -92,7 +92,7 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
 						$('#golist')
 								.click(
 										function(event) {
-											location.href = "/pj_mn40/pj_mn41";/* "articlelist/${boardcd}?searchWord=${searchWord}&curPage=${curPage}" ;*/
+											location.href = "/pj_mn40/pj_mn41/${boardcd}?searchWord=${searchWord}&curPage=${curPage}";/* "articlelist/${boardcd}?searchWord=${searchWord}&curPage=${curPage}" ;*/
 										});
 					});
 </script>
@@ -117,7 +117,7 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
                 <h1>${boardnm }</h1>
                 <div id="bbs">
                     <h2 align=center>교육 등록</h2>
-                    <form id="writeForm" action="pj_mn42"
+                    <form id="writeForm" action="/pj_mn40/pj_mn42"
                         method="post" enctype="multipart/form-data"
                         onsubmit="return check()">
                         <p style="margin: 0; padding: 0;">
