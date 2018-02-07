@@ -191,7 +191,7 @@
                 <hr>
                 <div class="sub-title">더조은 컴퍼니를 찾아주신 모든 분께 깊이 감사드립니다</div>
                 <br>
-                <div class="greet"><img src="/resources/images/company/greet_img.jpg" width="320px" height="400px" alt="비인텍은 신뢰를 바탕으로 가치를 창조하는 IT전문기업입니다." /></div>
+                <div class="greet"><img src="/resources/images/company/greet_img2.jpg" style="width:340px; height:auto;" alt="더조은 컴퍼니는 신뢰를 바탕으로 가치를 창조하는 IT전문기업입니다." /></div>
                 <dl class="greet-txt">
                     <dt><img src="/resources/images/company/greet_ti01.gif" alt="신가치창출" /></dt>
                     <dd>최근 IT기술의 급속한 발전과 더불어 정치, 경제, 사회, 문화 등 모든 분야에 혁신적인  변화를 유발하여 지식정보사회로 빠르게 진화하고 새로운 가치질서를 창출하고 있습니다.
