@@ -99,7 +99,9 @@
                     <div class="text-center">
                         <h2>Support</h2>
                         <p>이용에 궁금한 사항이나 문의 사항에 대해 <br>
+                        질문해 주시면 성실하게 답해드리겠습니다
                         </p>
+                        <div><a href="/pj_mn30/pj_mn32">자주묻는 질문</a></div>
                     </div>
                     <hr>
                 </div>

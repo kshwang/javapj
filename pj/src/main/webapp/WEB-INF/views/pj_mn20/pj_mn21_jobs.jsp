@@ -37,8 +37,17 @@
     var fileList = function(  ){
     	  window.location.href = '/pj_mn20/pj_mn24_filelist' ;
     };
-    $(document).ready(function() {
-    $('.title').click( function(){
+    var goWrite = function(  ){
+        window.location.href = '/pj_mn20/pj_mn21write' ;
+  };
+  
+  function selectEvent(selectObj) {
+	  window.location.href = '/pj_mn20/pj_mn21_jobs?searchWord='+selectObj.value ;
+  };
+  
+  $(document).ready(function() {
+    
+    	$('.title').click( function(){
     	$(this).attr('href','/pj_mn20/pj_mn22_view');
     	var title = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
     	
@@ -58,15 +67,13 @@
     	return false;
     });
     
-    function SetSelectBox(){
-    	
-    }
     $('.tr1').hide();
-    
-     $('.btu1').click( function(){
+    $('.btu1').click( function(){
     	 $(this).parent('td').parent('tr').next('.tr1').toggle();
     }); 
-     
+
+    
+       
     });
     
     
@@ -98,6 +105,10 @@
           div.info{
           background: #36cbd430;
           }
+          div.info input{
+          float: right;
+          margin-right: 10px;
+          }
     </style>
     
    
@@ -127,17 +138,15 @@
             
             <h3>채용 분야</h3>
             우수한 인재를 상시적으로 채용하고 있습니다 .
-           <select class="select" name = "empname"  onchange="SetSelectBox()">
-                <option value="전체직군">전체직군</option>
-                <option value="마케팅">마케팅</option>
-                <option value="기획/운영">기획/운영</option>
-                <option value="개발/시스템">개발/시스템</option>
-                <option value="디자인">디자인</option>
-                <option value="경영지원">경영지원</option>
-                <option value="제휴/영업">제휴/영업</option>
-                <option value="고객지원">고객지원</option>
+           <select class="select" name = "detpname" onChange="javascript:selectEvent(this)">
+                <option >부서선택</option>
+                <option value="">전체직군</option>
+               <c:forEach var="q" items="${detpname }" varStatus="status">    
+                            <option value="${q.detpname }">${q.detpname }</option>
+                        </c:forEach>
             </select>
             
+
             </div>
             <br>
             <table>
@@ -148,17 +157,28 @@
                     <th>지원</th>
                 </tr>
                 
-                <c:forEach var="emp" items="${emplist }" varStatus="status">
+                <c:forEach var="detp" items="${deptlist }" varStatus="status">
                     <tr>
-                        <td>${emp.jobname }</td>
-                        <td><button type="button" class="btu1" ><span>${emp.jobtitle }</span> </button></td>
-                        <td>${emp.period } </td>
-                        <td><a class="title" href="#">${emp.empexpiry }</a></td>
+                        <td>${detp.detpname }</td>
+                        <td><button type="button" class="btu1" ><span>${detp.detptitle }</span> </button></td>
+                        <td>${detp.detpperiod } </td>
+                        <td><a class="title" href="#">${detp.detpexpiry }</a></td>
                     </tr>
                     
                    <tr class="tr1" >
                    <td class="td1" colspan="4">
-                   <div class="info">${emp.jobtitleinfo }</div>
+                   <div class="info">${detp.detptitleinfo }
+                   <c:choose>
+                   <c:when test="${empty mgs}">
+                    </c:when>
+                   <c:otherwise>
+                   <input type="button" value="수정" onclick="javascript:goModify();" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" value="삭제" onclick="javascript:goDelete();" />
+                    </c:otherwise>
+                            </c:choose>
+                   </div>
+                   
                    </td>
                    </tr>
                    
@@ -179,10 +199,6 @@
                                 </c:when>
                                 
                                 <c:otherwise>
-                                 <input type="button" value="수정" onclick="javascript:goModify();" />
-                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="button" value="삭제" onclick="javascript:goDelete();" />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                   <input type="button" value="목록" onclick="javascript:goList( ${curPage } );" />
                                   &nbsp;&nbsp;&nbsp;&nbsp;
                                   <input type="button" value="새글쓰기" onclick="javascript:goWrite();" />

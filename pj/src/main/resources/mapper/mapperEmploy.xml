@@ -3,51 +3,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.mapperEmploy">
+    
     <select id="selectAll" resultType="ModelEmploy">
-        select * from pj_employ
+        select * from pj_employ_detp
+    </select>
+    
+    <select id="selectDetpName" resultType="ModelEmploy">
+      select distinct(detpname) from pj_employ_detp
     </select>
     
         
     <select id="getEmployTotalRecord" resultType="int" parameterType="String">
-       SELECT count(*) FROM pj_employ       
+       SELECT count(*) FROM pj_employ_detp       
            where 1=1                      
-                 AND ( jobname LIKE CONCAT('%',#{searchWord}, '%') OR jobtitle LIKE CONCAT('%', #{searchWord}, '%') );
+                 AND ( detpname LIKE CONCAT('%',#{searchWord}, '%') OR detptitle LIKE CONCAT('%', #{searchWord}, '%') );
     </select>
     
     
     <select id="getEmployList" parameterType="java.util.Map" resultType="ModelEmploy">
-        SELECT jobname, jobtitle, empexpiry, period, jobtitleinfo
+        SELECT detpname, detptitle, detpexpiry, detpperiod, detptitleinfo
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
                     SELECT  
-                           a.jobname, 
-                           a.jobtitle, 
-                           a.empexpiry,
-                           a.period,
-                           a.jobtitleinfo
+                           a.detpname, 
+                           a.detptitle, 
+                           a.detpexpiry,
+                           a.detpperiod,
+                           a.detptitleinfo
                     FROM 
-                        pj_employ a
+                        pj_employ_detp a
                       WHERE
                         1 = 1
-                    GROUP BY a.jobname,a.jobtitle, a.empexpiry, a.period, a.jobtitleinfo
-                    ORDER BY jobname DESC
+                        <if test = "searchWord!=null and searchWord!=''" >
+                        and detpname = #{searchWord}
+                        </if>
+                    ORDER BY detpno DESC
                  ) a, (SELECT @RNUM:=0) b
             ) temp
         WHERE r BETWEEN #{start} AND #{end}
     </select>  
+    
     <select id="getEmployjobtitle" resultType="String" parameterType="String">
-      select jobname, jobtitle, empexpiry ,period from pj_employ
+      select detpname, detptitle, detpexpiry ,detpperiod from pj_employ_detp
     </select>
     
     <select id="getEmployjobname" resultType="ModelEmploy" parameterType="java.util.Map">
-      select jobname, jobtitle, empexpiry, period from pj_employ where jobname like CONCAT ('%',#{searchWord}, '%') ;
+       select detpname, detptitle, detpexpiry ,detpperiod ,detptitleinfo  from pj_employ_detp where detpname like CONCAT ('%',#{searchWord}, '%') ;
     </select>
     
     <insert id="insertEmploy" parameterType="ModelEmploy"  >
         INSERT INTO 
-        pj_employ  (     jobname   , jobtitle   , period   , empexpiry  ,jobtitleinfo,useYN  )
-            VALUES     (  #{jobname}, #{jobtitle}, #{period}, #{empexpiry} , #{jobtitleinfo} , #{useYN}  )
+            pj_employ_detp  (     detpname   , detptitle   , detpperiod   , detpexpiry  ,detptitleinfo )
+            VALUES     (  #{detpname}, #{detptitle}, #{detpperiod}, #{detpexpiry} , #{detptitleinfo} )
     </insert>   
     
  </mapper>

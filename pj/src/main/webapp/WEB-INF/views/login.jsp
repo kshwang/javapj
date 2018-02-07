@@ -40,6 +40,7 @@
     <script src="/resources/js/functions.js"></script>
     <script type="text/javascript">
         $(document).ready(function(event) {
+        	var finduser = null;
         	$('#login').click(function(event) {
         		if ($('input[name="userid"]').val() === '') {
         			alert('아이디를 입력하세요');
@@ -55,8 +56,8 @@
         	    var popUrl = "/findid";   //팝업창에 출력될 페이지 URL
 
         	    var popOption = 'width=370, height=360, resizable=no, toolbar=no, menubar=no, directories=no, scrollbars=no, status=no, location=no';    //팝업창 옵션(optoin)
-
-    	        window.open(popUrl, '_blank', popOption);
+        	    
+        	    window.open(popUrl, '_blank', popOption);
 
             	return false;
             });
@@ -64,7 +65,7 @@
                 var popUrl = "/findpw";   //팝업창에 출력될 페이지 URL
 
                 var popOption = 'width=370, height=360, resizable=no, toolbar=no, menubar=no, directories=no, scrollbars=no, status=no, location=no';    //팝업창 옵션(optoin)
-
+                
                 window.open(popUrl, '_blank', popOption);
                 
             	return false;

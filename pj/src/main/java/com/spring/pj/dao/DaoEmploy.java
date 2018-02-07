@@ -45,6 +45,11 @@ public class DaoEmploy implements IDaoEmploy {
     public int insertEmploy(ModelEmploy emp) {
         return session.insert("mapper.mapperEmploy.insertEmploy", emp);
     }
+
+    @Override
+    public List<ModelEmploy> selectDetpName() {
+        return session.selectList("mapper.mapperEmploy.selectDetpName");
+    }
    
     
 }
