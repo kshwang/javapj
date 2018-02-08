@@ -41,8 +41,14 @@ $(document).ready(function() {
        var phone2=$('.phone2').val();
        var mail =$('.mail').val();
        var address = $('.address').val();
+       var email = $('select[name="email"]').val();
+       var selectphone =$('select[name="phone"]').val();
     	if(name === '' ){
             alert('이름을적어주세요.');
+            return false;
+        }
+    	if(selectphone ==='선택'){
+            alert('핸드폰번호를선택해주세요');
             return false;
         }
         if(phone1 ===''){
@@ -56,6 +62,10 @@ $(document).ready(function() {
         if(mail === ''){
         	alert('메일을 적어주세요.');
         	return false;
+        } 
+        if(email ==='선택해주세요'){
+            alert('이메일 주소를 선택해주세요.');
+            return false;
         }
         if(address === ''){
             alert('주소를 적어주세요.');
@@ -67,10 +77,14 @@ $(document).ready(function() {
         }
          });
     $('.no').click( function(){
-         $('form').attr('action','/pj_mn20/pj_mn21_jobs');
+    	 if (!confirm('취소하시겠습니까?')) {
+             return false;
+         } 
+    	$('form').attr('action','/pj_mn20/pj_mn21_jobs');
     });
+     });
     
-    });
+    
     </script>
 <style type="text/css">
 table {
@@ -134,7 +148,7 @@ h3 {
             <h3>입사지원서 작성</h3>
             <hr>
 
-            <form id="" action="" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="" method="post" enctype="application/x-www-form-urlencoded">
                 <table>
                     <thead>
                         <tr>
@@ -152,9 +166,7 @@ h3 {
                             <th>이름</th>
                             <c:choose>
                                 <c:when test="${empty user}">
-                                    <td><input class="name" type="text"
-                                        size="20" name="name"
-                                        style="width: 304px;"></td>
+                                    <td><input class="name" type="text" size="20" name="name" style="width: 304px;"></td>
                                 </c:when>
                                 <c:otherwise>
                                     <td><label>${user.name }</label></td>
@@ -170,9 +182,8 @@ h3 {
                                             <option value="010">010</option>
                                             <option value="011">011</option>
                                             <option value="017">017</option>
-                                    </select> <input class="phone1" type="text" name="phone3">
-                                        - <input class="phone2" type="text"
-                                        name="phone4"></td>
+                                    </select> <input class="phone1" type="text" name="phone1">
+                                        - <input class="phone2" type="text" name="phone2"></td>
                                 </c:when>
                                 <c:otherwise>
                                     <td><label>${user.mobile }</label>
@@ -186,10 +197,8 @@ h3 {
                                 <c:when test="${empty user}">
                                     <td><input class="mail" type="text" name="mail"> 
                                             @
-                                        <input type="text" name="mail">
-                                        
                                         <select name="email" style="width: 143px;">
-                                            <option value="직접입력">직접입력</option>
+                                            <option value="선택해주세요">선택해주세요</option>
                                             <option value="naver.com">naver.com</option>
                                             <option value="daum.net">daum.net</option>
                                             <option value="nate.com">nate.com</option>
@@ -206,8 +215,7 @@ h3 {
                             <th>거주지</th>
                             <c:choose>
                                 <c:when test="${empty user}">
-                                    <td><input class="address"  type="text" size="20"
-                                name="name" style="width: 543px;" ></td>
+                                    <td><input class="address"  type="text" size="20" name="address" style="width: 543px;" ></td>
                                 </c:when>
                                 <c:otherwise>
                                     <td><label>${user.address }</label>
@@ -217,37 +225,21 @@ h3 {
                         </tr>
                         <tr>
                             <th>홈페이지 URL</th>
-                            <td><input type="text" size="20"
-                                name="name" style="width: 543px;" ></td>
+                            <td><input type="text" size="20" name="url" style="width: 543px;" ></td>
                         </tr>
                         <tr>
                             <th>이력서 파일첨부 & 포토폴리오 파일첨부</th>
-                            <td><input type="file" name="file1"
-                                size="20" name="name"
-                                style="width: 80%;"> <input
-                                type="file" name="file2" size="20"
-                                name="name"
-                                style="width: 80%; margin-top: 3px;">
-                                <input type="file" name="file3"
-                                size="20" name="name"
-                                style="width: 80%; margin-top: 3px;">
-                                <input type="file" name="file4"
-                                size="20" name="name"
-                                style="width: 80%; margin-top: 3px;">
-                                <input type="file" name="file5"
-                                size="20" name="name"
-                                style="width: 80%; margin-top: 3px;">
+                            <td>
+                            <br><input type="file" name="file1" size="20" name="name" style="width: 25%;">
+                            <br>
                                 <ul>
-                                    <li>이력서는 자유롭게 작성하셔서 등록해 주시기
-                                        바랍니다.</li>
+                                    <li>이력서는 자유롭게 작성하셔서 등록해 주시기 바랍니다.</li>
                                     <li>저희는 지원자의 고유식별정보를 수집하지 않으므로
-                                        이력서에 주민등록번호 등을 기록하지 않도록 유의하여 주시기
-                                        바랍니다.</li>
+                                          이력서에 주민등록번호 등을 기록하지 않도록 유의하여 주시기
+                                          바랍니다.</li>
                                     <li>파일 최대용량은 20MB입니다.</li>
-                                    <li>파일은 최대 5개까지 첨부 가능합니다.</li>
-                                    <li>hwp, doc, xls, ppt, docx,
-                                        xlsx, pptx, pdf 형식의 파일만 첨부
-                                        가능합니다.</li>
+                                    <li>파일은 최대 1개까지 첨부 가능합니다.*(여러개일경우압축해첨부해주세요.)</li>
+                                    <li>hwp, doc, xls, ppt, docx,xlsx, pptx, pdf 형식의 파일만 첨부 가능합니다.</li>
                                 </ul></td>
                         </tr>
                     </tbody>

@@ -40,6 +40,28 @@
     var goWrite = function(  ){
         window.location.href = '/pj_mn20/pj_mn21write' ;
   };
+   var goModify = function(detpno ){
+	    window.location.href = '/pj_mn20/pj_mn21modify/'+detpno ;
+  };
+   
+  var goDelete = function(detpno){
+	  if (!confirm('삭제하시겠습니까?')) {
+		  return false;
+	  }
+	  var f = document.createElement('form');
+      f.setAttribute('method', 'post');
+      f.setAttribute('action', '/pj_mn20/delete');
+      f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+      
+      var i = document.createElement('input');
+      i.setAttribute('type', 'hidden');
+      i.setAttribute('name', 'detpno');
+      i.setAttribute('value', detpno);
+      f.appendChild(i);
+      
+      document.body.appendChild(f);
+      f.submit();   
+  }
   
   function selectEvent(selectObj) {
 	  window.location.href = '/pj_mn20/pj_mn21_jobs?searchWord='+selectObj.value ;
@@ -47,7 +69,7 @@
   
   $(document).ready(function() {
     
-    	$('.title').click( function(){
+	  $('.title').click( function(){
     	$(this).attr('href','/pj_mn20/pj_mn22_view');
     	var title = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
     	
@@ -72,9 +94,7 @@
     	 $(this).parent('td').parent('tr').next('.tr1').toggle();
     }); 
 
-    
-       
-    });
+  });
     
     
     </script>
@@ -162,7 +182,11 @@
                         <td>${detp.detpname }</td>
                         <td><button type="button" class="btu1" ><span>${detp.detptitle }</span> </button></td>
                         <td>${detp.detpperiod } </td>
-                        <td><a class="title" href="#">${detp.detpexpiry }</a></td>
+                        <td>
+                        <c:if test="${detp.detpperiod == '채용시까지'}">
+                        <a class="title" href="#">${detp.detpexpiry }</a>
+                        </c:if>
+                        </td>
                     </tr>
                     
                    <tr class="tr1" >
@@ -172,9 +196,9 @@
                    <c:when test="${empty mgs}">
                     </c:when>
                    <c:otherwise>
-                   <input type="button" value="수정" onclick="javascript:goModify();" />
+                   <input type="button" value="수정" onclick="javascript:goModify(${detp.detpno });" />
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="button" value="삭제" onclick="javascript:goDelete();" />
+                    <input type="button" value="삭제" onclick="javascript:goDelete(${detp.detpno });" />
                     </c:otherwise>
                             </c:choose>
                    </div>

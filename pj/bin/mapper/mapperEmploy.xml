@@ -21,11 +21,12 @@
     
     
     <select id="getEmployList" parameterType="java.util.Map" resultType="ModelEmploy">
-        SELECT detpname, detptitle, detpexpiry, detpperiod, detptitleinfo
+        SELECT detpno,detpname, detptitle, detpexpiry, detpperiod, detptitleinfo
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
                     SELECT  
+                           a.detpno,
                            a.detpname, 
                            a.detptitle, 
                            a.detpexpiry,
@@ -57,5 +58,43 @@
             pj_employ_detp  (     detpname   , detptitle   , detpperiod   , detpexpiry  ,detptitleinfo )
             VALUES     (  #{detpname}, #{detptitle}, #{detpperiod}, #{detpexpiry} , #{detptitleinfo} )
     </insert>   
+   
+    <select id="selectDetpno" resultType="ModelEmploy" parameterType="int">
+      select * from pj_employ_detp where detpno = #{detpno}
+    </select>
     
- </mapper>
+     <update id="updateEmploy" parameterType="ModelEmploy">
+        UPDATE pj_employ_detp   
+           <set> 
+                 <if test = "detptitle!=null and detptitle!=''" >
+                 detptitle   = #{detptitle},   
+                 </if>
+                 <if test = "detpperiod  !=null and detpperiod!=''" >
+                detpperiod   = #{detpperiod},  
+                 </if>
+                 <if test = "detptitleinfo    !=null" >
+                detptitleinfo  = #{detptitleinfo}
+                 </if>
+           </set>
+         WHERE  1 = 1 
+              AND detpno=#{detpno}
+    </update>
+    
+    <delete id="deleteEmploy" parameterType="ModelEmploy">
+        DELETE FROM pj_employ_detp 
+         WHERE 1 = 1 
+          <if test="detpno != null " >
+          AND detpno  = #{detpno}
+          </if>
+    </delete>
+    
+    <select id="selectuploaduser" resultType="ModelEmployUserFile">
+        SELECT a.detpname,a.detptitle,b.name,b.phone,b.mail,b.address,b.url,b.fileNameOrig 
+        FROM pj_employ_upload_user b inner join pj_employ_detp a on a.detpno=b.detpno 
+        WHERE 1=1
+        <if test="detpno != null " >
+         AND b.detpno = #{detpno}
+         </if>
+    </select>
+    
+ </mapper> 

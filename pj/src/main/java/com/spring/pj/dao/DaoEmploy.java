@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.pj.inf.IDaoEmploy;
 import com.spring.pj.model.ModelEmploy;
+import com.spring.pj.model.ModelEmployUserFile;
 import com.spring.pj.model.ModelQnaBoard;
 @Repository
 public class DaoEmploy implements IDaoEmploy {
@@ -50,6 +51,22 @@ public class DaoEmploy implements IDaoEmploy {
     public List<ModelEmploy> selectDetpName() {
         return session.selectList("mapper.mapperEmploy.selectDetpName");
     }
+
+    @Override
+    public ModelEmploy selectDetpno(int deptno) {
+        return session.selectOne("mapper.mapperEmploy.selectDetpno", deptno);
+    }
+
+    @Override
+    public int updateEmploy(ModelEmploy employ) {
+        return session.update("mapper.mapperEmploy.updateEmploy", employ);
+    }
+
+    @Override
+    public int deleteEmploy(ModelEmploy employ) {
+        return session.delete("mapper.mapperEmploy.deleteEmploy", employ);
+    }
+
    
     
 }
