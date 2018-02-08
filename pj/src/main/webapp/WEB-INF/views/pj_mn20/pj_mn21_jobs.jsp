@@ -43,27 +43,26 @@
    var goModify = function(detpno ){
 	    window.location.href = '/pj_mn20/pj_mn21modify/'+detpno ;
   };
-   var goDelete = function(derpno){
-	   $.ajax({
-		   url : '/pj_mn20/delete'
-		    , data: JSON.stringify( {'derpno':derpno} )        // 사용하는 경우에는 JSON.stringify( { 'data1':'test1', 'data2':'test2' } )
-		    , type: 'post'       // get, post
-		    , timeout: 30000    // 30초
-		    , dataType: 'json'  // text, html, xml, json, jsonp, script
-		    , headers: {  'Accept': 'application/json', 'Content-Type': 'application/json' }
-		    , beforeSend : function() {
-		        // 통신이 시작되기 전에 이 함수를 타게 된다.
-		     }
-		}).done( function(data, textStatus, xhr ){
-		    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-			alert(data); 
-		}).fail( function(xhr, textStatus, error ) {
-		    // 통신이 실패했을 때 이 함수를 타게 된다.
-			alert(error);
-		}).always( function(data, textStatus, xhr ) {
-		    // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
-		});
-   }
+   
+  var goDelete = function(detpno){
+	  if (!confirm('삭제하시겠습니까?')) {
+		  return false;
+	  }
+	  var f = document.createElement('form');
+      f.setAttribute('method', 'post');
+      f.setAttribute('action', '/pj_mn20/delete');
+      f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+      
+      var i = document.createElement('input');
+      i.setAttribute('type', 'hidden');
+      i.setAttribute('name', 'detpno');
+      i.setAttribute('value', detpno);
+      f.appendChild(i);
+      
+      document.body.appendChild(f);
+      f.submit();   
+  }
+  
   function selectEvent(selectObj) {
 	  window.location.href = '/pj_mn20/pj_mn21_jobs?searchWord='+selectObj.value ;
   };

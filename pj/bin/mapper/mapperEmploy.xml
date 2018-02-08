@@ -88,5 +88,13 @@
           </if>
     </delete>
     
+    <select id="selectuploaduser" resultType="ModelEmployUserFile">
+        SELECT a.detpname,a.detptitle,b.name,b.phone,b.mail,b.address,b.url,b.fileNameOrig 
+        FROM pj_employ_upload_user b inner join pj_employ_detp a on a.detpno=b.detpno 
+        WHERE 1=1
+        <if test="detpno != null " >
+         AND b.detpno = #{detpno}
+         </if>
+    </select>
     
  </mapper> 
