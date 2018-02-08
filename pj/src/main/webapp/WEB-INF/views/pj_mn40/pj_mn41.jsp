@@ -49,23 +49,27 @@ div#list-menu {
 }
 
 th {
-    color: #2e3532;
-    border-top: 3px solid #109173;
-    border-bottom: 3px solid #109173;
+      color: #2e3532;
+    border-top: 6px solid rgba(150, 126, 126, 0.5);
+    border-bottom: 6px solid rgba(150, 126, 126, 0.5);
     
 }
 
 tr {
     cursor: pointer;
 }
+/* 
+a:HOVER {  
 
-tr:hover {
-    background: pink;
+        text-decoration: underline; color: #0F0; font-weight: bold;
+
 }
+ */
+
 
 td {
-    padding-top: 3px;
-    padding-bottom: 3px;
+  padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom: silver 1px solid;
     text-align: center;
 }
@@ -102,8 +106,19 @@ fr {
 <script src="/resources/js/jquery.isotope.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
 <script type="text/javascript">
+
+var goList = function(page) {
+    location.href = "/pj_mn40/pj_mn41?searchWord=${searchWord}&curPage="
+            + page;
+};
 var goWrite = function(){
-	  window.location.href = '/pj_mn40/pj_mn42' ;
+	if(${empty user}===true){
+        alert('로그인하세요');
+        location.href = "/login";
+    }
+    else {
+        location.href = "/pj_mn40/pj_mn42";
+    }
 	
 };
 </script>
@@ -144,6 +159,7 @@ var goWrite = function(){
                 <th style="width: 60px;text-align: center;">NO</th>
                 <th style="text-align: center;">교육 목록</th>
                 <th style="width: 100px;text-align: center;">날짜</th>
+                <th style="width: 100px;text-align: center;">마감일</th>
                 <th style="width: 60px;">조회수</th>
             </tr>
             <!--  반복 구간 시작 -->
@@ -152,6 +168,7 @@ var goWrite = function(){
                         <td>${training.articleno }</td>
                         <td>${training.title }</td>
                         <td align="center"><fmt:formatDate  value="${training.regdate }" pattern="yyyy-MM-dd"/>  </td>
+                        <td><fmt:formatDate  value="${training.enddate }" pattern="yyyy-MM-dd"/></td>
                         <td>${training.hit }</td>
                     </tr>
                  </c:forEach>
@@ -163,22 +180,22 @@ var goWrite = function(){
            <br>
         <div id="paging" style="text-align: center;">
             <c:if test="${prevLink > 0 }">
-                <a href="javascript:goList( ${prevLink} )">[이전]</a>
+                <a href="javascript:goList( ${prevLink})">[이전]</a>
             </c:if>
 
             <c:forEach var="i" items="${pageLinks }" varStatus="stat">
                 <c:choose>
                     <c:when test="${curPage == i}">
-                        <span class="bbs-strong">${i }</span>
+                        <span class="bbs-strong"><b>${i }</b></span>
                     </c:when>
                     <c:otherwise>
-                        <a href="javascript:goList( ${i} )">${i }</a>
+                        <a href="javascript:goList( ${i})">${i }</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <c:if test="${nextLink > 0 }">
-                <a href="javascript:goList( ${nextLink} )">[다음]</a>
+                <a href="javascript:goList( ${nextLink})">[다음]</a>
             </c:if>
         </div>
 
