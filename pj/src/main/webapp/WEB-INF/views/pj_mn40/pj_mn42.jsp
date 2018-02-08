@@ -13,7 +13,7 @@
 <meta name="Keywords" content="게시판 새글쓰기" />
 <meta name="Description" content="게시판 새글쓰기" />
 
-<title>${boardnm }</title>
+
 
 
 <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">

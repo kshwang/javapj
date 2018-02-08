@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -12,7 +12,7 @@
 <meta name="Keywords" content="게시판 목록" />
 <meta name="Description" content="게시판 목록" />
 
-<title>교육</title>
+<!-- <title>교육</title> -->
 
 
 <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
@@ -52,6 +52,7 @@ th {
     color: #2e3532;
     border-top: 3px solid #109173;
     border-bottom: 3px solid #109173;
+    
 }
 
 tr {
@@ -106,6 +107,15 @@ var goWrite = function(){
 	
 };
 </script>
+<script>
+        $(document).ready( function(event){
+            $('tr[articleno]').click( function(event){
+                var articleno = $(this).attr('articleno');
+                location.href = '/pj_mn40/pj_mn43/' + articleno;               
+            });
+        
+        });
+    </script>
 </head>
 <body>
 
@@ -127,21 +137,21 @@ var goWrite = function(){
     </div>
 
     <!-- 본문 시작 -->
-    <h1>${boardnm }</h1>
+    
     <div id="bbs">
         <table>
             <tr>
-                <th style="width: 60px;">NO</th>
+                <th style="width: 60px;text-align: center;">NO</th>
                 <th style="text-align: center;">교육 목록</th>
-                <th style="width: 84px;">날짜</th>
+                <th style="width: 100px;text-align: center;">날짜</th>
                 <th style="width: 60px;">조회수</th>
             </tr>
             <!--  반복 구간 시작 -->
             <c:forEach var="training" items="${traininglist }" varStatus="status">
-                    <tr>
+                    <tr articleno="${training.articleno }" >
                         <td>${training.articleno }</td>
                         <td>${training.title }</td>
-                        <td>${training.regdate } </td>
+                        <td align="center"><fmt:formatDate  value="${training.regdate }" pattern="yyyy-MM-dd"/>  </td>
                         <td>${training.hit }</td>
                     </tr>
                  </c:forEach>
