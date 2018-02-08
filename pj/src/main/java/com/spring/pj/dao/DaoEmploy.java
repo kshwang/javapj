@@ -50,6 +50,21 @@ public class DaoEmploy implements IDaoEmploy {
     public List<ModelEmploy> selectDetpName() {
         return session.selectList("mapper.mapperEmploy.selectDetpName");
     }
+
+    @Override
+    public ModelEmploy selectDetpno(int deptno) {
+        return session.selectOne("mapper.mapperEmploy.selectDetpno", deptno);
+    }
+
+    @Override
+    public int updateEmploy(ModelEmploy employ) {
+        return session.update("mapper.mapperEmploy.updateEmploy", employ);
+    }
+
+    @Override
+    public int deleteEmploy(ModelEmploy employ) {
+        return session.delete("mapper.mapperEmploy.deleteEmploy", employ);
+    }
    
     
 }

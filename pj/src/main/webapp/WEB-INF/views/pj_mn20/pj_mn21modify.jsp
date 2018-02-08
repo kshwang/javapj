@@ -119,21 +119,24 @@ textarea{
                     <thead>
                         <tr>
                             <th colspan="2"><b>모집 정보 수정</th>
-
+                               <c:if test="${not empty msg }">
+                                <p style="color: red;">정보 수정에 실패했습니다.</p>
+                                </c:if> 
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th>모집부분</th>
                             <td>
-                            ${detpname }
+                            <input type="hidden" name="detpno" value="${detp.detpno }"></input>
+                            ${detp.detpname }
                             </td>
 
                         </tr>
                         <tr>
                             <th>모집분야</th>
                            <td><input class="jobtitle" type="text"
-                                        size="20" name="detptitle" value="${detptitle }"
+                                        size="20" name="detptitle" value="${detp.detptitle }"
                                         style="width: 304px;">
                            </td>
                         </tr>
@@ -142,7 +145,7 @@ textarea{
                        <td class="td1" colspan="4">
                        <p>
                             <textarea cols="40" rows="25" name="detptitleinfo">
-                              ${detptitleinfo}
+                              ${detp.detptitleinfo}
                                </textarea>
                         </p>
                        </td>
@@ -150,13 +153,13 @@ textarea{
                         <tr>
                             <th>모집 기간</th>
                             <td>
-                            <input class="period" type="text" name="detpperiod" value="${detpperiod} }">
+                            <input class="period" type="text" name="detpperiod" value="${detp.detpperiod} ">
                              </td>
                         </tr>
                         <tr>
                             <th>지원</th>
                             <td>
-                            <input class="empexpiry" type="text" name="detpexpiry" value="${detpexpiry }">
+                            <input class="empexpiry" type="text" name="detpexpiry" value="${detp.detpexpiry }">
                              </td>
                         </tr>
                     </tbody>

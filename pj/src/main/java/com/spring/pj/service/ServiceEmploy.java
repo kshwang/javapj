@@ -87,5 +87,41 @@ public class ServiceEmploy implements IServiceEmploy {
          }
         return rs;
     }
+
+    @Override
+    public ModelEmploy selectDetpno(int deptno) {
+        ModelEmploy rs = null;
+        try {
+             rs = dao.selectDetpno(deptno);
+        } catch (Exception e) {
+            logger.error("selectDetpno" + e.getMessage());
+            throw e;
+        }
+        return rs;
+    }
+
+    @Override
+    public int updateEmploy(ModelEmploy employ) {
+        int rs=-1;
+        try {
+            rs = dao.updateEmploy(employ);
+        } catch (Exception e) {
+            logger.error("updateEmploy" + e.getMessage());
+            throw e;
+        }
+        return rs;
+    }
+
+    @Override
+    public int deleteEmploy(ModelEmploy employ) {
+       int rs=-1;
+    try {
+        rs = dao.deleteEmploy(employ);
+    } catch (Exception e) {
+        logger.error("deleteEmploy" + e.getMessage());
+        throw e;
+    }
+        return rs;
+    }
     
 }

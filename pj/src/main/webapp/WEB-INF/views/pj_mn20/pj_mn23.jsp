@@ -41,8 +41,14 @@ $(document).ready(function() {
        var phone2=$('.phone2').val();
        var mail =$('.mail').val();
        var address = $('.address').val();
+       var email = $('select[name="email"]').val();
+       var selectphone =$('select[name="phone"]').val();
     	if(name === '' ){
             alert('이름을적어주세요.');
+            return false;
+        }
+    	if(selectphone ==='선택'){
+            alert('핸드폰번호를선택해주세요');
             return false;
         }
         if(phone1 ===''){
@@ -56,6 +62,10 @@ $(document).ready(function() {
         if(mail === ''){
         	alert('메일을 적어주세요.');
         	return false;
+        } 
+        if(email ==='선택해주세요'){
+            alert('이메일 주소를 선택해주세요.');
+            return false;
         }
         if(address === ''){
             alert('주소를 적어주세요.');
@@ -69,8 +79,9 @@ $(document).ready(function() {
     $('.no').click( function(){
          $('form').attr('action','/pj_mn20/pj_mn21_jobs');
     });
+     });
     
-    });
+    
     </script>
 <style type="text/css">
 table {
@@ -186,10 +197,8 @@ h3 {
                                 <c:when test="${empty user}">
                                     <td><input class="mail" type="text" name="mail"> 
                                             @
-                                        <input type="text" name="mail">
-                                        
                                         <select name="email" style="width: 143px;">
-                                            <option value="직접입력">직접입력</option>
+                                            <option value="선택해주세요">선택해주세요</option>
                                             <option value="naver.com">naver.com</option>
                                             <option value="daum.net">daum.net</option>
                                             <option value="nate.com">nate.com</option>
@@ -222,32 +231,19 @@ h3 {
                         </tr>
                         <tr>
                             <th>이력서 파일첨부 & 포토폴리오 파일첨부</th>
-                            <td><input type="file" name="file1"
-                                size="20" name="name"
-                                style="width: 80%;"> <input
-                                type="file" name="file2" size="20"
-                                name="name"
-                                style="width: 80%; margin-top: 3px;">
-                                <input type="file" name="file3"
-                                size="20" name="name"
-                                style="width: 80%; margin-top: 3px;">
-                                <input type="file" name="file4"
-                                size="20" name="name"
-                                style="width: 80%; margin-top: 3px;">
-                                <input type="file" name="file5"
-                                size="20" name="name"
-                                style="width: 80%; margin-top: 3px;">
+                            <td><input type="file" name="file1" size="20" name="name" style="width: 25%;"> 
+                                    <input type="file" name="file2" size="20" name="name" style="width: 25%; margin-top: 3px;">
+                                    <input type="file" name="file3" size="20" name="name" style="width: 25%; margin-top: 3px;">
+                                    <input type="file" name="file4" size="20" name="name"  style="width:25%; margin-top: 3px;">
+                                    <input type="file" name="file5" size="20" name="name" style="width: 25%; margin-top: 3px;">
                                 <ul>
-                                    <li>이력서는 자유롭게 작성하셔서 등록해 주시기
-                                        바랍니다.</li>
+                                    <li>이력서는 자유롭게 작성하셔서 등록해 주시기 바랍니다.</li>
                                     <li>저희는 지원자의 고유식별정보를 수집하지 않으므로
-                                        이력서에 주민등록번호 등을 기록하지 않도록 유의하여 주시기
-                                        바랍니다.</li>
+                                          이력서에 주민등록번호 등을 기록하지 않도록 유의하여 주시기
+                                          바랍니다.</li>
                                     <li>파일 최대용량은 20MB입니다.</li>
                                     <li>파일은 최대 5개까지 첨부 가능합니다.</li>
-                                    <li>hwp, doc, xls, ppt, docx,
-                                        xlsx, pptx, pdf 형식의 파일만 첨부
-                                        가능합니다.</li>
+                                    <li>hwp, doc, xls, ppt, docx,xlsx, pptx, pdf 형식의 파일만 첨부 가능합니다.</li>
                                 </ul></td>
                         </tr>
                     </tbody>
