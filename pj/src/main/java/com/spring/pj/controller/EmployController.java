@@ -1,6 +1,7 @@
 package com.spring.pj.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
 import com.spring.pj.inf.IServiceEmploy;
 import com.spring.pj.model.ModelEmploy;
+import com.spring.pj.model.ModelEmployUserFile;
 import com.spring.pj.model.ModelUser;
 
 @Controller
@@ -144,6 +146,8 @@ public class EmployController {
         int end = paging.getEndRecord();
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        
+        
         if( user.getUserclass() >0){
             // 권한 없음 메세지 띄우기 
             return "redirect:/pj_mn20/pj_mn21_jobs";
@@ -228,8 +232,7 @@ public class EmployController {
     }
 	
 	@RequestMapping(value = "/pj_mn20/delete", method = RequestMethod.POST)
-	@ResponseBody
-    public String delete( Model model , HttpSession session
+     public String delete( Model model , HttpSession session
                                                                         , @ModelAttribute ModelEmploy emp
                                                                         , RedirectAttributes rttr) {
         logger.info("/pj_mn20/delete :post");
@@ -240,11 +243,13 @@ public class EmployController {
        int rs =svremp.deleteEmploy(emp);
        
         if( rs >0){
-            return "redirect:/pj_mn20/pj_mn21_jobs";
+        return "redirect:/pj_mn20/pj_mn21_jobs";
         }
         else{
             rttr.addFlashAttribute("msg", WebConstants.MSG_FAIL_DELETE);
             return "redirect:/pj_mn20/pj_mn21modify";
         }
     }
+	
+	
 }

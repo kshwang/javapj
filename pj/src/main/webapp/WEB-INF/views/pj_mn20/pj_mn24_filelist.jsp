@@ -100,7 +100,7 @@
            
             </div>
             <br>
-            <div>회원 지원현황</div>
+            <div> 지원현황</div>
             <table>
                 <tr class="sthead">
                     <th>모집부분</th>
@@ -116,7 +116,7 @@
                 <c:forEach var="empfile" items="${empfilelist }" varStatus="status">
                     <tr>
                         <td>x</td>
-                        <td>${empfile.jobname }</td>
+                        <td>${empfile.name }</td>
                         <td>${empfile.jobtitle } </td>
                         <td>${empfile.userid }</td>
                         <td>${empfile.phone }</td>
@@ -129,37 +129,7 @@
               </table>
                <br>
                 <br>
-                
-            <div>비회원 지원현황</div>
-             <table>
-                <tr class="sthead">
-                    <th>모집부분</th>
-                    <th>모집분야</th>
-                    <th>이름</th>
-                    <th>핸드폰번호</th>
-                    <th>mail</th>
-                    <th>주소</th>
-                    <th>url</th>
-                    <th>포토폴리오</th>
-                </tr>
-                
-                <c:forEach var="empfile" items="${empfilelist }" varStatus="status">
-                    <tr>
-                        <td>x</td>
-                        <td>${empfile.jobname }</td>
-                        <td>${empfile.jobtitle } </td>
-                        <td>${empfile.userid }</td>
-                        <td>${empfile.phone }</td>
-                        <td>${empfile.mail }</td>
-                        <td>${empfile.address }</td>
-                        <td>${empfile.url }</td>
-                        <td>${empfile.fileno }</td>
-                    </tr>
-                  </c:forEach>
-              </table>
-            <br>
-            <br>
-            
+              
             <div id="paging" style="text-align: center;">
             <form id="" action="" method="post" enctype="application/x-www-form-urlencoded">
                         <c:choose>

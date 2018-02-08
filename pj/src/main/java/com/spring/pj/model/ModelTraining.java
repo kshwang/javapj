@@ -10,6 +10,7 @@ public class ModelTraining {
     String  email     ;
     Integer hit       ;
     Date    regdate   ;
+    Date    enddate   ;
     Boolean UseYN     ;
     String  InsertUID ;     
     Date    InsertDT  ;
@@ -57,6 +58,12 @@ public class ModelTraining {
     }
     public void setRegdate(Date regdate) {
         this.regdate = regdate;
+    }
+    public Date getEnddate() {
+        return enddate;
+    }
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
     }
     public Boolean getUseYN() {
         return UseYN;
@@ -114,7 +121,7 @@ public class ModelTraining {
     public String toString() {
         return "ModelTraining [articleno=" + articleno
                 + ", title=" + title + ", content=" + content + ", email="
-                + email + ", hit=" + hit + ", regdate=" + regdate + ", UseYN="
+                + email + ", hit=" + hit + ", regdate=" + regdate + ", enddate=" + enddate +", UseYN="
                 + UseYN + ", InsertUID=" + InsertUID + ", InsertDT=" + InsertDT
                 + ", UpdateUID=" + UpdateUID + ", UpdateDT=" + UpdateDT + "]";
     }

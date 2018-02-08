@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
@@ -198,6 +200,127 @@ public class TrainingController {
         
         String url = String.format("redirect:/pj_mn40/pj_mn43/%s",  insertedpk );
         return url; 
+    }
+    @RequestMapping(value = "/pj_mn40/pj_mnDL", method = RequestMethod.POST)
+    public String download( Model model ) {
+        logger.info("/pj_mn40/pj_mnDL");
+        
+        return "/pj_mn40/pj_mnDL";
+    }
+    @RequestMapping(value = "/pj_mn40/pj_mnMD/{articleno}", method = RequestMethod.GET)
+    public String articlemodify( Model model
+            
+            , @PathVariable Integer articleno
+            , @RequestParam(defaultValue="1" ) Integer curPage
+            , @RequestParam(defaultValue=""  ) String searchWord
+            , HttpServletRequest request) {
+        logger.info("/pj_mn40/pj_mnMD :: get ");
+        model.addAttribute("actionurl" , request.getRequestURL().toString() );   
+        model.addAttribute("articleno" , articleno                      );
+        model.addAttribute("curPage"   , curPage                        );
+        model.addAttribute("searchWord", searchWord                     );
+        model.addAttribute("thisArticle"   , srvboard.getArticle(articleno)       );
+        model.addAttribute("attachFileList", srvboard.getAttachFileList(articleno));
+        
+        return "pj_mn40/pj_mnMD";
+    }
+         
+    @RequestMapping(value = "/pj_mn40/pj_mnMD/{articleno}", method = RequestMethod.POST)
+    public String articlemodify( Model model
+            , @ModelAttribute ModelTraining setValue
+            , @RequestParam(value="upload" ) MultipartFile upload
+            , @RequestParam(defaultValue="1" ) Integer curPage
+            , @RequestParam(defaultValue=""  ) String searchWord ) {
+        logger.info("/pj_mn40/pj_mnMD :: post");
+        
+        // 1. client의 파일을 server로 upload.
+        // 2. tb_bbs_attachfile 테이블에 insert.
+        // 3. tb_bbs_article table update.
+        
+        // client의 파일을 server로 upload.
+        if( !upload.getOriginalFilename().isEmpty() ) {
+            
+            // 서버의 업로드 폴더 존재 여부 체크. 없으면 폴더 생성
+            java.io.File uploadDir = new java.io.File( WebConstants.UPLOAD_PATH );
+            if( !uploadDir.exists() ) uploadDir.mkdir();
+            
+            // 클라이언트의 파일을 서버로 복사
+            String fileName = upload.getOriginalFilename();
+            String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+            String newFile  = WebConstants.UPLOAD_PATH + tempName; // c:/upload/20180123115415
+            java.io.File serverfile = new java.io.File( newFile );
+            
+            try {
+                upload.transferTo( serverfile ); // 실제로 파일 카피 발생.
+            } catch (IllegalStateException e) {
+                logger.error("articlewrite" + e.getMessage() );
+            } catch (IOException e) {
+                logger.error("articlewrite" + e.getMessage() );
+            }
+            
+            // 파일을 서버로 복사 성공 여부 체크. 
+            // 성공한 경우만 tb_bbs_attachfile 테이블에 insert.
+            if( serverfile.exists() ) {
+                // 3. tb_bbs_attachfile 테이블에 insert.
+                ModelTrainingFile attachFile = new ModelTrainingFile();
+                attachFile.setArticleno( setValue.getArticleno()  );
+                attachFile.setFilenameorig( fileName );
+                attachFile.setFilenametemp( tempName );
+                attachFile.setFilesize( serverfile.length() );
+                attachFile.setFiletype( upload.getContentType() );
+                
+                int result = srvboard.insertAttachFile(attachFile);
+            }
+        }
+        
+        
+        ModelTraining whereValue = new ModelTraining(  setValue.getArticleno() );
+        int result = srvboard.updateArticle(setValue, whereValue);
+        
+        String url = String.format("redirect:/pj_mn40/pj_mn43/%s"
+                                       , setValue.getArticleno() );
+        return url; 
+    }
+    
+
+    
+    @RequestMapping(value = "/pj_mn40/articledelete", method = RequestMethod.POST)
+    public String articledelete( Model model
+           
+            , @RequestParam Integer articleno
+            , @RequestParam(defaultValue="1" ) Integer curPage
+            , @RequestParam(defaultValue=""  ) String searchWord
+            , RedirectAttributes rttr ) {
+        logger.info("/pj_mn40/articledelete :: post");
+        
+        ModelTraining tra = new ModelTraining();
+        tra.setArticleno(articleno);
+        
+        int result = srvboard.deleteArticle(tra); // model 자체를 넘겨받음.
+        
+        String url = "";
+        if( result == 1) {            
+            url = String.format("redirect:/pj_mn40/pj_mn41?curPage=%d&searchWord=%s" , curPage, searchWord );
+        }
+        else {
+           /* rttr.addFlashAttribute("msg"  , WebConstants.MSG_FAIL_DELETE_ARTICLE );*/
+            rttr.addAttribute("curPage"   , curPage);
+            rttr.addAttribute("searchWord", searchWord);
+            
+            url = String.format("redirect:/pj_mn40/pj_mn43/%s",  articleno);
+        }
+        return url;
+    }
+    
+    // REST 서비스 : ajax 이용.
+    @RequestMapping(value = "/pj_mn40/deleteattachfile", method = RequestMethod.POST)
+    @ResponseBody
+    public int deleteattachfile( Model model
+            , @RequestParam Integer attachfileno ) {
+        logger.info("/pj_mn40/deleteattachfile :: post");        
+        ModelTrainingFile attachFile = new ModelTrainingFile(attachfileno);        
+        int result = srvboard.deleteAttachFile(attachFile);        
+        return result; 
     }
     
 }

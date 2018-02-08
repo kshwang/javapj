@@ -153,13 +153,13 @@ textarea{
                         <tr>
                             <th>모집 기간</th>
                             <td>
-                            <input class="period" type="text" name="detpperiod" value="${detp.detpperiod} ">
+                            <input class="period" type="text" name="detpperiod" value="${detp.detpperiod}">
                              </td>
                         </tr>
                         <tr>
                             <th>지원</th>
                             <td>
-                            <input class="empexpiry" type="text" name="detpexpiry" value="${detp.detpexpiry }">
+                            <input class="empexpiry" type="text" name="detpexpiry" value="${detp.detpexpiry}">
                              </td>
                         </tr>
                     </tbody>

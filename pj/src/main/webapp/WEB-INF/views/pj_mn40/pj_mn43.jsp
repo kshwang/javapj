@@ -11,8 +11,6 @@
 <meta name="Keywords" content="게시판 상세보기" />
 <meta name="Description" content="게시판 상세보기" />
 
-<title>내용</title>
-
 <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../../resources/css/animate.css">
 <link rel="stylesheet" href="../../resources/css/font-awesome.min.css">
@@ -53,21 +51,19 @@ div fl {
 
 th {
     color: #2e3532;
-    border-top: 3px solid #109173;
-    border-bottom: 3px solid #109173;
+    border-top: 6px solid rgba(150, 126, 126, 0.5);
+    border-bottom: 6px solid rgba(150, 126, 126, 0.5);
 }
 
-tr {
+/* tr {
     cursor: pointer;
-}
+} */
 
-tr:hover {
-    background: pink;
-}
+
 
 td {
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom: silver 1px solid;
     text-align: center;
 }
@@ -77,8 +73,15 @@ td a {
     text-decoration: none;
 }
 
-td a:hover {
+/* td a:hover {
     color: #555;
+    text-decoration: underline;
+} */
+span {
+    cursor: pointer;
+} 
+span:hover{
+color: #555;
     text-decoration: underline;
 }
 
@@ -97,22 +100,33 @@ div.fl {
    
 }
 h6{
+font-size: 20px;
     text-align: right;
     margin-right: auto;
     margin-left: auto;
     width: 1140px;
     }
-    p{
+    
+  /*  p{
+    
     text-align: center;
-    }
-div.fr {
-
-     
+    
+    }  */
+div.fr {     
     margin-right: auto;
     margin-left: auto;
     width: 1370px;
         text-align: center;
 }
+
+#next-prev{
+    font-size: 15px;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1170px;
+}
+
 </style>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -137,28 +151,34 @@ div.fr {
         });
     </script>
 
+
 <script>
         var goView = function( articleno ) {
         	location.href = '/pj_mn40/pj_mn43/'+ articleno + location.search;
         };
         
-     /*    var goModify = function( ){
-        	location.href = '/board/articlemodify/${boardcd}/${articleno}'; 
-        }; */
-       /*  
-        var goDelete = function( ){ 
-        	// post 로 처리해야함.
-        	// post 처리하는 방법에는 1. ajax. 2. form을 이용하는 방법.
+        var goModify = function( ){
+        	location.href = '/pj_mn40/pj_mnMD/${articleno}'; 
+        }; 
+       
+        var goDelete = function(articleno ){ 
+        
             var f = document.createElement('form');
         	f.setAttribute('method', 'post');
-        	f.setAttribute('action', '/board/articledelete/${boardcd}/${articleno}');
+        	f.setAttribute('action', '/pj_mn40/articledelete');
         	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+        	
+        	var i = document.createElement('input');
+        	i.setAttribute('type', 'hidden');
+        	i.setAttribute('name', 'articleno');
+        	i.setAttribute('value', articleno);            
+            f.appendChild(i);
         	
         	document.body.appendChild( f );
         	
         	f.submit();
         };
-         */
+
         var goList = function( curPage, redirect ) {
         	if( redirect === false )
                 location.href = '/pj_mn40/pj_mn43/${articleno}?curPage='+ curPage;
@@ -199,23 +219,26 @@ div.fr {
 </head>
 <body>
 
-    <div id="wrap">
-
-        <div id="header">
-            <%@ include file="../header.jsp"%>
+ <%@ include file="../header.jsp"%>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="portfolios">
+                    <div class="text-center">
+                        <h2>교육</h2>
+                        <p>
+                            이번 달 교육입니다. <br>
+                        </p>
+                    </div>
+                    <hr>
+                </div>
+            </div>
         </div>
-
-        <%--     <div id="main-menu">
-        <%@ include file="../inc/main-menu.jsp" %>
-    </div> 
- --%>
-        <div id="container">
-
-            <div id="content" style="min-height: 800px;">
-                <div id="url-navi">BBS</div>
+    </div>
 
                 <!-- 본문 시작 -->
-                <h1>${boardnm }</h1>
+               
 
                 <c:if test="${not empty msg }">
                     <!-- 오류 message 출력 -->
@@ -225,7 +248,7 @@ div.fr {
                 <div id="bbs">
                     <table>
                         <tr>
-                            <th style="text-align: left; width: 70px;">교육
+                            <th style="text-align: left; width: 70px;">${thisArticle.articleno }
                                 </th>
                             <th style="text-align: center; color: #555;">${thisArticle.title }</th>
                             <th style="width: 50px;">DATE</th>
@@ -238,7 +261,7 @@ div.fr {
                     <div id="gul-content" >
                         <h6>작성자 ${thisArticle.email }, 조회수
                             ${thisArticle.hit }</h6>
-                        <p>${thisArticle.content }</p>
+                        <p style="text-align: center;">${thisArticle.content }</p>
                         <p id="file-list" style="text-align: right;">
                             <c:forEach var="file"
                                 items="${attachFileList }"
@@ -289,13 +312,15 @@ div.fr {
 
                     <div id="view-menu">
                         <div class="fl">
+                              <input type="button" value="목록"
+                                onclick="javascript:goList( ${curPage } );" />
                             <input type="button" value="수정"
-                                onclick="javascript:goModify();" /> <input
-                                type="button" value="삭제"
-                                onclick="javascript:goDelete();" />
+                                onclick="javascript:goModify();" />                            
+                                <input type="button" value="삭제"
+                                onclick="javascript:goDelete(${thisArticle.articleno });" />
                         </div>
 
-                        <div class="fr">
+                      <%--   <div class="fr">
                             <c:if test="${nextArticle != null }">
                                 <input type="button" value="다음글"
                                     onclick="javascript:goView( ${nextArticle.articleno } );" />
@@ -308,20 +333,22 @@ div.fr {
                             </c:if>
                         
                         
-                        </div>
+                        </div> --%>
                     </div>
 
                     <table id="bbs" style="clear: both;">
                         <tr>
                             <th style="width: 60px; text-align: center;">NO</th>
                             <th style="text-align: center;">교육 목록</th>
-                            <th style="width: 100px; text-align: center;">날짜</th>
+                            <th style="width: 100px; text-align: center;">등록 날짜</th>
+                            <th style="width: 100px; text-align: center;">마감일</th>
                             <th style="width: 60px;">조회수</th>
                         </tr>
 
                         <!--  반복 구간 시작 -->
                         <c:forEach var="training" items="${articleList }"
                             varStatus="status">
+                            
                             <tr articleno="${training.articleno}">
                                 <!--  사용자 속성 추가: articleno -->
                                 <td style="text-align: center;"><c:choose>
@@ -343,7 +370,11 @@ div.fr {
                                 <td style="text-align: center;"><fmt:formatDate
                                         pattern="yyyy-MM-dd"
                                         value="${training.regdate }" /></td>
+                                <td style="text-align: center;"><fmt:formatDate
+                                        pattern="yyyy-MM-dd"
+                                        value="${training.enddate }" /></td>
                                 <td style="text-align: center;">${training.hit }</td>
+                                
                             </tr>
                         </c:forEach>
                         <!--  반복 구간 끝 -->
@@ -351,15 +382,14 @@ div.fr {
 
                     <div id="paging" style="text-align: center;">
                         <c:if test="${prevLink > 0 }">
-                            <a
-                                href="javascript:goList( ${prevLink}, false )">[이전]</a>
+                            <a href="javascript:goList( ${prevLink}, false )">[이전]</a>
                         </c:if>
 
                         <c:forEach var="i" items="${pageLinks }"
                             varStatus="stat">
                             <c:choose>
                                 <c:when test="${curPage == i}">
-                                    <span class="bbs-strong">${i }</span>
+                                    <span class="bbs-strong"><b>${i }</b></span>
                                 </c:when>
                                 <c:otherwise>
                                     <a

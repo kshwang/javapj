@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.pj.inf.IDaoEmploy;
 import com.spring.pj.model.ModelEmploy;
+import com.spring.pj.model.ModelEmployUserFile;
 import com.spring.pj.model.ModelQnaBoard;
 @Repository
 public class DaoEmploy implements IDaoEmploy {
@@ -65,6 +66,7 @@ public class DaoEmploy implements IDaoEmploy {
     public int deleteEmploy(ModelEmploy employ) {
         return session.delete("mapper.mapperEmploy.deleteEmploy", employ);
     }
+
    
     
 }
