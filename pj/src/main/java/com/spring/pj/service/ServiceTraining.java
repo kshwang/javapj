@@ -5,14 +5,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.spring.pj.inf.IDaoTraining;
 import com.spring.pj.inf.IServiceTraining;
 import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelTraining;
-import com.spring.pj.model.ModelTrainingBoard;
 import com.spring.pj.model.ModelTrainingFile;
 
 @Service
@@ -22,136 +20,37 @@ public class ServiceTraining implements IServiceTraining {
             .getLogger(ServiceTraining.class);
     
     @Autowired
-    IDaoTraining          dao;
+    IDaoTraining daotrn;
     
-    @Qualifier("daoboard")
+/*    @Qualifier("daoboard")
     private IDaoTraining  daoboard;
     
     public ServiceTraining() {
         super();
-    }
-    
+    }*/
     @Override
-    public String getBoardName(String boardcd) {
+    public List<ModelTraining> selectAll() {
+        List<ModelTraining> rs = null;
         
-        String result = null;
         try {
-            result = daoboard.getBoardName(boardcd);
+            rs = daotrn.selectAll();
         } catch (Exception e) {
-            logger.error("getBoardName " + e.getMessage());
+            logger.error("selectAll" + e.getMessage());
+            throw e;
+            
         }
         
-        return result;
+        return rs;
     }
     
-    @Override
-    public ModelTrainingBoard getBoardOne(String boardcd) {
-        ModelTrainingBoard result = null;
-        try {
-            result = daoboard.getBoardOne(boardcd);
-        } catch (Exception e) {
-            logger.error("getBoardOne " + e.getMessage());
-        }
-        
-        return result;
-    }
     
+    
+   
     @Override
-    public int getBoardTotalRecord(String searchWord) {
+    public int getArticleTotalRecord(String searchWord) {
         int result = -1;
         try {
-            result = daoboard.getBoardTotalRecord(searchWord);
-        } catch (Exception e) {
-            logger.error("getBoardTotalRecord " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public List<ModelTrainingBoard> getBoardList(String searchWord) {
-        List<ModelTrainingBoard> result = null;
-        try {
-            result = daoboard.getBoardList(searchWord);
-        } catch (Exception e) {
-            logger.error("getBoardOne " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int insertBoard(ModelTrainingBoard board) {
-        
-        int result = -1;
-        try {
-            result = daoboard.insertBoard(board);
-        } catch (Exception e) {
-            logger.error("insertBoard " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int updateBoard(ModelTrainingBoard setValue,
-            ModelTrainingBoard whereValue) {
-        
-        int result = -1;
-        try {
-            result = daoboard.updateBoard(setValue, whereValue);
-        } catch (Exception e) {
-            logger.error("updateBoard" + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int deleteBoard(ModelTrainingBoard board) {
-        int result = -1;
-        try {
-            result = daoboard.deleteBoard(board);
-        } catch (Exception e) {
-            logger.error("deleteBoard" + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public List<ModelTrainingBoard> getBoardPaging(String searchWord, int start,
-            int end) {
-        
-        List<ModelTrainingBoard> result = null;
-        try {
-            result = daoboard.getBoardPaging(searchWord, start, end);
-        } catch (Exception e) {
-            logger.error("getBoardPaging  " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int insertBoardList(List<ModelTrainingBoard> list) {
-        int result = -1;
-        try {
-            result = daoboard.insertBoardList(list);
-            // session.commit();
-        } catch (Exception e) {
-            logger.error("insertBoardList" + e.getMessage());
-            // session.rollback();
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int getArticleTotalRecord(String boardcd, String searchWord) {
-        int result = 0;
-        try {
-            result = daoboard.getArticleTotalRecord(boardcd, searchWord);
+            result = daotrn.getArticleTotalRecord(searchWord);
         } catch (Exception e) {
             logger.error("getArticleTotalRecord  " + e.getMessage());
         }
@@ -160,12 +59,12 @@ public class ServiceTraining implements IServiceTraining {
     }
     
     @Override
-    public List<ModelTraining> getArticleList(String boardcd, String searchWord,
+    public List<ModelTraining> getArticleList( String searchWord,
             int start, int end) {
         
         List<ModelTraining> result = null;
         try {
-            result = daoboard.getArticleList(boardcd, searchWord, start, end);
+            result = daotrn.getArticleList( searchWord, start, end);
         } catch (Exception e) {
             logger.error("getArticleList  " + e.getMessage());
         }
@@ -180,7 +79,7 @@ public class ServiceTraining implements IServiceTraining {
         try {
             // 상세보기를 할때마다 페이지 조회수를 1 증가 시키도록 하려면
             // 이를 위해서는 transArticle() 메서드를 사용하시오.
-            result = daoboard.getArticle(articleno);
+            result = daotrn.getArticle(articleno);
         } catch (Exception e) {
             logger.error("getArticle  " + e.getMessage());
         }
@@ -192,7 +91,7 @@ public class ServiceTraining implements IServiceTraining {
     public int insertArticle(ModelTraining article) {
         int result = -1;
         try {
-            result = daoboard.insertArticle(article);
+            result = daotrn.insertArticle(article);
         } catch (Exception e) {
             logger.error("insertArticle " + e.getMessage());
         }
@@ -205,7 +104,7 @@ public class ServiceTraining implements IServiceTraining {
         
         int result = -1;
         try {
-            result = daoboard.updateArticle(setValue, whereValue);
+            result = daotrn.updateArticle(setValue, whereValue);
         } catch (Exception e) {
             logger.error("updateArticle " + e.getMessage());
         }
@@ -217,7 +116,7 @@ public class ServiceTraining implements IServiceTraining {
     public int deleteArticle(ModelTraining article) {
         int result = -1;
         try {
-            result = daoboard.deleteArticle(article);
+            result = daotrn.deleteArticle(article);
         } catch (Exception e) {
             logger.error("deleteArticle  " + e.getMessage());
         }
@@ -229,7 +128,7 @@ public class ServiceTraining implements IServiceTraining {
     public int increaseHit(int articleno) {
         int result = -1;
         try {
-            result = daoboard.increaseHit(articleno);
+            result = daotrn.increaseHit(articleno);
         } catch (Exception e) {
             logger.error("increaseHit  " + e.getMessage());
         }
@@ -238,12 +137,12 @@ public class ServiceTraining implements IServiceTraining {
     }
     
     @Override
-    public ModelTraining getNextArticle(int articleno, String boardcd,
+    public ModelTraining getNextArticle(int articleno, 
             String searchWord) {
         
         ModelTraining result = null;
         try {
-            result = daoboard.getNextArticle(articleno, boardcd, searchWord);
+            result = daotrn.getNextArticle(articleno, searchWord);
         } catch (Exception e) {
             logger.error("getNextArticle  " + e.getMessage());
         }
@@ -252,11 +151,11 @@ public class ServiceTraining implements IServiceTraining {
     }
     
     @Override
-    public ModelTraining getPrevArticle(int articleno, String boardcd,
+    public ModelTraining getPrevArticle(int articleno,
             String searchWord) {
         ModelTraining result = null;
         try {
-            result = daoboard.getPrevArticle(articleno, boardcd, searchWord);
+            result = daotrn.getPrevArticle(articleno, searchWord);
         } catch (Exception e) {
             logger.error("getPrevArticle  " + e.getMessage());
         }
@@ -268,7 +167,7 @@ public class ServiceTraining implements IServiceTraining {
     public ModelTrainingFile getAttachFile(int attachFileNo) {
         ModelTrainingFile result = null;
         try {
-            result = daoboard.getAttachFile(attachFileNo);
+            result = daotrn.getAttachFile(attachFileNo);
         } catch (Exception e) {
             logger.error("getAttachFile  " + e.getMessage());
         }
@@ -280,7 +179,7 @@ public class ServiceTraining implements IServiceTraining {
     public List<ModelTrainingFile> getAttachFileList(int articleno) {
         List<ModelTrainingFile> result = null;
         try {
-            result = daoboard.getAttachFileList(articleno);
+            result = daotrn.getAttachFileList(articleno);
         } catch (Exception e) {
             logger.error("getAttachFileList  " + e.getMessage());
         }
@@ -292,7 +191,7 @@ public class ServiceTraining implements IServiceTraining {
     public int insertAttachFile(ModelTrainingFile attachFile) {
         int result = -1;
         try {
-            result = daoboard.insertAttachFile(attachFile);
+            result = daotrn.insertAttachFile(attachFile);
         } catch (Exception e) {
             logger.error("insertAttachFile " + e.getMessage());
         }
@@ -304,7 +203,7 @@ public class ServiceTraining implements IServiceTraining {
     public int deleteAttachFile(ModelTrainingFile attachFile) {
         int result = -1;
         try {
-            result = daoboard.deleteAttachFile(attachFile);
+            result = daotrn.deleteAttachFile(attachFile);
         } catch (Exception e) {
             logger.error("deleteAttachFile " + e.getMessage());
         }
@@ -316,7 +215,7 @@ public class ServiceTraining implements IServiceTraining {
     public ModelComments getComment(int commentNo) {
         ModelComments result = null;
         try {
-            result = daoboard.getComment(commentNo);
+            result = daotrn.getComment(commentNo);
         } catch (Exception e) {
             logger.error("getComment  " + e.getMessage());
         }
@@ -328,7 +227,7 @@ public class ServiceTraining implements IServiceTraining {
     public List<ModelComments> getCommentList(int articleno) {
         List<ModelComments> result = null;
         try {
-            result = daoboard.getCommentList(articleno);
+            result = daotrn.getCommentList(articleno);
         } catch (Exception e) {
             logger.error("getCommentList  " + e.getMessage());
         }
@@ -340,7 +239,7 @@ public class ServiceTraining implements IServiceTraining {
     public int insertComment(ModelComments comment) {
         int result = -1;
         try {
-            result = daoboard.insertComment(comment);
+            result = daotrn.insertComment(comment);
         } catch (Exception e) {
             logger.error("insertComment " + e.getMessage());
         }
@@ -352,7 +251,7 @@ public class ServiceTraining implements IServiceTraining {
     public int updateComment(ModelComments setValue, ModelComments whereValue) {
         int result = -1;
         try {
-            result = daoboard.updateComment(setValue, whereValue);
+            result = daotrn.updateComment(setValue, whereValue);
         } catch (Exception e) {
             logger.error("updateComment " + e.getMessage());
         }
@@ -364,7 +263,7 @@ public class ServiceTraining implements IServiceTraining {
     public int deleteComment(ModelComments comment) {
         int result = -1;
         try {
-            result = daoboard.deleteComment(comment);
+            result = daotrn.deleteComment(comment);
         } catch (Exception e) {
             logger.error("deleteComment " + e.getMessage());
         }
@@ -381,8 +280,8 @@ public class ServiceTraining implements IServiceTraining {
             // 하단에 목록에서 조회수를 제대로 보기위해서는
             // 목록 레코드를 페치하기 전에 조회수를 먼저 증가시켜야 한다.
             // 사용자 IP 와 시간을 고려해서 조회수를 증가하도록...
-            daoboard.increaseHit(articleno);
-            result = daoboard.getArticle(articleno);
+            daotrn.increaseHit(articleno);
+            result = daotrn.getArticle(articleno);
         } catch (Exception e) {
             logger.error("transArticle  " + e.getMessage());
         }
@@ -400,10 +299,10 @@ public class ServiceTraining implements IServiceTraining {
         try {
             ModelTrainingFile attachFile = new ModelTrainingFile();
             attachFile.setArticleno(articleno);
-            daoboard.deleteAttachFile(attachFile);
+            daotrn.deleteAttachFile(attachFile);
             
             /* daoboard.deleteComment(new ModelComments(articleno)); */
-            daoboard.deleteArticle(new ModelTraining(articleno));
+            daotrn.deleteArticle(new ModelTraining(articleno));
             result = 1;
         } catch (Exception e) {
             logger.error("transDeleteArticle" + e.getMessage());

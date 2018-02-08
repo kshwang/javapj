@@ -5,7 +5,6 @@ import java.util.Date;
 public class ModelTraining {
     
     Integer articleno ;
-    String  boardcd   ; // sql에서는 null 값 여기서느 ㄴ어떻게 하지?
     String  title     ; //sql하고 값 비교좀.
     String  content   ;
     String  email     ;
@@ -28,12 +27,6 @@ public class ModelTraining {
     }
     public void setArticleno(Integer articleno) {
         this.articleno = articleno;
-    }
-    public String getBoardcd() {
-        return boardcd;
-    }
-    public void setBoardcd(String boardcd) {
-        this.boardcd = boardcd;
     }
     public String getTitle() {
         return title;
@@ -119,7 +112,7 @@ public class ModelTraining {
     
     @Override
     public String toString() {
-        return "ModelTraining [articleno=" + articleno + ", boardcd=" + boardcd
+        return "ModelTraining [articleno=" + articleno
                 + ", title=" + title + ", content=" + content + ", email="
                 + email + ", hit=" + hit + ", regdate=" + regdate + ", UseYN="
                 + UseYN + ", InsertUID=" + InsertUID + ", InsertDT=" + InsertDT

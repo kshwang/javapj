@@ -13,7 +13,7 @@
 <meta name="Keywords" content="게시판 새글쓰기" />
 <meta name="Description" content="게시판 새글쓰기" />
 
-<title>${boardnm }</title>
+
 
 
 <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
@@ -58,11 +58,32 @@ content h1 {
     font-size: 15px;
     
 } */
-table { margin-right: auto; margin-left: auto; width: 555px;}
-      /*   table tr {background: #36CBD4; } */
-        table td { text-align: center;}
-        .sthead {  border-top: solid, 2px, black;  border-bottom: solid, 2px, black; }
-        url-navi {
+table {
+    margin-right: auto;
+    margin-left: auto;
+    width: 700px;
+    border-spacing: 100px;
+}
+#write-form{
+border-spacing: 100px;
+}
+/*   table tr {background: #36CBD4; } */
+table tr {
+    text-align: center;
+}
+table td {
+    text-align: center;
+    padding : 20px;
+}
+/* table tr {
+padding: 15px;} */
+
+.sthead {
+    border-top: solid, 2px, black;
+    border-bottom: solid, 2px, black;
+}
+
+url-navi {
     margin: 0;
     padding-top: 10px;
     padding-bottom: 8px;
@@ -92,20 +113,22 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
 						$('#golist')
 								.click(
 										function(event) {
-											location.href = "/pj_mn40/pj_mn41/${boardcd}?searchWord=${searchWord}&curPage=${curPage}";/* "articlelist/${boardcd}?searchWord=${searchWord}&curPage=${curPage}" ;*/
+											location.href = "/pj_mn40/pj_mn41?searchWord=${searchWord}&curPage=${curPage}"/* "articlelist/${boardcd}?searchWord=${searchWord}&curPage=${curPage}" ;*/
 										});
 					});
 </script>
 </head>
 <body>
-            <%@ include file="../header.jsp"%>
- <div class="container">
+    <%@ include file="../header.jsp"%>
+    
+    <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="portfolios">
                     <div class="text-center">
-                        <h2>교육</h2>
-                        <p>이번 달 교육입니다. <br>
+                        <h2>교육 등록</h2>
+                        <p>
+                            이번 달 교육입니다. <br>
                         </p>
                     </div>
                     <hr>
@@ -113,52 +136,53 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
             </div>
         </div>
     </div>
-                <!-- 본문 시작 -->
-                <h1>${boardnm }</h1>
-                <div id="bbs">
-                    <h2 align=center>교육 등록</h2>
-                    <form id="writeForm" action="/pj_mn40/pj_mn42"
-                        method="post" enctype="multipart/form-data"
-                        onsubmit="return check()">
-                        <p style="margin: 0; padding: 0;">
-                            <input type="hidden" name="boardcd"
-                                value="${boardcd }" />
-                        </p>
-                        <table id="write-form">
-                            <tr>
-                                <td>제목</td>
-                                <td><input type="text" name="title"
-                                    size="50" /></td>
-                            </tr>
-                            <tr>
-                                <td>내용</td>
-                                <td>
-                                    <textarea name="content" rows="17" style="width:384px; height:300px;"></textarea>
-                                </td>
-                            </tr>
+    
+    <!-- 본문 시작 -->
+   
+    <div id="bbs">
+      
+        <form id="writeForm" action="/pj_mn40/pj_mn42" method="post"
+            enctype="multipart/form-data" onsubmit="return check()">
+            <p style="margin: 0; padding: 0;">
+               <%--  <input type="hidden" name="boardcd" value="${boardcd }" /> --%>
+            </p>
+            <table id="write-form">
+               
+                <tr>
+                    <td><b>제목</td>
+                    <td><input type="text" name="title" size="60" /></td><br>
+                </tr>
 
-                            <tr>
-                                <td>파일첨부</td>
-                                <td><input type="file"
-                                    name="upload" /></td>
-                            </tr>
-                        </table>
-                        <div
-                            style="text-align: center; padding-bottom: 15px;">
-                            <input type="submit" value="전송" /> 
-                            <input type="button" value="목록" id="golist" />
-                        </div>
-                    </form>
-                </div>
-                <!--  본문 끝 -->
+                <tr>
+                    <td><b>내용</td>
+                    <td><textarea name="content" rows="17" 
+                            style="width: 500px; height: 300px;  "></textarea>
+                    </td>
+                </tr>
 
+              <tr align = "center">
+                    <td>파일첨부</td>
+                    <td align="center"><input type="file" name="upload" /></td>
+                </tr>
+            </table>
+
+            <div style="text-align: center; padding-bottom: 15px;">
+                
+                <input type="submit" value="전송" />
+                 <input type="button"
+                    value="목록" id="golist" />
             </div>
-            <!-- content 끝 -->
+        </form>
+    </div>
+    <!--  본문 끝 -->
 
-        </div>
-        <!--  container 끝 -->
+    </div>
+    <!-- content 끝 -->
 
-        <%--  <div id="sidebar">
+    </div>
+    <!--  container 끝 -->
+
+    <%--  <div id="sidebar">
             <%@ include file="bbs-menu.jsp"%>
         </div>
 
@@ -166,9 +190,9 @@ table { margin-right: auto; margin-left: auto; width: 555px;}
             <%@ include file="extra.jsp"%>
         </div> --%>
 
-        <div id="footer">
-            <%@ include file="../footer.jsp"%>
-        </div>
+    <div id="footer">
+        <%@ include file="../footer.jsp"%>
+    </div>
 
     </div>
 

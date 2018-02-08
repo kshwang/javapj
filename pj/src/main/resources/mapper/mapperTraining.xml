@@ -3,342 +3,146 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.mapperTraining">
-    
-    <select id="getBoardName" parameterType="String" resultType="String">        
-        SELECT boardnm
-          FROM pj_training_bbs
-         WHERE boardcd = #{boardcd}
-    </select>
-    
-    <select id="getBoardOne" parameterType="String" resultType="ModelTrainingBoard">
-        SELECT boardcd, boardnm, UseYN 
-          FROM pj_training_bbs 
-         WHERE boardcd = #{boardcd}
-    </select>
-    
-    <select id="getBoardList" parameterType="String" resultType="ModelTrainingBoard">
-        SELECT boardcd, boardnm, UseYN 
-          FROM pj_training_bbs
-         WHERE 1 =1 
-           <if test=" _parameter  != null and _parameter  != '' ">
-           AND boardnm LIKE CONCAT( '%' , #{_parameter} , '%' )
-           </if>
-    </select>
-        
-    <select id="getBoardTotalRecord" parameterType="java.util.Map" resultType="int">
-        SELECT count(*) 
-          FROM pj_training_bbs
-         WHERE 1 = 1
-          <!--   <if test=" searchWord  != null and searchWord  != '' ">
-            AND boardnm LIKE CONCAT( '%' , #{searchWord } , '%' )
-            </if> -->
-            <if test=" boardcd  != null and boardcd  != '' ">
-            AND boardcd LIKE CONCAT( '%' , #{boardcd } , '%' )
-            </if>
+
+    <select id="selectAll" resultType="ModelTraining">
+        select * from pj_training
     </select>
 
-    <select id="getBoardPaging"  parameterType="java.util.Map"  resultType="ModelTrainingBoard">
-        SELECT boardcd, boardnm, UseYN
-        FROM (
-            SELECT @RNUM := @RNUM + 1 AS r, a.* 
-                FROM (
-                    SELECT 
-                        boardcd, boardnm, UseYN
-                    FROM 
-                        pj_training_bbs
-                    WHERE 1 = 1
-                        <if test="searchWord != null and searchWord != ''">
-                        AND boardnm LIKE CONCAT( '%' , #{searchWord} , '%' )  
-                        </if>
-                    GROUP BY boardcd, boardnm, UseYN
-                    ORDER BY boardcd DESC
-                ) a, (SELECT @RNUM:=0) b
-            ) temp
-        WHERE r BETWEEN #{start} AND #{end}
+    <select id="getArticleTotalRecord" parameterType="java.util.Map"
+        resultType="int">
+        SELECT count(*) FROM pj_training
+        WHERE 1 = 1
+        <if test="searchWord != null and searchWord != ''">
+            AND ( title LIKE CONCAT('%', #{searchWord}, '%') OR
+            content LIKE CONCAT('%', #{searchWord}, '%') )
+        </if>
     </select>
-    
-    <insert id="insertBoard" parameterType="ModelTrainingBoard">
-        INSERT INTO 
-        pj_training_bbs ( boardcd   , boardnm   , UseYN   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-        VALUES       ( #{boardcd}, #{boardnm}, #{UseYN}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
-    </insert>
-    
-    <!-- mysql multi insert
-        INSERT INTO t (col1, col2, col3) 
-               VALUES ('val1_1', 'val1_2', 'val1_3')
-                    , ('val2_1', 'val2_2', 'val2_3')
-                    , ('val3_1', 'val3_2', 'val3_3') ;
-     -->
-    <insert id="insertBoardList" parameterType="java.util.List">
-        INSERT INTO pj_training_bbs( boardcd , boardnm , UseYN  )
-        VALUES
-            <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
-                #{item.boardcd} , #{item.boardnm} , #{item.UseYN}
-            </foreach>
-    </insert>
-    
-    <update id="updateBoard" parameterType="java.util.Map">
-        UPDATE pj_training_bbs
-            <set>
-              <if test=" setValue.boardnm   != null and setValue.boardnm !='' "> boardnm   = #{setValue.boardnm}   , </if>
-              <if test=" setValue.UseYN     != null                           "> UseYN     = #{setValue.UseYN}     , </if>
-              <if test=" setValue.UpdateUID != null                           "> UpdateUID = #{setValue.UpdateUID} , </if>
-              <if test=" setValue.UpdateDT  != null                           "> UpdateDT  = #{setValue.UpdateDT}  , </if>
-            </set>              
-            WHERE 1 = 1 
-              <if test="whereValue.boardcd != null and whereValue.boardcd != ''" >
-              AND boardcd    = #{whereValue.boardcd}
-              </if>
-              <if test="whereValue.boardnm != null and whereValue.boardnm != ''">
-              AND boardnm  = #{whereValue.boardnm}
-              </if>
-              <if test="whereValue.UseYN != null">
-              AND UseYN    = #{whereValue.UseYN}
-              </if>
-    </update>
-    
-    <delete id="deleteBoard" parameterType="ModelTrainingBoard">
-        DELETE FROM pj_training_bbs
-         WHERE 1 = 1 
-          <if test="boardcd != null and boardcd != ''" >
-          AND boardcd  = #{boardcd}
-          </if>
-          <if test="boardnm != null and boardnm != ''">
-          AND boardnm  = #{boardnm}
-          </if>
-          <if test="UseYN != null">
-          AND UseYN    = #{UseYN}
-          </if>
-    </delete>
-    
-    <select id="getArticleTotalRecord" parameterType="java.util.Map" resultType="int">
-        SELECT count(*) FROM pj_training 
-         WHERE boardcd = #{boardcd}
-            <if test="searchWord != null and searchWord != ''">
-            AND ( title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE CONCAT('%', #{searchWord}, '%') ) 
-            </if>
-    </select>   
 
-    <select id="getArticleList" parameterType="java.util.Map" resultType="ModelTraining">
-        SELECT articleno, title, regdate, hit, attachfileNum, commentNum, name
+    <select id="getArticleList" parameterType="java.util.Map"
+        resultType="ModelTraining">
+         SELECT articleno, title, regdate, hit
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
-                    SELECT a.articleno articleno
-                         , a.title 
-                         , a.regdate
-                         , a.hit
-                         , count(distinct(f.attachfileno)) attachfileNum
-                         , count(distinct(c.commentno)) commentNum
-                         , m.name
+                    SELECT  
+                           a.articleno, 
+                           a.title, 
+                           a.regdate,
+                           a.hit
                     FROM 
-                        pj_training  a
-                        LEFT OUTER JOIN pj_training_file f ON a.articleno = f.articleno
-                        LEFT OUTER JOIN pj_comments   c ON a.articleno = c.articleno
-                        LEFT OUTER JOIN pj_user           m ON a.insertUID = m.userid
-                    WHERE
-                        a.boardcd = #{boardcd}
-                        <if test="searchWord != null and searchWord != ''">
-                        AND (title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE CONCAT('%', #{searchWord}, '%') )
-                        </if>
-                    GROUP BY a.articleno, title, a.regdate, hit, m.name
+                        pj_training a
+                      WHERE
+                        1 = 1
                     ORDER BY articleno DESC
                  ) a, (SELECT @RNUM:=0) b
             ) temp
-        WHERE r BETWEEN #{start} AND #{end}
-    </select>  
+        WHERE r BETWEEN  #{start} AND #{end}
+        
+    </select>
 
-    
+
     <select id="getArticle" parameterType="int" resultType="ModelTraining">
-        SELECT articleno, boardcd, title, content, email, hit, regdate
-        FROM pj_training 
+        SELECT articleno, title, content, email, hit, regdate
+        FROM
+        pj_training
         WHERE articleno = #{articleno}
     </select>
-    
-    <insert id="insertArticle" parameterType="ModelTraining" useGeneratedKeys="true" keyProperty="articleno" >
-        INSERT INTO 
-        pj_training  ( boardcd   , title   , content   , email   , hit, regdate, InsertUID   , InsertDT   , UpdateUID   , UpdateDT     )
-            VALUES     ( #{boardcd}, #{title}, #{content}, #{email}, 0  , now()  , #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT}  )
-    </insert>   
-    
+
+    <insert id="insertArticle" parameterType="ModelTraining"
+        useGeneratedKeys="true" keyProperty="articleno">
+        INSERT INTO
+        pj_training ( title , content , email , hit, regdate, InsertUID
+        , InsertDT , UpdateUID , UpdateDT )
+        VALUES ( #{title}, #{content}, #{email}, 0 , now() , #{InsertUID},
+        #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+    </insert>
+
     <update id="updateArticle" parameterType="java.util.Map">
-        UPDATE pj_training   
-           <set>
-                <if test=" setValue.title     != null and setValue.title   !='' "> title     = #{setValue.title    } , </if>
-                <if test=" setValue.content   != null and setValue.content !='' "> content   = #{setValue.content  } , </if>
-                <if test=" setValue.UseYN     != null                           "> UseYN     = #{setValue.UseYN    } , </if>
-                <if test=" setValue.UpdateUID != null                           "> UpdateUID = #{setValue.UpdateUID} , </if>
-                <if test=" setValue.UpdateDT  != null                           "> UpdateDT  = #{setValue.UpdateDT } , </if>
-           </set> 
-         WHERE  1 = 1 
-              <if test="whereValue.boardcd != null and whereValue.boardcd != ''" >
-              AND boardcd    = #{whereValue.boardcd}
-              </if>
-              <if test="whereValue.articleno != null and whereValue.articleno != ''">
-              AND articleno  = #{whereValue.articleno}
-              </if>
-              <if test="whereValue.title != null and whereValue.title != ''">
-              AND title      = #{whereValue.title}
-              </if>
-              <if test="whereValue.email != null and whereValue.email != ''">
-              AND email      = #{whereValue.email}
-              </if>
-              <if test="whereValue.UseYN != null">
-              AND UseYN      = #{whereValue.UseYN}
-              </if>
+        UPDATE pj_training
+        <set>
+            <if test=" setValue.title     != null and setValue.title   !='' "> title = #{setValue.title } , </if>
+            <if test=" setValue.content   != null and setValue.content !='' "> content = #{setValue.content } , </if>
+            <if test=" setValue.UseYN     != null                           "> UseYN = #{setValue.UseYN } , </if>
+            <if test=" setValue.UpdateUID != null                           "> UpdateUID = #{setValue.UpdateUID} , </if>
+            <if test=" setValue.UpdateDT  != null                           "> UpdateDT = #{setValue.UpdateDT } , </if>
+        </set>
+        WHERE 1 = 1
+
+        <if
+            test="whereValue.articleno != null and whereValue.articleno != ''">
+            AND articleno = #{whereValue.articleno}
+        </if>
+        <if test="whereValue.title != null and whereValue.title != ''">
+            AND title = #{whereValue.title}
+        </if>
+        <if test="whereValue.email != null and whereValue.email != ''">
+            AND email = #{whereValue.email}
+        </if>
+        <if test="whereValue.UseYN != null">
+            AND UseYN = #{whereValue.UseYN}
+        </if>
     </update>
-    
+
     <delete id="deleteArticle" parameterType="ModelTraining">
-        DELETE FROM pj_training  
-         WHERE 1 = 1 
-          <if test="articleno != null and articleno != ''" >
-          AND articleno = #{articleno}
-          </if>
-          <if test="boardcd != null and boardcd != ''">
-          AND boardcd  = #{boardcd}
-          </if>
-          <if test="email != null and email != ''">
-          AND email    = #{email}
-          </if>
-          <if test="UseYN != null">
-          AND UseYN    = #{UseYN}
-          </if>
+        DELETE FROM pj_training
+        WHERE 1 = 1
+        <if test="articleno != null and articleno != ''">
+            AND articleno = #{articleno}
+        </if>
+
+        <if test="email != null and email != ''">
+            AND email = #{email}
+        </if>
+        <if test="UseYN != null">
+            AND UseYN = #{UseYN}
+        </if>
     </delete>
-    
+
     <update id="increaseHit" parameterType="int">
-        UPDATE pj_training 
-           SET hit=hit+1 
-         WHERE articleno=#{articleno}
+        UPDATE pj_training
+        SET hit=hit+1
+        WHERE articleno=#{articleno}
     </update>
-    
-    <select id="getNextArticle" parameterType="java.util.Map" resultType="ModelTraining">
+
+    <select id="getNextArticle" parameterType="java.util.Map"
+        resultType="ModelTraining">
         SELECT articleno, title
         FROM
         (
-            SELECT @RNUM := @RNUM + 1 AS r, a.*
-            FROM
-                (SELECT articleno, title 
-                   FROM pj_training  
-                  WHERE boardcd      =    #{boardcd} 
-                    AND articleno   &gt;  #{articleno}
-                    <if test=" searchWord != null and searchWord != '' ">
-                        AND (title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE CONCAT('%', #{searchWord}, '%') )
-                    </if> 
-                    ORDER BY articleno ASC
-                ) a, (SELECT @RNUM:=0) b
-        ) temp
-        WHERE r = 1
-    </select>
-    
-    <select id="getPrevArticle" parameterType="java.util.Map" resultType="ModelTraining">
-        SELECT articleno, title
+        SELECT @RNUM := @RNUM + 1 AS r, a.*
         FROM
-        (
-            SELECT @RNUM := @RNUM + 1 AS r, a.*
-            FROM
-                (SELECT articleno, title 
-                   FROM pj_training  
-                  WHERE boardcd     =    #{boardcd} 
-                    AND articleno  &lt;  #{articleno}
-                    <if test="searchWord != null and searchWord != ''">
-                    AND (title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE CONCAT('%', #{searchWord}, '%') )
-                    </if> 
-                    ORDER BY articleno DESC
-                ) a, (SELECT @RNUM:=0) b
+        (SELECT articleno, title
+        FROM pj_training
+        WHERE articleno &gt; #{articleno}
+        <if test=" searchWord != null and searchWord != '' ">
+            AND (title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE
+            CONCAT('%', #{searchWord}, '%') )
+        </if>
+        ORDER BY articleno ASC
+        ) a, (SELECT @RNUM:=0) b
         ) temp
         WHERE r = 1
     </select>
 
-    <select id="getAttachFile" parameterType="int" resultType="ModelTrainingFile">
-        SELECT attachfileno, filenameorig, filenametemp, filetype, filesize, articleno
-          FROM pj_training_file
-         WHERE attachfileno = #{attachFileNo}
+    <select id="getPrevArticle" parameterType="java.util.Map"
+        resultType="ModelTraining">
+        SELECT articleno, title
+        FROM
+        (
+        SELECT @RNUM := @RNUM + 1 AS r, a.*
+        FROM
+        (SELECT articleno, title
+        FROM pj_training
+        WHERE articleno &lt; #{articleno}
+        <if test="searchWord != null and searchWord != ''">
+            AND (title LIKE CONCAT('%', #{searchWord}, '%') OR content LIKE
+            CONCAT('%', #{searchWord}, '%') )
+        </if>
+        ORDER BY articleno DESC
+        ) a, (SELECT @RNUM:=0) b
+        ) temp
+        WHERE r = 1
     </select>
-    
-    <select id="getAttachFileList" parameterType="int" resultType="ModelTrainingFile">
-        SELECT attachfileno, filenameorig, filenametemp, filetype, filesize, articleno 
-          FROM pj_training_file 
-         WHERE articleno = #{articleno} 
-        ORDER BY attachfileno
-    </select>
-    
-    <insert id="insertAttachFile" parameterType="ModelTrainingFile" useGeneratedKeys="true" keyProperty="attachfileno" >
-        INSERT INTO 
-        pj_training_file (filenameorig,    filenametemp, filetype, filesize, articleno, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-        VALUES        ( #{filenameorig}, #{filenametemp}, #{filetype}, #{filesize}, #{articleno}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
-    </insert>
-    
-    <delete id="deleteAttachFile" parameterType="ModelTrainingFile">
-        DELETE FROM pj_training_file         
-         WHERE 1 = 1 
-          <if test="attachfileno != null " >
-          AND attachfileno = #{attachfileno}
-          </if>
-          <if test="articleno != null ">
-          AND articleno  = #{articleno}
-          </if>
-          <if test="UseYN != null">
-          AND UseYN    = #{UseYN}
-          </if>
-    </delete>
-    
-    
-    <select id="getComment" parameterType="int" resultType="ModelComments">
-        SELECT commentno,articleno,email,memo,regdate 
-        FROM pj_comments 
-        WHERE commentno = #{commentNo}
-    </select>
-    
-    <select id="getCommentList" parameterType="int" resultType="ModelComments">
-        SELECT commentno, articleno, email, memo, regdate
-        FROM pj_comments 
-        WHERE articleno = #{articleno}
-        ORDER BY commentno DESC
-    </select>
-    
-    
-    <insert id="insertComment" parameterType="ModelComments" 
-                     useGeneratedKeys="true" keyProperty="commentno" >
-        INSERT INTO pj_comments  (   articleno ,   email ,   memo , regdate, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-                             VALUES ( #{articleno}, #{email}, #{memo}, now()  , #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
-    </insert>
-    
-    <update id="updateComment" parameterType="java.util.Map">
-        UPDATE pj_comments  
-           <set>
-                <if test=" setValue.memo      != null and setValue.memo !='' "> memo      = #{setValue.memo     } , </if>
-                <if test=" setValue.regdate   != null                        "> regdate   = #{setValue.regdate  } , </if>
-                <if test=" setValue.UseYN     != null                        "> UseYN     = #{setValue.UseYN    } , </if>
-                <if test=" setValue.UpdateUID != null                        "> UpdateUID = #{setValue.UpdateUID} , </if>
-                <if test=" setValue.UpdateDT  != null                        "> UpdateDT  = #{setValue.UpdateDT } , </if>
-           </set>              
-         WHERE  1 = 1 
-              <if test="whereValue.commentno != null " >
-              AND commentno = #{whereValue.commentno}
-              </if>
-              <if test="whereValue.articleno != null ">
-              AND articleno = #{whereValue.articleno}
-              </if>
-              <if test="whereValue.email != null and whereValue.email != ''">
-              AND email     = #{whereValue.email}
-              </if>
-    </update>
-    
-    <delete id="deleteComment" parameterType="ModelComments">
-        DELETE FROM pj_comments  
-        WHERE 1 = 1 
-          <if test="commentno != null and commentno != ''" >
-          AND commentno = #{commentno}
-          </if>
-          <if test="articleno != null and articleno != ''">
-          AND articleno  = #{articleno}
-          </if>
-          <if test="email != null and email != ''">
-          AND email    = #{email}
-          </if>
-          <if test="UseYN != null">
-          AND UseYN    = #{UseYN}
-          </if>
-    </delete>
 
- </mapper>
+    
+</mapper>
