@@ -55,10 +55,6 @@ th {
     border-bottom: 6px solid rgba(150, 126, 126, 0.5);
 }
 
-/* tr {
-    cursor: pointer;
-} */
-
 
 
 td {
@@ -73,10 +69,6 @@ td a {
     text-decoration: none;
 }
 
-/* td a:hover {
-    color: #555;
-    text-decoration: underline;
-} */
 span {
     cursor: pointer;
 } 
@@ -89,7 +81,9 @@ color: #555;
     color: #FFA500;
     font-weight: bold;
 }
-
+tr[articleno] {
+    cursor: pointer;
+}
 div.fl {
   
      text-align: right;
@@ -107,11 +101,7 @@ font-size: 20px;
     width: 1140px;
     }
     
-  /*  p{
-    
-    text-align: center;
-    
-    }  */
+
 div.fr {     
     margin-right: auto;
     margin-left: auto;
@@ -127,6 +117,28 @@ div.fr {
     width: 1170px;
 }
 
+#map {
+     margin-right: auto;
+    margin-left: auto;
+        width: 900px;
+        height: 400px;
+        background-color: grey;
+      }
+      
+#file-list{
+font-size: 15px;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1170px;
+
+}
+#gul-content{
+height: 300px;
+font-size: 20px;
+}
+
+
 </style>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/resources/js/jquery-2.1.1.min.js"></script>
@@ -136,9 +148,50 @@ div.fr {
 <script src="/resources/js/jquery.easing.1.3.js"></script>
 <script src="/resources/js/jquery.isotope.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
+<!-- <script src="/resources/js/map.js"></script> -->
 <script type="text/javascript">
    <!--  <script src="/resources/js/ajaxsetup.js"><!-- jquery 아래에 위치해야 함 --></script>
 -->
+<script>;
+var address = null;
+
+  function initMap() { // 지도 요청시 callback으로 호출될 메서드 부분으로 지도를 맨처음 초기화하고, 표시해주는 함수
+    
+    var mapLocation = new google.maps.LatLng('37.655557', '127.060504'); // 게시글 DTO에서 위도값을 가져옴
+    var  markLocation = new google.maps.LatLng('337.655557', '127.060504');
+    var mapOptions = {
+            center: mapLocation, // 지도에서 가운데로 위치할 위도와 경도(변수)
+            zoom: 18, // 지도 zoom단계
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map"), // id: map-canvas, body에 있는 div태그의 id와 같아야 함
+              mapOptions);
+            
+          var size_x = 60; // 마커로 사용할 이미지의 가로 크기
+          var size_y = 60; // 마커로 사용할 이미지의 세로 크기
+            
+          // 마커로 사용할 이미지 주소
+          var image = new google.maps.MarkerImage( 'http://www.weicherthallmark.com/wp-content/themes/realty/lib/images/map-marker/map-marker-gold-fat.png',
+                              new google.maps.Size(size_x, size_y),
+                              '',
+                              '',
+                              new google.maps.Size(size_x, size_y));
+            
+          var marker;
+          marker = new google.maps.Marker({
+                 position: mapLocation, // 마커가 위치할 위도와 경도(변수)
+                 map: map,
+                 icon: image, // 마커로 사용할 이미지(변수)
+                 title: "교육장" // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
+          });
+          google.maps.event.addDomListener(window, 'load', initMap);
+     
+  }
+</script>
+
+<script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIjE95EEaou7VAOu1Mmod_HbvFQguQh7U&callback=initMap">
+</script>
 
 <script>
         $(document).ready( function(event){
@@ -153,15 +206,28 @@ div.fr {
 
 
 <script>
+		
         var goView = function( articleno ) {
         	location.href = '/pj_mn40/pj_mn43/'+ articleno + location.search;
+        };
+        
+        var goApply = function(){
+        	if(${empty user}===true){
+                alert('로그인하세요');
+                location.href = "/login";
+            }
+            else {
+            	alert('등록되었습니다');
+                location.href = "/pj_mn40/pj_mn43/${articleno}";
+            }
+        	
         };
         
         var goModify = function( ){
         	location.href = '/pj_mn40/pj_mnMD/${articleno}'; 
         }; 
        
-        var goDelete = function(articleno ){ 
+        var goDelete = function(articleno){ 
         
             var f = document.createElement('form');
         	f.setAttribute('method', 'post');
@@ -172,6 +238,12 @@ div.fr {
         	i.setAttribute('type', 'hidden');
         	i.setAttribute('name', 'articleno');
         	i.setAttribute('value', articleno);            
+            f.appendChild(i);
+            
+            var i = document.createElement('input');
+        	i.setAttribute('type', 'hidden');
+        	i.setAttribute('name', 'curPage');
+        	i.setAttribute('value', ${curPage });            
             f.appendChild(i);
         	
         	document.body.appendChild( f );
@@ -194,7 +266,7 @@ div.fr {
         	// post 로 요청. ajax / form
         	var f  = document.createElement('form');
         	f.setAttribute('method', 'post');
-        	f.setAttribute('action', '/download');
+        	f.setAttribute('action', 'pj_mn40/download');
         	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
         	
         	var i = document.createElement('input');
@@ -257,44 +329,23 @@ div.fr {
                                     value="${thisArticle.regdate }" /></th>
                         </tr>
                     </table>
-
+                    <h6>작성자 ${thisArticle.email }, 조회수
+                            ${thisArticle.hit }</h6>  <!--gul-content안에 있던걸 위로 끌어 올림  -->
                     <div id="gul-content" >
-                        <h6>작성자 ${thisArticle.email }, 조회수
-                            ${thisArticle.hit }</h6>
+                        
                         <p style="text-align: center;">${thisArticle.content }</p>
-                        <p id="file-list" style="text-align: right;">
+                      
+                    </div>
+                                  <p id="file-list" style="text-align: right;">
                             <c:forEach var="file"
                                 items="${attachFileList }"
-                                varStatus="status">
+                                varStatus="status"> 첨부 파일 : 
                                 <a
                                     href="javascript:download('${file.filenametemp }', '${file.filenameorig }')">${file.filenameorig }</a>
                                 <br />
                             </c:forEach>
-                        </p>
-                    </div>
-
-                    <%-- 	<!--  덧글 반복 시작 -->
-                <div id="commentlist">
-                	<c:forEach var="comment" items="${commentList }" varStatus="status">	
-                        <%@ include file="articleview-commentlistbody.jsp" %>
-                	</c:forEach>
-                </div>
-            	<!--  덧글 반복 끝 --> --%>
-
-                    <!-- <div id="addComment">
-                    
-                    <div>덧글의 타입을 선택하세요.
-                        <label><input type="radio" name="memotype" value="text" checked="checked" />text</label>
-                        <label><input type="radio" name="memotype" value="html" />html</label>
-                    </div>
-            		<div>
-            			<textarea name="memo" rows="7" cols="50" ></textarea>
-            		</div>
-            		<div style="text-align: right;">
-            			<input type="button" value="덧글남기기" />
-            		</div>
-            	</div> -->
-
+                        </p> <!--gul-content안에 있던걸 아래로 끌어 내림  -->
+           
                     <div id="next-prev">
                         <c:if test="${nextArticle != null }">
                             <p>
@@ -312,28 +363,20 @@ div.fr {
 
                     <div id="view-menu">
                         <div class="fl">
+                         <input type="button" value="신청" 
+                                onclick="javascript:goApply();" /> 
+                                
                               <input type="button" value="목록"
                                 onclick="javascript:goList( ${curPage } );" />
+                                
                             <input type="button" value="수정"
-                                onclick="javascript:goModify();" />                            
+                                onclick="javascript:goModify();" />                 
+                                              
                                 <input type="button" value="삭제"
                                 onclick="javascript:goDelete(${thisArticle.articleno });" />
                         </div>
 
-                      <%--   <div class="fr">
-                            <c:if test="${nextArticle != null }">
-                                <input type="button" value="다음글"
-                                    onclick="javascript:goView( ${nextArticle.articleno } );" />
-                            </c:if>
-                                <input type="button" value="목록"
-                                onclick="javascript:goList( ${curPage } );" />
-                            <c:if test="${prevArticle != null }">
-                                <input type="button" value="이전글"
-                                    onclick="javascript:goView( ${prevArticle.articleno } );" />
-                            </c:if>
-                        
-                        
-                        </div> --%>
+                 
                     </div>
 
                     <table id="bbs" style="clear: both;">
@@ -389,7 +432,7 @@ div.fr {
                             varStatus="stat">
                             <c:choose>
                                 <c:when test="${curPage == i}">
-                                    <span class="bbs-strong"><b>${i }</b></span>
+                                    <span class="bbs-strong">${i }</span>
                                 </c:when>
                                 <c:otherwise>
                                     <a
@@ -430,15 +473,15 @@ div.fr {
             <!-- content 끝 -->
 
         </div>
-        <!--  container 끝 -->
+  
 
-        <%--    <div id="sidebar">
-        <%@ include file="bbs-menu.jsp" %>
-    </div>
-    
-    <div id="extra">
-        <%@ include file="../inc/extra.jsp" %>
-    </div> --%>
+
+ <h3 align="center">교육 장소</h3>
+<div id="map"></div> 
+
+
+
+
 
         <div id="footer">
             <%@ include file="../footer.jsp"%>

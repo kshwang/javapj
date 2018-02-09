@@ -48,6 +48,7 @@ div#list-menu {
     width: 1143px;
 }
 
+
 th {
       color: #2e3532;
     border-top: 6px solid rgba(150, 126, 126, 0.5);
@@ -55,7 +56,7 @@ th {
     
 }
 
-tr {
+tr[articleno] {
     cursor: pointer;
 }
 /* 
@@ -186,7 +187,7 @@ var goWrite = function(){
             <c:forEach var="i" items="${pageLinks }" varStatus="stat">
                 <c:choose>
                     <c:when test="${curPage == i}">
-                        <span class="bbs-strong"><b>${i }</b></span>
+                        <span class="bbs-strong">${i }</span>
                     </c:when>
                     <c:otherwise>
                         <a href="javascript:goList( ${i})">${i }</a>

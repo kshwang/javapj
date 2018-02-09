@@ -25,34 +25,7 @@
 <link href="../../resources/css/style.css" rel="stylesheet">
 
 <style type="text/css">
-/* h2 {    margin: 9px 0 0 0;    padding: 0;    font-size: 13px;
-    border-bottom: 1px solid #ebebeb;
-}
 
-td {    border: none;}
-
-textarea {    width: 99%;}
-
-form-group {    display: none;}
-wrap {    margin: 0 auto;
-    padding: 0;
-    width: 1000px;
-}
-url-navi {
-    margin: 0;
-    padding-top: 10px;
-    padding-bottom: 8px;
-    font-size: 11px;
-    color: #666;
-    border-bottom: 1px solid #DAEAAA;
-}
-
-content h1 {
-    margin: 9px 0 9px 0;
-    padding: 7px 0 7px 12px;
-    font-size: 15px;
-    
-} */
 table {
     margin-right: auto;
     margin-left: auto;
@@ -177,16 +150,7 @@ url-navi {
     <!-- content 끝 -->
 
     </div>
-    <!--  container 끝 -->
-
-    <%--  <div id="sidebar">
-            <%@ include file="bbs-menu.jsp"%>
-        </div>
-
-        <div id="extra">
-            <%@ include file="extra.jsp"%>
-        </div> --%>
-
+   
     <div id="footer">
         <%@ include file="../footer.jsp"%>
     </div>
