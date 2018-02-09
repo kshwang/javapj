@@ -186,6 +186,7 @@ public class TrainingController {
             // 파일을 서버로 복사 성공 여부 체크. 
             // 성공한 경우만 tb_bbs_attachfile 테이블에 insert.
             if( serverfile.exists() ) {
+                
                 // 3. tb_bbs_attachfile 테이블에 insert.
                 ModelTrainingFile attachFile = new ModelTrainingFile();
                 attachFile.setArticleno( insertedpk );
@@ -300,7 +301,7 @@ public class TrainingController {
         
         String url = "";
         if( result == 1) {            
-            url = String.format("redirect:/pj_mn40/pj_mn41?curPage=%d&searchWord=%s" , curPage, searchWord );
+            url = String.format("redirect:/pj_mn40/pj_mn41?curPage=%s&searchWord=%s" , curPage, searchWord );
         }
         else {
            /* rttr.addFlashAttribute("msg"  , WebConstants.MSG_FAIL_DELETE_ARTICLE );*/

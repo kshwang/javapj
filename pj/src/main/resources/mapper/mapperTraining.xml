@@ -145,4 +145,38 @@
     </select>
 
     
+    <select id="getAttachFile" parameterType="int" resultType="ModelTrainingFile">
+        SELECT attachfileno, filenameorig, filenametemp, filetype, filesize, articleno
+          FROM pj_training_file
+         WHERE attachfileno = #{attachFileNo}
+    </select>
+    
+    <select id="getAttachFileList" parameterType="int" resultType="ModelTrainingFile">
+        SELECT attachfileno, filenameorig, filenametemp, filetype, filesize, articleno 
+          FROM pj_training_file 
+         WHERE articleno = #{articleno} 
+        ORDER BY attachfileno
+    </select>
+    
+    <insert id="insertAttachFile" parameterType="ModelTrainingFile" useGeneratedKeys="true" keyProperty="attachfileno" >
+        INSERT INTO 
+        pj_training_file (filenameorig,    filenametemp, filetype, filesize, articleno, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
+        VALUES        ( #{filenameorig}, #{filenametemp}, #{filetype}, #{filesize}, #{articleno}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+    </insert>
+    
+    <delete id="deleteAttachFile" parameterType="ModelTrainingFile">
+        DELETE FROM pj_training_file          
+         WHERE 1 = 1 
+          <if test="attachfileno != null " >
+          AND attachfileno = #{attachfileno}
+          </if>
+          <if test="articleno != null ">
+          AND articleno  = #{articleno}
+          </if>
+          <if test="UseYN != null">
+          AND UseYN    = #{UseYN}
+          </if>
+    </delete>
+    
+    
 </mapper>
