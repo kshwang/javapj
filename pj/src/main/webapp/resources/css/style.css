@@ -581,3 +581,7 @@ a.scrollup:hover{
 	background-color:#36CBD4;
 	color:#fff;;	
 }
+/* 추가 */
+.bbs-strong {
+    font-weight: bold;
+}

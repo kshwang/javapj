@@ -49,7 +49,7 @@ public class EmployController {
         int start = paging.getStartRecord();
         int end = paging.getEndRecord();
         ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-        if(user == null || user.getUserclass() >0){
+        if(user == null || user.getUserclass() >1){
         }
         else{
             model.addAttribute("mgs",user.getUserclass());
@@ -83,7 +83,7 @@ public class EmployController {
         int start = paging.getStartRecord();
         int end = paging.getEndRecord();
         ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-        if(user == null || user.getUserclass() >0){
+        if(user == null || user.getUserclass() >1){
             
         }
         else{
@@ -144,16 +144,45 @@ public class EmployController {
         PagingHelper paging = new PagingHelper(totalRecord, curPage);
         int start = paging.getStartRecord();
         int end = paging.getEndRecord();
+        List<ModelEmployUserFile> empfile = svremp.selectuploaduser();
+        for (ModelEmployUserFile i : empfile) {
+            ModelEmploy emp = svremp.selectDetpno(i.getDetpno());
+            i.setEmp(emp);
+        }
+        model.addAttribute("empfilelist", empfile);
+        
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
         
         
-        if( user.getUserclass() >0){
+        if( user.getUserclass() > 1){
             // 권한 없음 메세지 띄우기 
             return "redirect:/pj_mn20/pj_mn21_jobs";
         }
         else{
             return "pj_mn20/pj_mn24_filelist";
+        }
+    }
+	@RequestMapping(value = "/pj_mn20/deletefile", method = RequestMethod.POST)
+	@ResponseBody
+    public int deletefile( Model model
+            , HttpSession session
+            , @ModelAttribute ModelEmployUserFile deletefile
+            ) {
+        logger.info("/pj_mn20/deletefile  :g");
+       
+        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        
+        
+        if( user.getUserclass() >0){
+            // 권한 없음 메세지 띄우기
+            return 0;
+        }
+        else{
+            int rs =svremp.deleteuploaduser(deletefile);
+            return rs;
+           
         }
     }
 	
@@ -250,6 +279,5 @@ public class EmployController {
             return "redirect:/pj_mn20/pj_mn21modify";
         }
     }
-	
 	
 }

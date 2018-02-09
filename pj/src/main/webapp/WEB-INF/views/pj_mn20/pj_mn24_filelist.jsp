@@ -37,7 +37,39 @@
     var fileList = function(  ){
     	window.location.href = '/pj_mn20/pj_mn24_filelist' ;
   };
-  
+  $(document).ready(function(event) {
+	  $('.delete').click(function(event) {
+          if (!confirm('삭제하시겠습니까?')) {
+              return false;
+          }
+		    var no = $(this).attr('no');
+        $.ajax({
+            url : '/pj_mn20/deletefile'
+            , data: {'uploadFileNo': Number(no)}        // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
+            , type: 'post'       // get, post
+            , timeout: 30000    // 30초
+            , dataType: 'json'  // text, html, xml, json, jsonp, script
+            , beforeSend : function() {
+                // 통신이 시작되기 전에 이 함수를 타게 된다.
+            }
+        }).done( function(data, textStatus, xhr ){
+            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+            if (data === 1) {
+            	// 삭제
+            	$('td[no="'+ no +'"]').parent('tr').remove();
+            }
+            else {
+            	// 삭제 안됨
+            	alert('권한이 없습니다.');
+            	window.location.href='/pj_mn20/pj_mn21_jobs';
+            }
+        }).fail( function(xhr, textStatus, error ) {
+            // 통신이 실패했을 때 이 함수를 타게 된다.
+        }).always( function(data, textStatus, xhr ) {
+            // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+        }); 
+	  });
+  });
     
     
     </script>
@@ -67,6 +99,9 @@
           background: none;}
           div.info{
           background: #36cbd430;
+          }
+          .delete {
+            cursor: pointer;
           }
     </style>
     
@@ -103,8 +138,9 @@
             <div> 지원현황</div>
             <table>
                 <tr class="sthead">
+                    <th>  </th>
                     <th>모집부분</th>
-                    <th>모집분야</th>
+                    <th>모집분야</th> 
                     <th>이름</th>
                     <th>핸드폰번호</th>
                     <th>mail</th>
@@ -115,15 +151,15 @@
                 
                 <c:forEach var="empfile" items="${empfilelist }" varStatus="status">
                     <tr>
-                        <td>x</td>
+                        <td class="delete" no="${empfile.uploadFileNo }">x</td>
+                        <td>${empfile.emp.detpname }</td>
+                        <td>${empfile.emp.detptitle } </td> 
                         <td>${empfile.name }</td>
-                        <td>${empfile.jobtitle } </td>
-                        <td>${empfile.userid }</td>
                         <td>${empfile.phone }</td>
                         <td>${empfile.mail }</td>
                         <td>${empfile.address }</td>
                         <td>${empfile.url }</td>
-                        <td>${empfile.fileno }</td>
+                        <td>${empfile.fileNameOrig }</td>
                     </tr>
                   </c:forEach>
               </table>
@@ -134,8 +170,6 @@
             <form id="" action="" method="post" enctype="application/x-www-form-urlencoded">
                         <c:choose>
                                 <c:when test="${empty mgs}">
-                                  <input type="button" value="삭제" onclick="javascript:goDelete();" />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                   <input type="button" value="목록" onclick="javascript:goList( );" />
                                   &nbsp;&nbsp;&nbsp;&nbsp;
                                   <input type="button" value="지원현황" onclick="javascript:fileList();" />

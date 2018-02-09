@@ -13,7 +13,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><span>eNno</span></a>
+                <a class="navbar-brand" href="/"><span>더조은컴퓨터아트</span></a>
             </div>
             <div class="navbar-collapse collapse">                          
                 <div class="menu">
