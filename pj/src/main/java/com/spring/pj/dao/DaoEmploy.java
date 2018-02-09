@@ -77,6 +77,11 @@ public class DaoEmploy implements IDaoEmploy {
         return session.delete("mapper.mapperEmploy.deleteuploaduser", deletefile);
     }
 
+    @Override
+    public int insertuploaduser(ModelEmployUserFile insertuser) {
+        return session.update("mapper.mapperEmploy.insertuploaduser", insertuser);
+    }
+
   
 
     

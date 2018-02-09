@@ -74,10 +74,10 @@
   
   $(document).ready(function() {
     
-	  $('.title').click( function(){
+	  $('.detpexpiry').click( function(){
     	$(this).attr('href','/pj_mn20/pj_mn22_view');
-    	var title = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
-    	
+    	var detpexpiry = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
+    	var detpno = $('.detpno').val();
         var f = document.createElement('form');
         f.setAttribute('method', 'post');
         f.setAttribute('action', '/pj_mn20/pj_mn22_view');
@@ -86,7 +86,12 @@
         var i = document.createElement('input');
         i.setAttribute('type', 'hidden');
         i.setAttribute('name', 'title');
-        i.setAttribute('value', title);
+        i.setAttribute('value', detpexpiry);
+        f.appendChild(i);
+        var i = document.createElement('input');
+        i.setAttribute('type', 'hidden');
+        i.setAttribute('name', 'detpno');
+        i.setAttribute('value', detpno);
         f.appendChild(i);
         
         document.body.appendChild(f);
@@ -184,12 +189,13 @@
                 
                 <c:forEach var="detp" items="${deptlist }" varStatus="status">
                     <tr>
+                     <input class="detpno"  type="hidden" name="detpno" value="${detp.detpno}"/>
                         <td>${detp.detpname }</td>
                         <td><button type="button" class="btu1" ><span>${detp.detptitle }</span> </button></td>
                         <td>${detp.detpperiod } </td>
                         <td>
                         <c:if test="${detp.detpperiod == '채용시까지'}">
-                        <a class="title" href="#">${detp.detpexpiry }</a>
+                        <a class="detpexpiry" href="#">${detp.detpexpiry }</a>
                         </c:if>
                         </td>
                     </tr>

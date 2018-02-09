@@ -150,6 +150,18 @@ public class ServiceEmploy implements IServiceEmploy {
             return rs;
     }
 
+    @Override
+    public int insertuploaduser(ModelEmployUserFile insertuser) {
+        int rs=-1;
+        try {
+            rs = dao.insertuploaduser(insertuser);
+        } catch (Exception e) {
+            logger.error("insertuploaduser" + e.getMessage());
+            throw e;
+        }
+        return rs;
+    }
+
 
    
     

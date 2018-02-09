@@ -159,7 +159,7 @@
                         <td>${empfile.mail }</td>
                         <td>${empfile.address }</td>
                         <td>${empfile.url }</td>
-                        <td>${empfile.fileNameOrig }</td>
+                        <td><a href="javascript:download('${empfile.fileNameTemp }','${empfile.fileNameOrig }')"><img src="/resources/images/attach.png" alt="${empfile.fileNameOrig }"/></a></td>
                     </tr>
                   </c:forEach>
               </table>

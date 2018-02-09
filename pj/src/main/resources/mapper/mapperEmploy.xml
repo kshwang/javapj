@@ -104,4 +104,11 @@
          WHERE 1 = 1 
           AND uploadFileNo  = #{uploadFileNo}
     </delete>
+    
+    <insert id="insertuploaduser" parameterType="ModelEmployUserFile"  >
+        INSERT INTO 
+            pj_employ_upload_user  (   detpno, name, phone, mail, address, fileNameOrig, fileNameTemp, fileSize, contentType )
+            VALUES     (  #{detpno}, #{name}, #{phone}, #{mail} , #{address} , #{fileNameOrig} ,#{fileNameTemp} ,#{fileSize} ,#{contentType} )
+    </insert>   
+    
  </mapper>       
