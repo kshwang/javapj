@@ -9,8 +9,7 @@ public class ModelEmploy {
     private String detptitleinfo="";
     private Integer useYN = null;
     
-   
-    public Integer getDetpno() {
+     public Integer getDetpno() {
         return detpno;
     }
 

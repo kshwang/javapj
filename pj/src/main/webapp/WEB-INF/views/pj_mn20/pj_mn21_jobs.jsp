@@ -48,6 +48,11 @@
 	  if (!confirm('삭제하시겠습니까?')) {
 		  return false;
 	  }
+/*	  if (${ not empty user.userclass} !== 0) {
+		  alert('권한이 없습니다');
+		  window.location.href = '/pj_mn20/pj_mn21_jobs';
+		  return false;
+	  }  */
 	  var f = document.createElement('form');
       f.setAttribute('method', 'post');
       f.setAttribute('action', '/pj_mn20/delete');

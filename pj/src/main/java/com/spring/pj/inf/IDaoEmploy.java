@@ -15,5 +15,6 @@ public interface IDaoEmploy {
     ModelEmploy selectDetpno(int deptno);
     int updateEmploy (ModelEmploy employ);
     int deleteEmploy(ModelEmploy employ);
-    
+    List<ModelEmployUserFile> selectuploaduser();
+    int deleteuploaduser(ModelEmployUserFile deletefile);
 }

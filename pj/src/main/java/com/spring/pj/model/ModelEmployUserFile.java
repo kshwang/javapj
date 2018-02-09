@@ -14,6 +14,7 @@ public class ModelEmployUserFile {
     private String contentType  ;     //` VARCHAR(30) NOT NULL,
     private Boolean useYN        ;     //` TINYINT(1) NULL DEFAULT '1',
 
+    private ModelEmploy emp = null;
     
     public Integer getUploadFileNo() {
         return uploadFileNo;
@@ -89,6 +90,12 @@ public class ModelEmployUserFile {
     }
     
   
+    public ModelEmploy getEmp() {
+        return emp;
+    }
+    public void setEmp(ModelEmploy emp) {
+        this.emp = emp;
+    }
     @Override
     public String toString() {
         return "ModelEmployUserFile [uploadFileNo=" + uploadFileNo + ", detpno="
