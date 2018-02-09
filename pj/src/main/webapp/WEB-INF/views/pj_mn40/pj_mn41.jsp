@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -12,7 +12,7 @@
 <meta name="Keywords" content="게시판 목록" />
 <meta name="Description" content="게시판 목록" />
 
-<title>${boardnm }</title>
+<!-- <title>교육</title> -->
 
 
 <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
@@ -49,23 +49,29 @@ div#list-menu {
 }
 
 th {
-    color: #2e3532;
-    border-top: 3px solid #109173;
-    border-bottom: 3px solid #109173;
+      color: #2e3532;
+    border-top: 6px solid rgba(150, 126, 126, 0.5);
+    border-bottom: 6px solid rgba(150, 126, 126, 0.5);
+    
 }
 
 tr {
     cursor: pointer;
 }
+/* 
+a:HOVER {  
 
-tr:hover {
-    background: pink;
+        text-decoration: underline; color: #0F0; font-weight: bold;
+
 }
+ */
+
 
 td {
-    padding-top: 3px;
-    padding-bottom: 3px;
+  padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom: silver 1px solid;
+    text-align: center;
 }
 
 td a {
@@ -99,35 +105,32 @@ fr {
 <script src="/resources/js/jquery.easing.1.3.js"></script>
 <script src="/resources/js/jquery.isotope.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
-<!--     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
- -->
-<script src="/resources/js/functions.js"></script>
-<!-- 
-    <script type="text/javascript">$('.portfolio').flipLightBox()</script> -->
-<script>
-	var goList = function(page) {
-		window.location.href = "/pj_mn40/pj_mn41/${boardcd}?searchWord=${searchWord}&curPage=";/* "/board/articlelist/${boardcd}?searchWord=${searchWord}&curPage="
-						+ page; */
-	};
+<script type="text/javascript">
+
+var goList = function(page) {
+    location.href = "/pj_mn40/pj_mn41?searchWord=${searchWord}&curPage="
+            + page;
+};
+var goWrite = function(){
+	if(${empty user}===true){
+        alert('로그인하세요');
+        location.href = "/login";
+    }
+    else {
+        location.href = "/pj_mn40/pj_mn42";
+    }
+	
+};
 </script>
-
-
 <script>
-	$(document).ready(function(event) {
-			$('#bbs tr[articleno]')
-						.click(
-								function(event) {
-									var articleno = $(this).attr(
-											'articleno');
-									location.href = '/pj_mn40/pj_mn43/${boardcd}/'
-											+ articleno;
-								}); 
-		$('#list-menu input[type="button"]').click(function(event) {
-			location.href = '/pj_mn40/pj_mn42'; /* '/board/articlewrite/${boardcd}?searchWord=${searchWord}&curPage=${curPage}'; */
-		});
-	});
-</script>
-
+        $(document).ready( function(event){
+            $('tr[articleno]').click( function(event){
+                var articleno = $(this).attr('articleno');
+                location.href = '/pj_mn40/pj_mn43/' + articleno;               
+            });
+        
+        });
+    </script>
 </head>
 <body>
 
@@ -149,68 +152,62 @@ fr {
     </div>
 
     <!-- 본문 시작 -->
-    <h1>${boardnm }</h1>
+    
     <div id="bbs">
         <table>
             <tr>
-                <th style="width: 60px;">NO</th>
-                <th style="text-ailgn: center;">교육 목록</th>
-                <th style="width: 84px;">날짜</th>
+                <th style="width: 60px;text-align: center;">NO</th>
+                <th style="text-align: center;">교육 목록</th>
+                <th style="width: 100px;text-align: center;">날짜</th>
+                <th style="width: 100px;text-align: center;">마감일</th>
                 <th style="width: 60px;">조회수</th>
             </tr>
             <!--  반복 구간 시작 -->
-            <c:forEach var="trn" items="${trnList }"
-                varStatus="status">
-                <tr articleno="${trn.articleno }">
-                    <td style="text-align: center;">${no - status.index}</td>
-                    <td><span>${trn.title }</span> <c:if
-                            test="${trn.attachFileNum > 0 }">
-                            <img src="/resources/images/attach.png"
-                                alt="첨부파일" />
-                        </c:if> <c:if test="${trn.commentNum > 0 }">
-                            <span class="bbs-strong">[${trn.commentNum }]</span>
-                        </c:if></td>
-                    <td style="text-align: center;"><fmt:formatDate
-                            pattern="yyyy-MM-dd"
-                            value="${trn.regdate }" /></td>
-                    <td style="text-align: center;">${trn.hit }</td>
-                </tr>
-            </c:forEach>
+            <c:forEach var="training" items="${traininglist }" varStatus="status">
+                    <tr articleno="${training.articleno }" >
+                        <td>${training.articleno }</td>
+                        <td>${training.title }</td>
+                        <td align="center"><fmt:formatDate  value="${training.regdate }" pattern="yyyy-MM-dd"/>  </td>
+                        <td><fmt:formatDate  value="${training.enddate }" pattern="yyyy-MM-dd"/></td>
+                        <td>${training.hit }</td>
+                    </tr>
+                 </c:forEach>
+            
             <!--  반복 구간 끝 -->
         </table>
-
+           <br>
+           <br>
+           <br>
         <div id="paging" style="text-align: center;">
             <c:if test="${prevLink > 0 }">
-                <a href="javascript:goList( ${prevLink} )">[이전]</a>
+                <a href="javascript:goList( ${prevLink})">[이전]</a>
             </c:if>
 
             <c:forEach var="i" items="${pageLinks }" varStatus="stat">
                 <c:choose>
                     <c:when test="${curPage == i}">
-                        <span class="bbs-strong">${i }</span>
+                        <span class="bbs-strong"><b>${i }</b></span>
                     </c:when>
                     <c:otherwise>
-                        <a href="javascript:goList( ${i} )">${i }</a>
+                        <a href="javascript:goList( ${i})">${i }</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <c:if test="${nextLink > 0 }">
-                <a href="javascript:goList( ${nextLink} )">[다음]</a>
+                <a href="javascript:goList( ${nextLink})">[다음]</a>
             </c:if>
         </div>
 
         <div id="list-menu" style="text-align: right;">
-            <br>
-            <input type="button" value="새글쓰기" />
+            <br> <input type="button" value="새글쓰기" onclick="javascript:goWrite();" />
         </div>
 
         <div id="search" style="text-align: center;">
             <form id="searchForm" action="${actionurl }" method="get"
                 style="margin: 0; padding: 0;">
                 <p style="margin: 0; padding: 0;">
-                    <input type="hidden" name="boardcd"
-                        value="${boardcd }" /> <input type="text"
+                     <input type="text"
                         name="searchWord" value="${searchWord }"
                         size="15" maxlength="30" /> <input
                         type="submit" value="검색" />
@@ -221,25 +218,17 @@ fr {
     </div>
     <!--  본문 끝 -->
 
-    </div>
+    
     <!-- content 끝 -->
-    </div>
+    
     <!--  container 끝 -->
-
-    <%--    <div id="sidebar">
-            <%@ include file="bbs-menu.jsp"%>
-        </div>
-
-        <div id="extra">
-            <%@ include file="../inc/extra.jsp"%>
-        </div> --%>
 
     <div id="footer">
         <%@ include file="../footer.jsp"%>
 
     </div>
 
-    </div>
+    
 
 </body>
 </html>

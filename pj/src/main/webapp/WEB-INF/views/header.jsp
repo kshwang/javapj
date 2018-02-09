@@ -22,7 +22,6 @@
                         <li role="presentation"><a href="/pj_mn20/pj_mn21_jobs">입사지원</a></li>
                         <li role="presentation"><a href="/pj_mn30/pj_mn31">고객지원</a></li>
                         <li role="presentation"><a href="/pj_mn40/pj_mn41">교육</a></li>
-                        <li role="presentation"><a href="contact.html">사이트맵</a></li>
                     </ul>
                     
                 </div>

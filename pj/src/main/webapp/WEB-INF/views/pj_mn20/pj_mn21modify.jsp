@@ -35,37 +35,11 @@
 <script src="/resources/js/functions.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('.ok').click( function(){ // 폼 유효성 검사
-       var select = $('.select').val();
-       var jobtitle=$('.jobtitle').val();
-       var phone2=$('.phone2').val();
-       var mail =$('.mail').val();
-       var address = $('.address').val();
-        if(select === '부서선택' ){
-            alert('부서를 선택해주세요.');
-            return false;
-        }
-        if(jobtitle ===''){
-            alert('모집분야를 작성해주세요.');
-            return false;
-        }  
-        if(phone2 ===''){
-            alert('핸드폰번호를적어주세요');
-            return false;
-        }
-        if(mail === ''){
-            alert('메일을 적어주세요.');
-            return false;
-        }
-        if(address === ''){
-            alert('주소를 적어주세요.');
-            return false;
-        }
-        else{
+    $('.ok').click( function(){ 
+      
              alert('등록되었습니다.');
-             $('form').attr('action','/pj_mn20/pj_mn21write');
-        }
-         });
+             $('form').attr('action','/pj_mn20/pj_mn21modify');
+     });
     $('.no').click( function(){
     	  window.location.href = '/pj_mn20/pj_mn21_jobs' ;
     });
@@ -137,34 +111,32 @@ textarea{
 
             <h1 class="join">입사 지원</h1>
             <hr class="hr1">
-            <h3> 새글 등록</h3>
+            <h3> 수정</h3>
             <hr>
 
             <form id="" action="" method="post" enctype="application/x-www-form-urlencoded">
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="2"><b>모집 정보 입력</th>
-
+                            <th colspan="2"><b>모집 정보 수정</th>
+                               <c:if test="${not empty msg }">
+                                <p style="color: red;">정보 수정에 실패했습니다.</p>
+                                </c:if> 
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th>모집부분</th>
                             <td>
-                            <select class="select" name = "detpname">
-                            <option >부서선택</option>
-                                <c:forEach var="q" items="${detpname }" varStatus="status">    
-                            <option value="${q.detpname }">${q.detpname }</option>
-                        </c:forEach>
-                            </select>
+                            <input type="hidden" name="detpno" value="${detp.detpno }"></input>
+                            ${detp.detpname }
                             </td>
 
                         </tr>
                         <tr>
                             <th>모집분야</th>
                            <td><input class="jobtitle" type="text"
-                                        size="20" name="detptitle"
+                                        size="20" name="detptitle" value="${detp.detptitle }"
                                         style="width: 304px;">
                            </td>
                         </tr>
@@ -173,44 +145,21 @@ textarea{
                        <td class="td1" colspan="4">
                        <p>
                             <textarea cols="40" rows="25" name="detptitleinfo">
-■ 업무내용
-                               
-■ 자격요건
-                               
-■ 우대요건
-
+                              ${detp.detptitleinfo}
                                </textarea>
-                               <!-- ■ 업무내용<br>
-- 이커머스몰 온라인 매체 광고 컨설팅<br>
-- 중대형몰 및 브랜드 업체 온라인 마케팅 컨설팅<br>
-- 컨설팅에 필요한 제안서 작업 및 기획<br>
-<br>
-■ 자격요건<br>
-- 1 ~ 5년 경력자 <br>
-- 의사소통 원활하며 변화하는 광고시장에 대한 이해자<br>
-- 외부 미팅 및 컨설팅에 거부감이 없는 자<br>
-- MS Office 사용능력 우수자<br>
-- 적극적인 마인드 및 긍정적 성격 보유자<br>
-<br>
-■ 우대요건<br>
-- 온라인 광고 자격증 소지자<br>
-- 광고대행사 출신으로 온라인 광고 경험자 <br>
-- 해외온라인 광고 경험자<br>
-- 광고 제안 및 기획 작성 능력 보유자<br>
-- 장애인 및 보훈대상자<br> -->
                         </p>
                        </td>
                        </tr>
                         <tr>
                             <th>모집 기간</th>
                             <td>
-                            <input class="period" type="text" name="detpperiod" value="채용시까지">
+                            <input class="period" type="text" name="detpperiod" value="${detp.detpperiod}">
                              </td>
                         </tr>
                         <tr>
                             <th>지원</th>
                             <td>
-                            <input class="empexpiry" type="text" name="detpexpiry" value="지원하기>">
+                            <input class="empexpiry" type="text" name="detpexpiry" value="${detp.detpexpiry}">
                              </td>
                         </tr>
                     </tbody>

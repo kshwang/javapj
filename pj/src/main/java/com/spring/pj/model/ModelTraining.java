@@ -5,12 +5,12 @@ import java.util.Date;
 public class ModelTraining {
     
     Integer articleno ;
-    String  boardcd   ; // sql에서는 null 값 여기서느 ㄴ어떻게 하지?
     String  title     ; //sql하고 값 비교좀.
     String  content   ;
     String  email     ;
     Integer hit       ;
     Date    regdate   ;
+    Date    enddate   ;
     Boolean UseYN     ;
     String  InsertUID ;     
     Date    InsertDT  ;
@@ -28,12 +28,6 @@ public class ModelTraining {
     }
     public void setArticleno(Integer articleno) {
         this.articleno = articleno;
-    }
-    public String getBoardcd() {
-        return boardcd;
-    }
-    public void setBoardcd(String boardcd) {
-        this.boardcd = boardcd;
     }
     public String getTitle() {
         return title;
@@ -64,6 +58,12 @@ public class ModelTraining {
     }
     public void setRegdate(Date regdate) {
         this.regdate = regdate;
+    }
+    public Date getEnddate() {
+        return enddate;
+    }
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
     }
     public Boolean getUseYN() {
         return UseYN;
@@ -119,9 +119,9 @@ public class ModelTraining {
     
     @Override
     public String toString() {
-        return "ModelTraining [articleno=" + articleno + ", boardcd=" + boardcd
+        return "ModelTraining [articleno=" + articleno
                 + ", title=" + title + ", content=" + content + ", email="
-                + email + ", hit=" + hit + ", regdate=" + regdate + ", UseYN="
+                + email + ", hit=" + hit + ", regdate=" + regdate + ", enddate=" + enddate +", UseYN="
                 + UseYN + ", InsertUID=" + InsertUID + ", InsertDT=" + InsertDT
                 + ", UpdateUID=" + UpdateUID + ", UpdateDT=" + UpdateDT + "]";
     }

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import com.spring.pj.inf.IDaoTraining;
 import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelTraining;
-import com.spring.pj.model.ModelTrainingBoard;
 import com.spring.pj.model.ModelTrainingFile;
 
 
@@ -26,74 +25,26 @@ public class DaoTraining implements IDaoTraining {
     SqlSession session;    
 
     @Override
-    public String getBoardName(String boardcd) {
-        return  session.selectOne("mapper.mapperTraining.getBoardName", boardcd);        
+    public List<ModelTraining> selectAll() {
+        return session.selectList("mapper.mapperTraining.selectAll");
     }
+    
+    
 
     @Override
-    public ModelTrainingBoard getBoardOne(String boardcd) {
-        return  session.selectOne("mapper.mapperTraining.getBoardOne", boardcd);        
-    }
-
-    @Override
-    public int getBoardTotalRecord(String boardnm) {
-        return  session.selectOne("mapper.mapperTraining.getBoardTotalRecord", boardnm); 
-    }
-
-    @Override
-    public List<ModelTrainingBoard> getBoardList(String searchWord) {
-        return  session.selectList("mapper.mapperTraining.getBoardList", searchWord);        
-    }
-
-    @Override
-    public int insertBoard(ModelTrainingBoard board) {
-        return  session.insert("mapper.mapperTraining.insertBoard", board);        
-    }
-
-    @Override
-    public int updateBoard(ModelTrainingBoard setValue, ModelTrainingBoard whereValue) {
-        Map<String, ModelTrainingBoard> map = new HashMap<String, ModelTrainingBoard>();
-        map.put("setValue", setValue);
-        map.put("whereValue", whereValue);
-        return  session.update("mapper.mapperTraining.updateBoard", map);        
-    }
-
-    @Override
-    public int deleteBoard(ModelTrainingBoard board) {
-        return  session.delete("mapper.mapperTraining.deleteBoard", board);        
-    }
-
-    @Override
-    public List<ModelTrainingBoard> getBoardPaging(String searchWord, int start, int end) {
-        
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("searchWord", searchWord );
-        map.put("start"     , start      );
-        map.put("end"       , end        );
-        
-        List<ModelTrainingBoard> result = session.selectList("mapper.mapperTraining.getBoardPaging", map);
-        return   result;
-    }
-
-    @Override
-    public int insertBoardList(List<ModelTrainingBoard> list) {
-        return  session.insert("mapper.mapperTraining.insertBoardList", list);        
-    }
-
-    @Override
-    public int getArticleTotalRecord(String boardcd, String searchWord) {
+    public int getArticleTotalRecord(String searchWord) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("boardcd"   , boardcd    );
+        
         map.put("searchWord", searchWord );
         
         return  session.selectOne("mapper.mapperTraining.getArticleTotalRecord", map);        
     }
 
     @Override
-    public List<ModelTraining> getArticleList(String boardcd, String searchWord, int start, int end) {
+    public List<ModelTraining> getArticleList( String searchWord, int start, int end) {
         
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("boardcd"   , boardcd    );
+      
         map.put("searchWord", searchWord );
         map.put("start"     , start      );
         map.put("end"       , end        );
@@ -134,9 +85,9 @@ public class DaoTraining implements IDaoTraining {
     }
 
     @Override
-    public ModelTraining getNextArticle(int articleno, String boardcd, String searchWord) {
+    public ModelTraining getNextArticle(int articleno, String searchWord) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("boardcd"   , boardcd    );
+        
         map.put("articleno" , articleno  );
         map.put("searchWord", searchWord );
         
@@ -144,9 +95,9 @@ public class DaoTraining implements IDaoTraining {
     }
 
     @Override
-    public ModelTraining getPrevArticle(int articleno, String boardcd, String searchWord) {
+    public ModelTraining getPrevArticle(int articleno, String searchWord) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("boardcd"   , boardcd    );
+        
         map.put("articleno" , articleno  );
         map.put("searchWord", searchWord );
         return  session.selectOne("mapper.mapperTraining.getPrevArticle", map);        
