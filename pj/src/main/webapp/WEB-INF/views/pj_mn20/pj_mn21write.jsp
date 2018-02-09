@@ -210,7 +210,7 @@ textarea{
                         <tr>
                             <th>지원</th>
                             <td>
-                            <input class="empexpiry" type="text" name="detpexpiry" value="지원하기">
+                            <input class="empexpiry" type="text" name="detpexpiry" value="지원하기>">
                              </td>
                         </tr>
                     </tbody>

@@ -126,6 +126,31 @@ public class ServiceEmploy implements IServiceEmploy {
         return rs;
     }
 
+    @Override
+    public List<ModelEmployUserFile> selectuploaduser() {
+        List<ModelEmployUserFile> rs=null;
+        try {
+            rs = dao.selectuploaduser();
+        } catch (Exception e) {
+            logger.error("selectuploaduser" + e.getMessage());
+            throw e;
+        }
+            return rs;
+    }
+
+    @Override
+    public int deleteuploaduser(ModelEmployUserFile deletefile) {
+        int rs=-1;
+        try {
+            rs = dao.deleteuploaduser(deletefile);
+        } catch (Exception e) {
+            logger.error("deleteuploaduser" + e.getMessage());
+            throw e;
+        }
+            return rs;
+    }
+
+
    
     
 }

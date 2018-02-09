@@ -88,13 +88,20 @@
           </if>
     </delete>
     
-    <select id="selectuploaduser" resultType="ModelEmployUserFile">
-        SELECT a.detpname,a.detptitle,b.name,b.phone,b.mail,b.address,b.url,b.fileNameOrig 
-        FROM pj_employ_upload_user b inner join pj_employ_detp a on a.detpno=b.detpno 
-        WHERE 1=1
-        <if test="detpno != null " >
-         AND b.detpno = #{detpno}
-         </if>
+    <select id="selectuploaduser"  resultType="ModelEmployUserFile">
+        SELECT 
+                        b.* 
+        FROM pj_employ_upload_user b 
+        INNER JOIN pj_employ_detp a
+        ON a.detpno=b.detpno 
     </select>
+    <!-- http://ssodang.tistory.com/entry/MyBatis-%EB%91%90%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4%EB%A5%BC-%ED%95%9C%EA%B0%9C%EC%9D%98-%EB%AA%A8%EB%8D%B8%EB%A1%9C-Join-%EC%BF%BC%EB%A6%AC%EB%A1%9C-%EB%B0%9B%EA%B8%B0 
+    참조 사이트
+    -->
     
- </mapper> 
+    <delete id="deleteuploaduser" parameterType="ModelEmployUserFile">
+         DELETE FROM pj_employ_upload_user 
+         WHERE 1 = 1 
+          AND uploadFileNo  = #{uploadFileNo}
+    </delete>
+ </mapper>       
