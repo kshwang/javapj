@@ -83,7 +83,7 @@ public class ModelTrainingFile {
     }
     @Override
     public String toString() {
-        return "ModelAttachFile [attachfileno=" + attachfileno
+        return "ModelTrainingFile [attachfileno=" + attachfileno
                 + ", filenameorig=" + filenameorig + ", filenametemp="
                 + filenametemp + ", filetype=" + filetype + ", filesize="
                 + filesize + ", articleno=" + articleno + ", UseYN=" + UseYN
