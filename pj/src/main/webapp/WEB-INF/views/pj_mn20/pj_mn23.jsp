@@ -276,8 +276,8 @@ h3 {
                 </table>
                 <br> <br>
                 <center>
-                    <input class="ok"  no="${detpno}" type="submit" name="ok" value="확인">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit"
+                    <input class="ok"  no="${detpno}" type="button" name="ok" value="확인">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="button"
                         name="no" value="취소">
                 </center>
             </form>
