@@ -366,4 +366,11 @@ public class EmployController {
         }
     }
 	
+	@RequestMapping(value = "/download", method = RequestMethod.POST)
+    public String download( Model model ) {
+        logger.info("/download");
+        
+        return "pj_mn20/download"; 
+    }
+	
 }
