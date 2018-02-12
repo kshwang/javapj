@@ -33,9 +33,32 @@
     <script type="text/javascript">
     var goList = function(  ) {
         window.location.href = '/pj_mn20/pj_mn21_jobs ';
-    }
+    };
     var fileList = function(  ){
     	window.location.href = '/pj_mn20/pj_mn24_filelist' ;
+  };
+  var download = function( filetemp, fileorig ) {
+      // post 로 요청. ajax / form
+      var f  = document.createElement('form');
+      f.setAttribute('method', 'post');
+      f.setAttribute('action', '/download');
+      f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+      
+      var i = document.createElement('input');
+      i.setAttribute('type', 'hidden');
+      i.setAttribute('name', 'filetemp');
+      i.setAttribute('value', filetemp);            
+      f.appendChild(i);
+      
+      var i = document.createElement('input');
+      i.setAttribute('type', 'hidden');
+      i.setAttribute('name', 'fileorig');
+      i.setAttribute('value', fileorig);            
+      f.appendChild(i);
+      
+      document.body.appendChild(f);
+      
+      f.submit();
   };
   $(document).ready(function(event) {
 	  $('.delete').click(function(event) {
@@ -159,7 +182,7 @@
                         <td>${empfile.mail }</td>
                         <td>${empfile.address }</td>
                         <td>${empfile.url }</td>
-                        <td>${empfile.fileNameOrig }</td>
+                        <td><a href="javascript:download('${empfile.fileNameTemp }','${empfile.fileNameOrig }')"><img src="/resources/images/attach.png" alt="${empfile.fileNameOrig }"/></a></td>
                     </tr>
                   </c:forEach>
               </table>

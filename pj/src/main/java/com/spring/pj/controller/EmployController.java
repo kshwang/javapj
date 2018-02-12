@@ -1,5 +1,9 @@
 package com.spring.pj.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.pj.common.PagingHelper;
@@ -104,22 +109,29 @@ public class EmployController {
     }
 	
 	@RequestMapping(value = "/pj_mn20/pj_mn22_view", method = RequestMethod.POST)
-    public String pj_mn22( Model model , HttpSession session, @RequestParam String title) {
+    public String pj_mn22( Model model , HttpSession session
+                                                    , @RequestParam String title
+                                                    , @RequestParam Integer detpno ) {
         logger.info("/pj_mn20/pj_mn22_view");
         
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         model.addAttribute("jobtitle", title);
+        model.addAttribute("detpno", detpno);
+        
         
          return "pj_mn20/pj_mn22_view";
     }
 	
 	
 	@RequestMapping(value = "/pj_mn20/pj_mn23", method = RequestMethod.POST)
-    public String pj_mn23( Model model, HttpSession session , @RequestParam String title) {
+    public String pj_mn23( Model model, HttpSession session
+                                                                    , @RequestParam String title
+                                                                    , @RequestParam Integer detpno) {
         logger.info("/pj_mn20/pj_mn23");
         
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         model.addAttribute("jobtitle", title);
+        model.addAttribute("detpno", detpno);
        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
        if (user == null) {
            return "pj_mn20/pj_mn23";
@@ -129,6 +141,80 @@ public class EmployController {
            return "pj_mn20/pj_mn23";
        }
     }
+	   @RequestMapping(value = "/pj_mn20/insertuploaduser", method = RequestMethod.POST)
+	   @ResponseBody
+	    public int  insertuploaduser( Model model
+	                                                            , HttpSession session 
+	                                                            ,@RequestParam(value="upload") MultipartFile upload
+	                                                            , @RequestParam Integer detpno
+	                                                            , @ModelAttribute ModelEmployUserFile insertuser) {
+	        logger.info("/pj_mn20/insertuploaduser");
+	        
+	        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+	       ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+	       
+	       if (user == null) {
+	           insertuser.setDetpno(detpno);
+	           int rs = svremp.insertuploaduser(insertuser);
+	          
+	           return rs;
+	       }
+	       else {
+	           model.addAttribute("user",user);
+	           insertuser.setDetpno(detpno);
+	           int rs =svremp.insertuploaduser(insertuser);
+	           return rs;
+	       }
+	       
+	    }
+	   /*
+	    *  if (! upload.getOriginalFilename().isEmpty()){
+                   File uploadDir = new File( WebConstants.UPLOAD_PATH);
+                   if(!uploadDir.exists()) uploadDir.mkdir();
+                   
+                   String fileName =  upload.getOriginalFilename();
+                   String tempName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                   String newFile = WebConstants.UPLOAD_PATH+ tempName;
+                   File serverfile = new File(newFile);
+                   
+                   
+                    try {
+                        upload.transferTo(serverfile);
+                    } catch (IllegalStateException e) {
+                        logger.error("pj_mn23"+e.getMessage());
+                    } catch (IOException e) {
+                        logger.error("pj_mn23"+e.getMessage());
+                    }
+                
+               }
+	    *  List<ModelEmployUserFile> empfile = svremp.selectuploaduser();
+        for (ModelEmployUserFile i : empfile) {
+            ModelEmploy emp = svremp.selectDetpno(i.getDetpno());
+            i.setEmp(emp);
+        }
+	    * 
+	    * @RequestMapping(value = "/pj_mn20/deletefile", method = RequestMethod.POST)
+	    @ResponseBody
+	    public int deletefile( Model model
+	            , HttpSession session
+	            , @ModelAttribute ModelEmployUserFile deletefile
+	            ) {
+	        logger.info("/pj_mn20/deletefile  :g");
+	       
+	        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
+	        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+	        
+	        
+	        if( user.getUserclass() >0){
+	            // 권한 없음 메세지 띄우기
+	            return 0;
+	        }
+	        else{
+	            int rs =svremp.deleteuploaduser(deletefile);
+	            return rs;
+	           
+	        }
+	    }*/
 	
 	
 	@RequestMapping(value = "/pj_mn20/pj_mn24_filelist", method = RequestMethod.GET)
@@ -278,6 +364,13 @@ public class EmployController {
             rttr.addFlashAttribute("msg", WebConstants.MSG_FAIL_DELETE);
             return "redirect:/pj_mn20/pj_mn21modify";
         }
+    }
+	
+	@RequestMapping(value = "/download", method = RequestMethod.POST)
+    public String download( Model model ) {
+        logger.info("/download");
+        
+        return "pj_mn20/download"; 
     }
 	
 }

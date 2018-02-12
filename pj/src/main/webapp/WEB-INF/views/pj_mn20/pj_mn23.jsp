@@ -72,8 +72,38 @@ $(document).ready(function() {
             return false;
         }
         else{
-             alert('지원완료 되었습니다..');
-             $('form').attr('action','/');
+             /* alert('지원완료 되었습니다..');
+             $('form').attr('action','/'); */
+             if (!confirm('지원 하시겠습니까?')) {
+                 return false;
+             }
+               var no = $('.ok').attr('no');
+           $.ajax({
+               url : '/pj_mn20/insertuploaduser'
+               , data: {'detpno': Number(no)}        // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
+               , type: 'post'       // get, post
+               , timeout: 30000    // 30초
+               , dataType: 'json'  // text, html, xml, json, jsonp, script
+               , beforeSend : function() {
+                   // 통신이 시작되기 전에 이 함수를 타게 된다.
+               }
+           }).done( function(data, textStatus, xhr ){
+               // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+               if (data === 1) {
+                   // 성공
+                   alert('감사합니다 지원이 완료되었습니다.');
+                   window.location.href='/pj_mn20/pj_mn21_jobs';
+               }
+               else {
+                   // 실패
+                   alert('죄송합니다 . 다시지원해주세요.');
+                   window.location.href='/pj_mn20/pj_mn21_jobs';
+               }
+           }).fail( function(xhr, textStatus, error ) {
+               // 통신이 실패했을 때 이 함수를 타게 된다.
+           }).always( function(data, textStatus, xhr ) {
+               // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+           }); 
         }
          });
     $('.no').click( function(){
@@ -230,7 +260,7 @@ h3 {
                         <tr>
                             <th>이력서 파일첨부 & 포토폴리오 파일첨부</th>
                             <td>
-                            <br><input type="file" name="file1" size="20" name="name" style="width: 25%;">
+                            <br><input type="file" name="upload" size="20"  style="width: 25%;">
                             <br>
                                 <ul>
                                     <li>이력서는 자유롭게 작성하셔서 등록해 주시기 바랍니다.</li>
@@ -246,9 +276,9 @@ h3 {
                 </table>
                 <br> <br>
                 <center>
-                    <input class="ok" type="submit" name="확인" value="확인">
+                    <input class="ok"  no="${detpno}" type="submit" name="ok" value="확인">
                     &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit"
-                        name="확인" value="취소">
+                        name="no" value="취소">
                 </center>
             </form>
 

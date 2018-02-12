@@ -46,7 +46,7 @@
         		 $('form').attr('action','/pj_mn20/pj_mn23');
         	}
         	 });
-        $('.no').click( function(){
+       $('.no').click( function(){
         	 $('form').attr('action','/pj_mn20/pj_mn21_jobs');
         });
         
@@ -109,6 +109,7 @@
             <li> 개인정보 수집 및 이용동의</li>
     <form action="" method="post" enctype="application/x-www-form-urlencoded">
     <input  type="hidden" name="title" value="${jobtitle}"/>
+    <input class="detpno"  type="hidden" name="detpno" value="${detpno}"/>
         <p>
             <textarea cols="40" rows="25">
                 1. 개인정보의 수집 및 이용 목적
