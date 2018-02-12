@@ -22,7 +22,6 @@ public class ModelTraining {
     Integer commentNum;
     
     
-    
     public Integer getArticleno() {
         return articleno;
     }

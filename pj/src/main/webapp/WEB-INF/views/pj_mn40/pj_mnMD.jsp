@@ -63,7 +63,7 @@ url-navi {
 </style>
     <script src="../../resources/js/jquery-3.1.1.js"></script>
     <!-- <script src="/resources/js/ajaxsetup.js"><!-- jquery 아래에 위치해야 함 --></script> -->
-    <script>
+    <!-- <script>
         $(document).ready( function(event){
         	$('div[attachfileno]').click( function(event){
         		
@@ -90,12 +90,38 @@ url-navi {
         		
         	});
         });
-    </script>
+    </script> -->
     <script>
     var goList = function(){
     	window.location.href="/pj_mn40/pj_mn41?searchWord=${searchWord}&curPage=1"
     }
+    
+    var goDelete = function(articleno){ 
+        
+        var f = document.createElement('form');
+    	f.setAttribute('method', 'post');
+    	f.setAttribute('action', '/pj_mn40/articledelete');
+    	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+    	
+    	var i = document.createElement('input');
+    	i.setAttribute('type', 'hidden');
+    	i.setAttribute('name', 'articleno');
+    	i.setAttribute('value', articleno);            
+        f.appendChild(i);
+        
+        var i = document.createElement('input');
+    	i.setAttribute('type', 'hidden');
+    	i.setAttribute('name', 'curPage');
+    	i.setAttribute('value', ${curPage });            
+        f.appendChild(i);
+    	
+    	document.body.appendChild( f );
+    	
+    	f.submit();
+    };
     </script>
+    
+    
 </head>
 <body>
  <%@ include file="../header.jsp"%>
@@ -149,9 +175,9 @@ url-navi {
 							</tr>
 						</table>
 						<div style="text-align: center; padding-bottom: 15px;">
-							<input type="submit" value="전송" /> 
-							<input type="button" value="상세보기" onclick="goView()" /> 
+							<input type="submit" value="수정" /> 							
 							<input type="button" value="목록" onclick="goList()" />
+                             <input type="button" value="삭제"onclick="javascript:goDelete(${thisArticle.articleno });" /> 
 						</div>
 					</form>
 
