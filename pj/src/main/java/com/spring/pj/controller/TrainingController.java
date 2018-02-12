@@ -24,9 +24,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
+import com.spring.pj.inf.IDaoTraining;
 import com.spring.pj.inf.IServiceTraining;
 import com.spring.pj.model.ModelTraining;
+import com.spring.pj.model.ModelTrainingApply;
 import com.spring.pj.model.ModelTrainingFile;
+import com.spring.pj.model.ModelUser;
 
 @Controller
 public class TrainingController {
@@ -106,10 +109,7 @@ public class TrainingController {
         List<ModelTrainingFile> attachFileList = srvboard.getAttachFileList(articleno);
         model.addAttribute("attachFileList", attachFileList);
         
-       /* // commentList : 댓글 목록을 출력하는 경우.
-        List<ModelComments> commentList = srvboard.getCommentList(articleno);
-        model.addAttribute("commentList", commentList);
-        */
+   
         
         // nextArticle
         ModelTraining nextArticle = srvboard.getNextArticle(articleno, searchWord);
@@ -324,4 +324,75 @@ public class TrainingController {
         return result; 
     }
     
+    
+//    @RequestMapping(value = "/pj_mn40/pj_mn43/insertapply", method = RequestMethod.POST)
+//    public String insertapply(Model model
+//            , HttpSession session
+//            , @RequestParam Integer articleno
+//           ) {
+//        logger.info("/pj_mn40/pj_mn43/insertapply");
+//        
+//        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+//        Integer userno = user.getUserno();
+//        
+//        ModelTrainingApply apply = new ModelTrainingApply();
+//        apply.setUserno(userno);
+//        apply.setArticleno(articleno);
+//        
+//        int result = srvboard.insertTrainingApply(apply);
+//        
+//        return "redirect:/pj_mn40/pj_mn43/" + articleno;
+//    }
+    @RequestMapping(value = "/rest/pj_mn40/pj_mn43/insertapply", method = RequestMethod.POST)
+    @ResponseBody //?
+    public int restinsertapply(Model model
+            , HttpSession session
+            , @RequestParam Integer articleno
+           ) {
+        logger.info("/rest/pj_mn40/pj_mn43/insertapply");
+        
+        ModelUser user = (ModelUser) session.getAttribute("user");
+        Integer userno = user.getUserno();
+        
+        ModelTrainingApply apply = srvboard.selectTraingApplyOne(articleno, userno);
+        
+        if (apply == null) { //111111111111
+            apply = new ModelTrainingApply();
+            apply.setArticleno(articleno);
+            apply.setUserno(userno);
+            int result = srvboard.insertTrainingApply(apply);
+            return result; // 111111111111
+        }
+        else {
+            return 0;
+        }
+    }
+    
+    @RequestMapping(value = "/pj_mn40/deleteapply", method = RequestMethod.POST)
+    public String deleteapply( Model model
+           
+            , @RequestParam Integer articleno
+            , @RequestParam(defaultValue="1" ) Integer curPage
+            
+            , RedirectAttributes rttr ) {
+        logger.info("/pj_mn40/deleteapply :: post");
+        
+        ModelTrainingApply tra = new ModelTrainingApply();
+        tra.setArticleno(articleno);
+        
+        int result = srvboard.deleteTrainingApply(tra); // model 자체를 넘겨받음.
+        
+        String url = "";
+        if( result == 1) {            
+            url = String.format("redirect:/pj_mn40/pj_mn41?curPage=%s" , curPage);
+        }
+        else {
+           /* rttr.addFlashAttribute("msg"  , WebConstants.MSG_FAIL_DELETE_ARTICLE );*/
+            rttr.addAttribute("curPage"   , curPage);
+            
+            
+            url = String.format("redirect:/pj_mn40/pj_mn43/%s",  articleno);
+        }
+        return url;
+}
 }

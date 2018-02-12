@@ -164,6 +164,8 @@
         VALUES        ( #{filenameorig}, #{filenametemp}, #{filetype}, #{filesize}, #{articleno}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
     </insert>
     
+    
+    
     <delete id="deleteAttachFile" parameterType="ModelTrainingFile">
         DELETE FROM pj_training_file          
          WHERE 1 = 1 
@@ -178,5 +180,28 @@
           </if>
     </delete>
     
+     <insert id="insertTrainingApply" parameterType="ModelTrainingApply">
+        INSERT INTO 
+        pj_training_apply (userno, articleno )
+        VALUES        ( #{userno}, #{articleno} )
+    </insert>
+    
+       <delete id="deleteTrainingApply" parameterType="ModelTrainingApply">
+        DELETE FROM pj_training_apply
+        WHERE 1 = 1
+        <if test="articleno != null and articleno != ''">
+            AND articleno = #{articleno}
+        </if>
+
+        <if test="userno != null and userno != ''">
+            AND userno = #{userno}
+        </if>
+     
+    </delete>
+    
+    <select id="selectTraingApplyOne" parameterType="java.util.Map" resultType="ModelTrainingApply">
+        SELECT * FROM pj_training_apply
+        WHERE articleno = #{articleno} and userno = #{userno}
+    </select>
     
 </mapper>

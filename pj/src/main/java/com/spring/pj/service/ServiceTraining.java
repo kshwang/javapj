@@ -11,6 +11,7 @@ import com.spring.pj.inf.IDaoTraining;
 import com.spring.pj.inf.IServiceTraining;
 import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelTraining;
+import com.spring.pj.model.ModelTrainingApply;
 import com.spring.pj.model.ModelTrainingFile;
 
 @Service
@@ -211,65 +212,7 @@ public class ServiceTraining implements IServiceTraining {
         return result;
     }
     
-    @Override
-    public ModelComments getComment(int commentNo) {
-        ModelComments result = null;
-        try {
-            result = daotrn.getComment(commentNo);
-        } catch (Exception e) {
-            logger.error("getComment  " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public List<ModelComments> getCommentList(int articleno) {
-        List<ModelComments> result = null;
-        try {
-            result = daotrn.getCommentList(articleno);
-        } catch (Exception e) {
-            logger.error("getCommentList  " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int insertComment(ModelComments comment) {
-        int result = -1;
-        try {
-            result = daotrn.insertComment(comment);
-        } catch (Exception e) {
-            logger.error("insertComment " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int updateComment(ModelComments setValue, ModelComments whereValue) {
-        int result = -1;
-        try {
-            result = daotrn.updateComment(setValue, whereValue);
-        } catch (Exception e) {
-            logger.error("updateComment " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
-    @Override
-    public int deleteComment(ModelComments comment) {
-        int result = -1;
-        try {
-            result = daotrn.deleteComment(comment);
-        } catch (Exception e) {
-            logger.error("deleteComment " + e.getMessage());
-        }
-        
-        return result;
-    }
+   
     
     @Override
     public ModelTraining transArticle(int articleno) {
@@ -310,64 +253,42 @@ public class ServiceTraining implements IServiceTraining {
         
         return result;
     }
+    @Override
+    public int insertTrainingApply(ModelTrainingApply apply) {
+        int result = -1;
+        try {
+            result = daotrn.insertTrainingApply(apply);
+        } catch (Exception e) {
+            logger.error("insertTrainingApply " + e.getMessage());
+        }
+        
+        return result;
+    }
     
-    /*
-     * @Override public ModelTrainingBoard getBoardOne(String boardcd) { // TODO Auto-generated method stub return null;
-     * }
-     * 
-     * @Override public int insertBoard(ModelTrainingBoard board) { // TODO Auto-generated method stub return 0; }
-     * 
-     * @Override public int updateBoard(ModelTrainingBoard setValue, ModelTrainingBoard whereValue) { // TODO
-     * Auto-generated method stub return 0; }
-     * 
-     * @Override public int deleteBoard(ModelTrainingBoard board) { // TODO Auto-generated method stub return 0; }
-     * 
-     * @Override public int insertBoardList(List<ModelTrainingBoard> list) { // TODO Auto-generated method stub return
-     * 0; }
-     * 
-     * @Override public ModelTraining getArticle(int articleno) { // TODO Auto-generated method stub return null; }
-     * 
-     * @Override public int insertArticle(ModelTraining article) { // TODO Auto-generated method stub return 0; }
-     * 
-     * @Override public int updateArticle(ModelTraining setValue, ModelTraining whereValue) { // TODO Auto-generated
-     * method stub return 0; }
-     * 
-     * @Override public int deleteArticle(ModelTraining article) { // TODO Auto-generated method stub return 0; }
-     * 
-     * @Override public ModelTraining getNextArticle(int articleno, String boardcd, String searchWord) { // TODO
-     * Auto-generated method stub return null; }
-     * 
-     * @Override public ModelTraining getPrevArticle(int articleno, String boardcd, String searchWord) { // TODO
-     * Auto-generated method stub return null; }
-     * 
-     * @Override public ModelTrainingFile getAttachFile(int attachFileNo) { // TODO Auto-generated method stub return
-     * null; }
-     * 
-     * @Override public int insertAttachFile(ModelTrainingFile attachFile) { // TODO Auto-generated method stub return
-     * 0; }
-     * 
-     * @Override public int deleteAttachFile(ModelTrainingFile attachFile) { // TODO Auto-generated method stub return
-     * 0; }
-     * 
-     * @Override public ModelTraining transArticle(int articleno) { // TODO Auto-generated method stub return null; }
-     * 
-     * @Override public ModelTrainingBoard getBoardOne(String boardcd) { // TODO Auto-generated method stub return null;
-     * }
-     * 
-     * @Override public int insertBoardList(List<ModelTrainingBoard> list) { // TODO Auto-generated method stub return
-     * 0; }
-     * 
-     * @Override public ModelTraining getArticle(int articleno) { // TODO Auto-generated method stub return null; }
-     * 
-     * @Override public ModelTraining getNextArticle(int articleno, String boardcd, String searchWord) { // TODO
-     * Auto-generated method stub return null; }
-     * 
-     * @Override public ModelTraining getPrevArticle(int articleno, String boardcd, String searchWord) { // TODO
-     * Auto-generated method stub return null; }
-     * 
-     * @Override public ModelTrainingFile getAttachFile(int attachFileNo) { // TODO Auto-generated method stub return
-     * null; }
-     * 
-     * @Override public ModelTraining transArticle(int articleno) { // TODO Auto-generated method stub return null; }
-     */
+    @Override
+    public int deleteTrainingApply(ModelTrainingApply apply) {
+        int result = -1;
+        try {
+            result = daotrn.deleteTrainingApply(apply);
+        } catch (Exception e) {
+            logger.error("deleteArticle  " + e.getMessage());
+        }
+        
+        return result;
+    }
+
+
+
+
+    @Override
+    public ModelTrainingApply selectTraingApplyOne(int articleno, int userno) {
+        ModelTrainingApply result = null;
+        try {
+            result = daotrn.selectTraingApplyOne(articleno, userno);
+        } catch (Exception e) {
+            logger.error("selectTraingApplyOne  " + e.getMessage());
+        }
+        
+        return result;
+    }
 }

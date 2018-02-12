@@ -210,6 +210,35 @@ var address = null;
         var goView = function( articleno ) {
         	location.href = '/pj_mn40/pj_mn43/'+ articleno + location.search;
         };
+        var goApplyCancel = function(){
+        	if (confirm("정말 취소하시겠습니까?") == true){    //확인
+        		 var f = document.createElement('form');
+              	f.setAttribute('method', 'post');
+              	f.setAttribute('action', '/pj_mn40/deleteapply');
+              	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+              	
+              	var i = document.createElement('input');
+              	i.setAttribute('type', 'hidden');
+              	i.setAttribute('name', 'articleno');
+              	i.setAttribute('value', ${articleno});            
+                  f.appendChild(i);
+                  
+                  var i = document.createElement('input');
+              	i.setAttribute('type', 'hidden');
+              	i.setAttribute('name', 'curPage');
+              	i.setAttribute('value', ${curPage });            
+                  f.appendChild(i);
+              	
+              	document.body.appendChild( f );
+              	
+              	f.submit();
+        	    document.form.submit();
+        	}else{   //취소
+        	    return;
+        	}
+        	};
+
+
         
         var goApply = function(){
         	if(${empty user}===true){
@@ -217,18 +246,52 @@ var address = null;
                 location.href = "/login";
             }
             else {
-            	alert('등록되었습니다');
-                location.href = "/pj_mn40/pj_mn43/${articleno}";
+            	//alert('등록되었습니다');
+                //location.href = "/pj_mn40/pj_mn43/insertapply";
+            	/* var f = document.createElement('form');
+            	f.setAttribute('method', 'post');
+            	f.setAttribute('action', '/pj_mn40/pj_mn43/insertapply');
+            	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+            	
+            	var i = document.createElement('input');
+            	i.setAttribute('type', 'hidden');
+            	i.setAttribute('name', 'articleno');
+            	i.setAttribute('value', ${articleno});            
+                f.appendChild(i);
+                
+            	document.body.appendChild( f );
+            	
+            	f.submit(); */
+            	$.ajax({
+            	    url : '/rest/pj_mn40/pj_mn43/insertapply',
+            	    data: {'articleno': ${articleno } },        // 사용하는 경우에는 { data1:'test1', data2:'test2' }
+            	    type: 'post',       // get, post
+            	    timeout: 30000,    // 30초
+            	    dataType: 'json',  // text, html, xml, json, jsonp, script
+            	    beforeSend : function() {
+            	        // 통신이 시작되기 전에 이 함수를 타게 된다.
+            	    }
+            	}).done( function(data, textStatus, xhr ){
+            	    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+            	    if (data == 1) {
+            	    	alert('등록되었습니다');
+            	    	window.location.href = '/pj_mn40/pj_mn43/${articleno}';
+            		}
+            	    else {
+            	    	alert('이미 신청하셨습니다');
+            	    }
+            	}).fail( function(xhr, textStatus, error ) {
+            	    // 통신이 실패했을 때 이 함수를 타게 된다.
+            	}).always( function(data, textStatus, xhr ) {
+            	    // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
+            	});
+
+                
             }
         	
         };
-        
-        var goModify = function( ){
-        	location.href = '/pj_mn40/pj_mnMD/${articleno}'; 
-        }; 
-       
         var goDelete = function(articleno){ 
-        
+            
             var f = document.createElement('form');
         	f.setAttribute('method', 'post');
         	f.setAttribute('action', '/pj_mn40/articledelete');
@@ -250,6 +313,13 @@ var address = null;
         	
         	f.submit();
         };
+        
+        var goModify = function( ){
+        	location.href = '/pj_mn40/pj_mnMD/${articleno}'; 
+        }; 
+       
+          
+     
 
         var goList = function( curPage, redirect ) {
         	if( redirect === false )
@@ -258,8 +328,15 @@ var address = null;
         		location.href = '/pj_mn40/pj_mn41?curPage='+ curPage;
         };
         
-        var goWrite = function( ) {
-        	location.href = '/pj_mn40/pj_mn42';
+        var goWrite = function(){
+        	if(${empty user}===true){
+                alert('로그인하세요');
+                location.href = "/login";
+            }
+            else {
+                location.href = "/pj_mn40/pj_mn42";
+            }
+        	
         };
         
         var download = function( filetemp, fileorig ) {
@@ -320,8 +397,12 @@ var address = null;
                 <div id="bbs">
                     <table>
                         <tr>
-                            <th style="text-align: left; width: 70px;">${thisArticle.articleno }
-                                </th>
+                       <%--      <th style="text-align: left; width: 70px;">${thisArticle.articleno }
+                                </th> --%>
+                                 <th style="text-align: left;">
+                                    ${articleno }
+                                    </th>
+                                
                             <th style="text-align: center; color: #555;">${thisArticle.title }</th>
                             <th style="width: 50px;">DATE</th>
                             <th style="width: 130px; color: #555; text-align: right;"><fmt:formatDate
@@ -363,10 +444,13 @@ var address = null;
 
                     <div id="view-menu">
                         <div class="fl">
-                         <input type="button" value="신청" 
+                         <input type="button" value="신청"
                                 onclick="javascript:goApply();" /> 
                                 
-                              <input type="button" value="목록"
+                                <input type="button" value="신청취소"
+                                onclick="javascript:goApplyCancel();" /> 
+                                
+                              <input type="button" value="목록" id="apply"
                                 onclick="javascript:goList( ${curPage } );" />
                                 
                             <input type="button" value="수정"
@@ -389,7 +473,7 @@ var address = null;
                         </tr>
 
                         <!--  반복 구간 시작 -->
-                        <c:forEach var="training" items="${articleList }"
+                        <c:forEach var="training" items="${articleList}"
                             varStatus="status">
                             
                             <tr articleno="${training.articleno}">
@@ -402,7 +486,7 @@ var address = null;
                                                 alt="현재글" />
                                         </c:when>
                                         <c:otherwise>
-                					${no - status.index }
+                					${training.articleno }
                 				</c:otherwise>
                                     </c:choose></td>
                                 <td><span>${training.title}</span> <c:if

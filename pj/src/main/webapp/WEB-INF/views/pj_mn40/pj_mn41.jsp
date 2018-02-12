@@ -166,13 +166,17 @@ var goWrite = function(){
             <!--  반복 구간 시작 -->
             <c:forEach var="training" items="${traininglist }" varStatus="status">
                     <tr articleno="${training.articleno }" >
+                    
                         <td>${training.articleno }</td>
+                        
                         <td>${training.title }</td>
                         <td align="center"><fmt:formatDate  value="${training.regdate }" pattern="yyyy-MM-dd"/>  </td>
                         <td><fmt:formatDate  value="${training.enddate }" pattern="yyyy-MM-dd"/></td>
                         <td>${training.hit }</td>
                     </tr>
+                
                  </c:forEach>
+                 
             
             <!--  반복 구간 끝 -->
         </table>
