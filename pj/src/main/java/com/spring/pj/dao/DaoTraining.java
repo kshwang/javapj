@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.pj.inf.IDaoTraining;
 import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelTraining;
+import com.spring.pj.model.ModelTrainingApply;
 import com.spring.pj.model.ModelTrainingFile;
 
 
@@ -123,162 +124,26 @@ public class DaoTraining implements IDaoTraining {
         return  session.delete("mapper.mapperTraining.deleteAttachFile", attachFile );        
     }
 
-    @Override
-    public int insertComment(ModelComments comment) {
-        
-        // inserted 된 primary key 값, commentno 를 반환.
-        session.insert("mapper.mapperTraining.insertComment", comment );
-        return comment.getCommentno();
-    }
 
     @Override
-    public int updateComment(ModelComments setValue, ModelComments whereValue) {
-        
-        Map<String, ModelComments> map = new HashMap<>();
-        map.put("setValue", setValue);
-        map.put("whereValue", whereValue);
-        
-        return  session.update("mapper.mapperTraining.updateComment", map );        
+    public int insertTrainingApply(ModelTrainingApply apply) {
+        return  session.insert("mapper.mapperTraining.insertTrainingApply", apply );        
     }
+    
+    @Override
+    public int deleteTrainingApply(ModelTrainingApply apply) {
+        return  session.delete("mapper.mapperTraining.deleteTrainingApply", apply );        
+    }
+
+
 
     @Override
-    public int deleteComment(ModelComments comment) {
-        return  session.delete("mapper.mapperTraining.deleteComment", comment );        
+    public ModelTrainingApply selectTraingApplyOne(int articleno, int userno) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("articleno", articleno);
+        map.put("userno", userno);
+        return session.selectOne("mapper.mapperTraining.selectTraingApplyOne", map);
     }
 
-    @Override
-    public ModelComments getComment(int commentNo) {
-        return  session.selectOne("mapper.mapperTraining.getComment", commentNo);        
-    }
-
-    @Override
-    public List<ModelComments> getCommentList(int articleno) {
-        return  session.selectList("mapper.mapperTraining.getCommentList", articleno);        
-    }
-
-    /* @Override
-    public ModelTrainingBoard getBoardOne(String boardcd) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int insertBoard(ModelTrainingBoard board) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int updateBoard(ModelTrainingBoard setValue,
-            ModelTrainingBoard whereValue) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int deleteBoard(ModelTrainingBoard board) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int insertBoardList(List<ModelTrainingBoard> list) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public ModelTraining getArticle(int articleno) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int insertArticle(ModelTraining article) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int updateArticle(ModelTraining setValue, ModelTraining whereValue) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int deleteArticle(ModelTraining article) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public ModelTraining getNextArticle(int articleno, String boardcd,
-            String searchWord) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ModelTraining getPrevArticle(int articleno, String boardcd,
-            String searchWord) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ModelTrainingFile getAttachFile(int attachFileNo) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int insertAttachFile(ModelTrainingFile attachFile) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int deleteAttachFile(ModelTrainingFile attachFile) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public ModelTrainingBoard getBoardOne(String boardcd) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int insertBoardList(List<ModelTrainingBoard> list) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public ModelTraining getArticle(int articleno) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ModelTraining getNextArticle(int articleno, String boardcd,
-            String searchWord) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ModelTraining getPrevArticle(int articleno, String boardcd,
-            String searchWord) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ModelTrainingFile getAttachFile(int attachFileNo) {
-        // TODO Auto-generated method stub
-        return null;
-    }*/
     
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.pj.model.ModelComments;
 import com.spring.pj.model.ModelTraining;
+import com.spring.pj.model.ModelTrainingApply;
 import com.spring.pj.model.ModelTrainingFile;
 
 public interface IDaoTraining {
@@ -91,31 +92,12 @@ public interface IDaoTraining {
      * AttachFile테이블. 게시글에서 첨부파일 삭제
      */
     public int deleteAttachFile(ModelTrainingFile attachFile);
-
-    /*
-     * Comment테이블. 게시글에 덧글 한개 가져오기
-     */
-    public ModelComments getComment(int commentNo);
-
-    /*
-     * Comment테이블. 게시글에 덧글 리스트 구하기
-     * 게시글 상세보기(articleview)에서 덧글 목록 출력할 때 사용.
-     */
-    public List<ModelComments> getCommentList(int articleno);
     
-    /*
-     * Comment테이블. 게시글에 덧글쓰기
-     */
-    public int insertComment(ModelComments comment);
+    //사용자 정보 등록
+    public int insertTrainingApply(ModelTrainingApply apply);
 
-    /*
-     * Comment테이블. 게시글의 덧글수정
-     */
-    public int updateComment(ModelComments setValue, ModelComments whereValue);
-
-    /*
-     * Comment테이블. 게시글에서 덧글삭제
-     */
-    public int deleteComment(ModelComments comment);
+    public int deleteTrainingApply(ModelTrainingApply apply);
+    
+    public ModelTrainingApply selectTraingApplyOne(int articleno, int userno);
 
 }

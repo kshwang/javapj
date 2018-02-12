@@ -7,6 +7,5 @@ public interface IServiceTraining extends IDaoTraining {
     
     ModelTraining transArticle(int articleno);
     int transDeleteArticle(int articleno);
-
   
 }
