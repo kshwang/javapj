@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="false"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -36,41 +36,50 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('.ok').click( function(){ // 폼 유효성 검사
-       var name = $('.name').val();
-       var phone=$('.phone').val();
-       var mail =$('.mail').val();
-       var address = $('.address').val();
-       var email = $('select[name="email"]').val();
-       if(name === '' ){
-            alert('이름을적어주세요.');
-            return false;
-        }
-    	if(phone ===''){
-            alert('핸드폰번호를적어주세요');
-            return false;
-        }  
-        if(mail === ''){
-        	alert('메일을 적어주세요.');
-        	return false;
-        } 
-        if(email ==='선택해주세요'){
-            alert('이메일 주소를 선택해주세요.');
-            return false;
-        }
-        if(address === ''){
-            alert('주소를 적어주세요.');
-            return false;
-        }
-        else{
-             /* alert('지원완료 되었습니다..');
-             $('form').attr('action','/'); */
+    	if ($(this).attr('name') === 'ok') {
+           var name = $('.name').val();
+           var phone=$('.phone').val();
+           var mail =$('.mail').val();
+           var address = $('.address').val();
+           var mail2 = $('select[name="email"]').val();
+           var email = mail + '@' + mail2;
+           var u = $('[name="url"]').val();
+        
+           if(name === '' ){
+                alert('이름을적어주세요.');
+                return false;
+            }
+           else if(phone ===''){
+                alert('핸드폰번호를적어주세요');
+                return false;
+            }  
+           else if(mail === ''){
+            	alert('메일을 적어주세요.');
+            	return false;
+            } 
+           else if(email ==='선택해주세요'){
+                alert('이메일 주소를 선택해주세요.');
+                return false;
+            }
+           else if(address === ''){
+                alert('주소를 적어주세요.');
+                return false;
+            }
+    	}
+    	else {
+            var name = $('form label').eq(1).text();
+            var phone=$('form label').eq(2).text();
+            var email = $('form label').eq(3).text();
+            var address = $('form label').eq(4).text();
+            var u = $('[name="url"]').val();
+            }
              if (!confirm('지원 하시겠습니까?')) {
                  return false;
              }
                var no = $('.ok').attr('no');
            $.ajax({
                url : '/pj_mn20/insertuploaduser'
-               , data: {'detpno': Number(no)}        // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
+               , data: {'detpno': Number(no), 'name':name, 'phone':phone, 'mail':email, 'address':address, 'url':u}        // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
                , type: 'post'       // get, post
                , timeout: 30000    // 30초
                , dataType: 'json'  // text, html, xml, json, jsonp, script
@@ -82,20 +91,20 @@ $(document).ready(function() {
                if (data === 1) {
                    // 성공
                    alert('감사합니다 지원이 완료되었습니다.');
-                   $('form').attr('action','/pj_mn20/pj_mn21_jobs');
+                   window.location.href='/pj_mn20/pj_mn21_jobs';
                    
                }
                else {
                    // 실패
                    alert('죄송합니다 . 다시지원해주세요.');
-                   window.location.href='/pj_mn20/pj_mn21_jobs';
+                   window.location.href='/pj_mn20/pj_mn23';
                }
            }).fail( function(xhr, textStatus, error ) {
                // 통신이 실패했을 때 이 함수를 타게 된다.
            }).always( function(data, textStatus, xhr ) {
                // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
            }); 
-        }
+        
          });
     $('.no').click( function(){
     	 if (!confirm('취소하시겠습니까?')) {
@@ -249,7 +258,7 @@ h3 {
                         <tr>
                             <th>이력서 파일첨부 & 포토폴리오 파일첨부</th>
                             <td>
-                            <br><input type="file" name="upload" size="20"  style="width: 25%;">
+                            <br><input type="file" name="upload"  style="width: 25%;">
                             <br>
                                 <ul>
                                     <li>이력서는 자유롭게 작성하셔서 등록해 주시기 바랍니다.</li>
@@ -265,7 +274,14 @@ h3 {
                 </table>
                 <br> <br>
                 <center>
-                    <input class="ok"  no="${detpno}" type="submit" name="ok" value="확인">
+                <c:choose>
+                    <c:when test="${empty user}">
+                        <input class="ok"  no="${detpno}" type="button" name="ok" value="확인">
+                    </c:when>
+                    <c:otherwise>
+                         <input class="ok"  no="${detpno}" type="button"  value="확인">
+                    </c:otherwise>
+                </c:choose>
                     &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit"
                         name="no" value="취소">
                 </center>
