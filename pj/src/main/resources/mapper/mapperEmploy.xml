@@ -107,8 +107,8 @@
     
     <insert id="insertuploaduser" parameterType="ModelEmployUserFile"  >
         INSERT INTO 
-            pj_employ_upload_user  (   detpno, name, phone, mail, address, fileNameOrig, fileNameTemp, fileSize, contentType )
-            VALUES     (  #{detpno}, #{name}, #{phone}, #{mail} , #{address} , #{fileNameOrig} ,#{fileNameTemp} ,#{fileSize} ,#{contentType} )
+            pj_employ_upload_user  (   detpno, name, phone, mail, address , url , fileNameOrig, fileNameTemp, fileSize, contentType )
+            VALUES     (  #{detpno}, #{name}, #{phone}, #{mail} , #{address} , #{url} ,#{fileNameOrig} ,#{fileNameTemp} ,#{fileSize} ,#{contentType} )
     </insert>   
     
  </mapper>       

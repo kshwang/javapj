@@ -148,22 +148,32 @@ public class EmployController {
 	                                                            , HttpServletRequest request
 	                                                            ,@RequestParam(value="upload") MultipartFile upload
 	                                                            , @RequestParam Integer detpno
-	                                                            , @RequestParam String title
+	                                                            ,@ModelAttribute ModelEmployUserFile insert
+	                                                            
 	                                                            ) {
 	        logger.info("/pj_mn20/insertuploaduser");
 	        
 	        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
 	       ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-	       ModelEmployUserFile uploaduser = new ModelEmployUserFile();
-	       uploaduser.setDetpno(detpno);
-	       int rs = svremp.insertuploaduser(uploaduser);
+	       
+	       
+	      
 	       if (user == null) {
-	         
-	           return 0;
+	           insert.setDetpno(detpno);
+	           insert.setName(request.getParameter("name"));
+	           insert.setPhone(request.getParameter("phone1"));
+	           insert.setMail(request.getParameter("mail"+"email"));
+	           insert.setAddress(request.getParameter("address"));
+	           insert.setAddress(request.getParameter("url"));
+	           
+	           int rs = svremp.insertuploaduser(insert);
+	           return rs;
 	       }
 	       else {
-	          
-	           return 0;
+	           insert.setDetpno(detpno);
+	           
+	           int rs = svremp.insertuploaduser(insert);
+	           return rs;
 	       }
 	       
 	    }

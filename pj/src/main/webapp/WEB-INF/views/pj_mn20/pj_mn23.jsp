@@ -37,28 +37,18 @@
 $(document).ready(function() {
     $('.ok').click( function(){ // 폼 유효성 검사
        var name = $('.name').val();
-       var phone1=$('.phone1').val();
-       var phone2=$('.phone2').val();
+       var phone=$('.phone').val();
        var mail =$('.mail').val();
        var address = $('.address').val();
        var email = $('select[name="email"]').val();
-       var selectphone =$('select[name="phone"]').val();
-    	if(name === '' ){
+       if(name === '' ){
             alert('이름을적어주세요.');
             return false;
         }
-    	if(selectphone ==='선택'){
-            alert('핸드폰번호를선택해주세요');
-            return false;
-        }
-        if(phone1 ===''){
+    	if(phone ===''){
             alert('핸드폰번호를적어주세요');
             return false;
         }  
-        if(phone2 ===''){
-            alert('핸드폰번호를적어주세요');
-            return false;
-        }
         if(mail === ''){
         	alert('메일을 적어주세요.');
         	return false;
@@ -92,7 +82,8 @@ $(document).ready(function() {
                if (data === 1) {
                    // 성공
                    alert('감사합니다 지원이 완료되었습니다.');
-                   window.location.href='/pj_mn20/pj_mn21_jobs';
+                   $('form').attr('action','/pj_mn20/pj_mn21_jobs');
+                   
                }
                else {
                    // 실패
@@ -207,13 +198,11 @@ h3 {
                             <th>핸드폰</th>
                             <c:choose>
                                 <c:when test="${empty user}">
-                                    <td><select name="phone">
-                                            <option value="선택">선택</option>
-                                            <option value="010">010</option>
-                                            <option value="011">011</option>
-                                            <option value="017">017</option>
-                                    </select> <input class="phone1" type="text" name="phone1">
-                                        - <input class="phone2" type="text" name="phone2"></td>
+                                    <td><input class="phone" type="text" name="phone1" 
+                                    pattern  = "\d{3}\-\d{4}\-\d{4}\"
+                                    title="000-0000-0000형식으로 입력해주세요.">
+                                    000-0000-0000형식으로 입력해주세요.
+                                        </td>
                                 </c:when>
                                 <c:otherwise>
                                     <td><label>${user.mobile }</label>
@@ -276,8 +265,8 @@ h3 {
                 </table>
                 <br> <br>
                 <center>
-                    <input class="ok"  no="${detpno}" type="button" name="ok" value="확인">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="button"
+                    <input class="ok"  no="${detpno}" type="submit" name="ok" value="확인">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit"
                         name="no" value="취소">
                 </center>
             </form>
