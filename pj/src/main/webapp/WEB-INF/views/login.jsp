@@ -44,14 +44,16 @@
         	$('#login').click(function(event) {
         		if ($('input[name="userid"]').val() === '') {
         			alert('아이디를 입력하세요');
+        			$('input[name="userid"]').focus();
         			return false;
         		} else if ($('input[name="passwd"]').val() === '') {
         			alert('비밀번호를 입력하세요');
+        			$('input[name="passwd"]').focus();
         			return false;
         		}
         		$('form').submit();
         	});
-            $('#registor').click(function(event) {
+            $('#register').click(function(event) {
                 location.href = 'register';
             });
             $('#findid').click(function(event) {
@@ -92,7 +94,7 @@
                 <label>아이디</label><input type="text" name="userid" /><br>
                 <label>비밀번호</label><input type="password" name="passwd" /><br><br>
                 <input type="button" id="login" value="로그인">&nbsp;
-                <input type="button" id="registor" value="회원가입">
+                <input type="button" id="register" value="회원가입">
             </form>
             <p><a id="findid" href="#findid">아이디 찾기</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a id="findpw" href="#findpw">비밀번호 찾기</a></p>
         </div>
