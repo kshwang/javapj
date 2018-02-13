@@ -246,9 +246,9 @@ var address = null;
                 location.href = "/login";
             }
             else {
-            	//alert('등록되었습니다');
-                //location.href = "/pj_mn40/pj_mn43/insertapply";
-            	/* var f = document.createElement('form');
+            	alert('등록되었습니다');
+                location.href = "/pj_mn40/pj_mn43/insertapply";
+            	 var f = document.createElement('form');
             	f.setAttribute('method', 'post');
             	f.setAttribute('action', '/pj_mn40/pj_mn43/insertapply');
             	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
@@ -261,7 +261,7 @@ var address = null;
                 
             	document.body.appendChild( f );
             	
-            	f.submit(); */
+            	f.submit(); 
             	$.ajax({
             	    url : '/rest/pj_mn40/pj_mn43/insertapply',
             	    data: {'articleno': ${articleno } },        // 사용하는 경우에는 { data1:'test1', data2:'test2' }
@@ -397,11 +397,11 @@ var address = null;
                 <div id="bbs">
                     <table>
                         <tr>
-                       <%--      <th style="text-align: left; width: 70px;">${thisArticle.articleno }
-                                </th> --%>
-                                 <th style="text-align: left;">
+                           <th style="text-align: left; width: 70px;">${thisArticle.articleno }
+                                </th>
+                                <%--  <th style="text-align: left;">
                                     ${articleno }
-                                    </th>
+                                    </th> --%>
                                 
                             <th style="text-align: center; color: #555;">${thisArticle.title }</th>
                             <th style="width: 50px;">DATE</th>
@@ -410,7 +410,7 @@ var address = null;
                                     value="${thisArticle.regdate }" /></th>
                         </tr>
                     </table>
-                    <h6>작성자 ${thisArticle.email }, 조회수
+                    <h6>작성자 ${thisArticle.userid}, 조회수
                             ${thisArticle.hit }</h6>  <!--gul-content안에 있던걸 위로 끌어 올림  -->
                     <div id="gul-content" >
                         
@@ -453,11 +453,14 @@ var address = null;
                               <input type="button" value="목록" id="apply"
                                 onclick="javascript:goList( ${curPage } );" />
                                 
+                               
                             <input type="button" value="수정"
                                 onclick="javascript:goModify();" />                 
                                               
                                 <input type="button" value="삭제"
                                 onclick="javascript:goDelete(${thisArticle.articleno });" />
+                        
+                        
                         </div>
 
                  
@@ -531,11 +534,19 @@ var address = null;
                         </c:if>
                     </div>
 
-
+                     <c:choose>
+                                <c:when test="${user.getUserclass() >1}">
+                                <!-- 2.13 --> 
+                                </c:when>
+                                
+                                <c:otherwise> 
                     <div id="list-menu" style="text-align: right;">
                         <input type="button" value="새글쓰기"
                             onclick="goWrite()" />
                     </div>
+                     </c:otherwise>
+                            </c:choose> 
+        
 
                     <div id="search" style="text-align: center;">
                         <form id="searchForm" action="${actionurl}"
@@ -549,7 +560,7 @@ var address = null;
                             </p>
                         </form>
                     </div>
-
+                  
                 </div>
                 <!--  본문 끝 -->
 

@@ -7,7 +7,7 @@ public class ModelTraining {
     Integer articleno ;
     String  title     ; //sql하고 값 비교좀.
     String  content   ;
-    String  email     ;
+    String  userid    ;
     Integer hit       ;
     Date    regdate   ;
     Date    enddate   ;
@@ -40,11 +40,11 @@ public class ModelTraining {
     public void setContent(String content) {
         this.content = content;
     }
-    public String getEmail() {
-        return email;
+    public String getuserid() {
+        return userid;
     }
-    public void setEmail(String email) {
-        this.email = email;
+    public void setuserid(String userid) {
+        this.userid = userid;
     }
     public Integer getHit() {
         return hit;
@@ -119,8 +119,8 @@ public class ModelTraining {
     @Override
     public String toString() {
         return "ModelTraining [articleno=" + articleno
-                + ", title=" + title + ", content=" + content + ", email="
-                + email + ", hit=" + hit + ", regdate=" + regdate + ", enddate=" + enddate +", UseYN="
+                + ", title=" + title + ", content=" + content + ", userid="
+                + userid + ", hit=" + hit + ", regdate=" + regdate + ", enddate=" + enddate +", UseYN="
                 + UseYN + ", InsertUID=" + InsertUID + ", InsertDT=" + InsertDT
                 + ", UpdateUID=" + UpdateUID + ", UpdateDT=" + UpdateDT + "]";
     }

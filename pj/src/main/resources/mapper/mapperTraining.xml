@@ -42,7 +42,7 @@
 
 
     <select id="getArticle" parameterType="int" resultType="ModelTraining">
-        SELECT articleno, title, content, email, hit, regdate
+        SELECT articleno, title, content, userid, hit, regdate
         FROM
         pj_training
         WHERE articleno = #{articleno}
@@ -51,9 +51,9 @@
     <insert id="insertArticle" parameterType="ModelTraining"
         useGeneratedKeys="true" keyProperty="articleno">
         INSERT INTO
-        pj_training ( title , content , email , hit, regdate, InsertUID
+        pj_training ( title , content , userid , hit, regdate, InsertUID
         , InsertDT , UpdateUID , UpdateDT )
-        VALUES ( #{title}, #{content}, #{email}, 0 , now() , #{InsertUID},
+        VALUES ( #{title}, #{content}, #{userid}, 0 , now() , #{InsertUID},
         #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
     </insert>
 
@@ -75,8 +75,8 @@
         <if test="whereValue.title != null and whereValue.title != ''">
             AND title = #{whereValue.title}
         </if>
-        <if test="whereValue.email != null and whereValue.email != ''">
-            AND email = #{whereValue.email}
+        <if test="whereValue.userid != null and whereValue.userid != ''">
+            AND userid = #{whereValue.userid}
         </if>
         <if test="whereValue.UseYN != null">
             AND UseYN = #{whereValue.UseYN}
@@ -90,8 +90,8 @@
             AND articleno = #{articleno}
         </if>
 
-        <if test="email != null and email != ''">
-            AND email = #{email}
+        <if test="userid != null and userid != ''">
+            AND userid = #{userid}
         </if>
         <if test="UseYN != null">
             AND UseYN = #{UseYN}

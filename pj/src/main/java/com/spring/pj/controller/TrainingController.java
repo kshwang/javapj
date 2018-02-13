@@ -87,13 +87,21 @@ public class TrainingController {
             , @PathVariable Integer articleno
             , @RequestParam(defaultValue="1" ) Integer curPage
             , @RequestParam(defaultValue="" ) String searchWord 
-            , HttpServletRequest request) {
+            , HttpServletRequest request
+            , HttpSession session) {
         logger.info("/pj_mn40/pj_mn43");
         
         // boardcd
         // articleno
         // curPage
         // searchWord
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if(user == null || user.getUserclass() >1){
+            
+        }
+        else{
+            model.addAttribute("user",user.getUserclass());
+        }
         
         model.addAttribute("articleno" , articleno  );
         model.addAttribute("curPage"   , curPage    );
@@ -160,6 +168,7 @@ public class TrainingController {
         // 3. tb_bbs_attachfile 테이블에 insert.
         
         // tb_bbs_article table insert. inserted pk 값을 반환 받는다.
+       
         int insertedpk = srvboard.insertArticle(article);
         
         // client의 파일을 server로 upload.

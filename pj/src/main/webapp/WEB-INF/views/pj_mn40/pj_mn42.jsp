@@ -113,7 +113,7 @@ url-navi {
         <form id="writeForm" action="/pj_mn40/pj_mn42" method="post"
             enctype="multipart/form-data" onsubmit="return check()">
             <p style="margin: 0; padding: 0;">
-                <%--  <input type="hidden" name="boardcd" value="${boardcd }" /> --%>
+                  <%-- <input type="hidden" name="user" value="${user.userid }" /> --%>
             </p>
             <table id="write-form">
 

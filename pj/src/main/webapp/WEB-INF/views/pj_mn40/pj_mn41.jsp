@@ -107,7 +107,7 @@ fr {
 <script src="/resources/js/jquery.isotope.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
 <script type="text/javascript">
-
+    
 var goList = function(page) {
     location.href = "/pj_mn40/pj_mn41?searchWord=${searchWord}&curPage="
             + page;
@@ -119,9 +119,24 @@ var goWrite = function(){
     }
     else {
         location.href = "/pj_mn40/pj_mn42";
-    }
+        //var
+        /* var f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/pj_mn40/pj_mn42');
+        f.setAttribute('enctype', 'application/x-www-form-urlencoded');
+        
+        var i = document.createElement('input');
+        i.setAttribute('type', 'hidden');
+        i.setAttribute('name', 'userid');
+        i.setAttribute('value', ${userid});
+        f.appendChild(i);
+        
+        document.body.appendChild(f);
+        f.submit();*/   
+        } 
+    };
 	
-};
+
 </script>
 <script>
         $(document).ready( function(event){
