@@ -77,8 +77,8 @@
 	  $('.detpexpiry').click( function(){
     	$(this).attr('href','/pj_mn20/pj_mn22_view');
     	var detpexpiry = $(this).parent('td').prev('td').prev('td').children('button').children('span').eq(0).text();
-    	var detpno = $('.detpno').val();
-        var f = document.createElement('form');
+    	var detpno = $(this).parent('td').parent('tr').children('.detpno').val();
+    	var f = document.createElement('form');
         f.setAttribute('method', 'post');
         f.setAttribute('action', '/pj_mn20/pj_mn22_view');
         f.setAttribute('enctype', 'application/x-www-form-urlencoded');

@@ -144,79 +144,13 @@ public class EmployController {
 	   @RequestMapping(value = "/pj_mn20/insertuploaduser", method = RequestMethod.POST)
 	   @ResponseBody
 	    public int  insertuploaduser( Model model
-	                                                            , HttpSession session 
-	                                                            ,@RequestParam(value="upload") MultipartFile upload
-	                                                            , @RequestParam Integer detpno
-	                                                            , @ModelAttribute ModelEmployUserFile insertuser) {
+//	                                                            ,@RequestParam(value="upload") MultipartFile upload
+	                                                            ,@ModelAttribute ModelEmployUserFile insert) {
 	        logger.info("/pj_mn20/insertuploaduser");
-	        
-	        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
-	       ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-	       
-	       if (user == null) {
-	           insertuser.setDetpno(detpno);
-	           int rs = svremp.insertuploaduser(insertuser);
-	          
+	          int rs = svremp.insertuploaduser(insert);
 	           return rs;
-	       }
-	       else {
-	           model.addAttribute("user",user);
-	           insertuser.setDetpno(detpno);
-	           int rs =svremp.insertuploaduser(insertuser);
-	           return rs;
-	       }
-	       
 	    }
-	   /*
-	    *  if (! upload.getOriginalFilename().isEmpty()){
-                   File uploadDir = new File( WebConstants.UPLOAD_PATH);
-                   if(!uploadDir.exists()) uploadDir.mkdir();
-                   
-                   String fileName =  upload.getOriginalFilename();
-                   String tempName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-                   String newFile = WebConstants.UPLOAD_PATH+ tempName;
-                   File serverfile = new File(newFile);
-                   
-                   
-                    try {
-                        upload.transferTo(serverfile);
-                    } catch (IllegalStateException e) {
-                        logger.error("pj_mn23"+e.getMessage());
-                    } catch (IOException e) {
-                        logger.error("pj_mn23"+e.getMessage());
-                    }
-                
-               }
-	    *  List<ModelEmployUserFile> empfile = svremp.selectuploaduser();
-        for (ModelEmployUserFile i : empfile) {
-            ModelEmploy emp = svremp.selectDetpno(i.getDetpno());
-            i.setEmp(emp);
-        }
-	    * 
-	    * @RequestMapping(value = "/pj_mn20/deletefile", method = RequestMethod.POST)
-	    @ResponseBody
-	    public int deletefile( Model model
-	            , HttpSession session
-	            , @ModelAttribute ModelEmployUserFile deletefile
-	            ) {
-	        logger.info("/pj_mn20/deletefile  :g");
-	       
-	        model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
-	        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-	        
-	        
-	        if( user.getUserclass() >0){
-	            // 권한 없음 메세지 띄우기
-	            return 0;
-	        }
-	        else{
-	            int rs =svremp.deleteuploaduser(deletefile);
-	            return rs;
-	           
-	        }
-	    }*/
-	
-	
+	  
 	@RequestMapping(value = "/pj_mn20/pj_mn24_filelist", method = RequestMethod.GET)
     public String pj_mn24_filelist( Model model
             , @RequestParam(defaultValue="1") Integer curPage

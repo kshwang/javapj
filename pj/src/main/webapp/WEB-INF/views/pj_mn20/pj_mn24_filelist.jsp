@@ -181,7 +181,12 @@
                         <td>${empfile.phone }</td>
                         <td>${empfile.mail }</td>
                         <td>${empfile.address }</td>
+                        <c:if test="${empfile.url == ''}">
+                        <td>x</td>
+                        </c:if>
+                        <c:if test="${empfile.url != ''}">
                         <td>${empfile.url }</td>
+                        </c:if>
                         <td><a href="javascript:download('${empfile.fileNameTemp }','${empfile.fileNameOrig }')"><img src="/resources/images/attach.png" alt="${empfile.fileNameOrig }"/></a></td>
                     </tr>
                   </c:forEach>
