@@ -202,6 +202,19 @@ var address = null;
         	
         
         });
+        
+        $(document).ready(function(event) {      
+            if(${user.getUserclass > 2} ){
+                  $("goWrite").hide();
+            } else {
+            	$("goWrite").hide();
+            }
+
+      });
+
+
+
+
     </script>
 
 
@@ -533,20 +546,20 @@ var address = null;
                                 href="javascript:goList( ${nextLink }, false )">[다음]</a>
                         </c:if>
                     </div>
-
-                     <c:choose>
-                                <c:when test="${user.getUserclass() >1}">
-                                <!-- 2.13 --> 
-                                </c:when>
-                                
-                                <c:otherwise> 
-                    <div id="list-menu" style="text-align: right;">
-                        <input type="button" value="새글쓰기"
-                            onclick="goWrite()" />
-                    </div>
-                     </c:otherwise>
-                            </c:choose> 
-        
+<%-- 
+                    <c:choose>
+                                <c:when test="${user.getUserclass == 2} ">
+                                <!-- 2.13 -->  --%>
+                                  <div id="list-menu" style="text-align: right;">
+                                  <input type="button" value="새글쓰기"
+                                     onclick="goWrite()" />
+                                 </div>
+                     <%--            </c:when>
+                        <c:otherwise>
+  
+                         </c:otherwise>
+                            </c:choose>  --%>
+     
 
                     <div id="search" style="text-align: center;">
                         <form id="searchForm" action="${actionurl}"

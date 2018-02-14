@@ -24,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
-import com.spring.pj.inf.IDaoTraining;
 import com.spring.pj.inf.IServiceTraining;
 import com.spring.pj.model.ModelTraining;
 import com.spring.pj.model.ModelTrainingApply;
@@ -95,13 +94,7 @@ public class TrainingController {
         // articleno
         // curPage
         // searchWord
-        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-        if(user == null || user.getUserclass() >1){
-            
-        }
-        else{
-            model.addAttribute("user",user.getUserclass());
-        }
+       
         
         model.addAttribute("articleno" , articleno  );
         model.addAttribute("curPage"   , curPage    );
@@ -137,6 +130,17 @@ public class TrainingController {
         PagingHelper paging = new PagingHelper(totalRecord, curPage);
         int start = paging.getStartRecord();
         int end   = paging.getEndRecord();
+        
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+       
+        
+      /*  if(user == null || user.getUserclass() >2){
+            
+        }
+        else{*/
+            model.addAttribute("user",user.getUserclass());
+        /*}*/
+        
         
         List<ModelTraining> articleList = srvboard.getArticleList(searchWord, start, end);
         
