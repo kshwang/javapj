@@ -43,8 +43,6 @@ $(document).ready(function() {
            var address = $('.address').val();
            var mail2 = $('select[name="email"]').val();
            var email = mail + '@' + mail2;
-           var u = $('[name="url"]').val();
-        
            if(name === '' ){
                 alert('이름을적어주세요.');
                 return false;
@@ -79,7 +77,7 @@ $(document).ready(function() {
                var no = $('.ok').attr('no');
            $.ajax({
                url : '/pj_mn20/insertuploaduser'
-               , data: {'detpno': Number(no), 'name':name, 'phone':phone, 'mail':email, 'address':address, 'url':u}        // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
+               , data: {'detpno': Number(no), 'name':name, 'phone':phone, 'mail':email, 'address':address, 'url':u }        // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
                , type: 'post'       // get, post
                , timeout: 30000    // 30초
                , dataType: 'json'  // text, html, xml, json, jsonp, script

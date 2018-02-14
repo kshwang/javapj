@@ -1,11 +1,9 @@
 package com.spring.pj.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +28,7 @@ import com.spring.pj.inf.IServiceEmploy;
 import com.spring.pj.model.ModelEmploy;
 import com.spring.pj.model.ModelEmployUserFile;
 import com.spring.pj.model.ModelUser;
+
 
 @Controller
 public class EmployController {
@@ -141,15 +140,40 @@ public class EmployController {
            return "pj_mn20/pj_mn23";
        }
     }
-	   @RequestMapping(value = "/pj_mn20/insertuploaduser", method = RequestMethod.POST)
+   @RequestMapping(value = "/pj_mn20/insertuploaduser", method = RequestMethod.POST)
 	   @ResponseBody
 	    public int  insertuploaduser( Model model
-//	                                                            ,@RequestParam(value="upload") MultipartFile upload
+	                                                            ,@RequestParam(value="upload") MultipartFile upload
 	                                                            ,@ModelAttribute ModelEmployUserFile insert) {
 	        logger.info("/pj_mn20/insertuploaduser");
-	          int rs = svremp.insertuploaduser(insert);
-	           return rs;
-	    }
+	         int rs = svremp.insertuploaduser(insert);
+	         if( !upload.getOriginalFilename().isEmpty() ) {
+	             String fileName = upload.getOriginalFilename();
+	             String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+	             String newFile  = WebConstants.UPLOAD_PATH + tempName; // c:/upload/20180123115415
+	             java.io.File serverfile = new java.io.File( newFile );
+	             try {
+	                 upload.transferTo( serverfile ); // 실제로 파일 카피 발생.
+	             } catch (IllegalStateException e) {
+	                 logger.error("articlewrite" + e.getMessage() );
+	             } catch (IOException e) {
+	                 logger.error("articlewrite" + e.getMessage() );
+	             }
+	             if( serverfile.exists() ) {
+	                 // 3. tb_bbs_attachfile 테이블에 insert.
+	                 ModelEmployUserFile attachFile = new ModelEmployUserFile();
+	                 attachFile.setUploadFileNo( rs );
+	                 attachFile.setFileNameOrig( fileName );
+	                 attachFile.setFileNameTemp( tempName );
+	                 attachFile.setFileSize( serverfile.length() );
+	                 attachFile.setContentType( upload.getContentType() );
+	                 
+	                 int result = svremp.insertuploaduser(attachFile);
+	             }
+	         }
+	         return rs;
+	   }
+   
 	  
 	@RequestMapping(value = "/pj_mn20/pj_mn24_filelist", method = RequestMethod.GET)
     public String pj_mn24_filelist( Model model
