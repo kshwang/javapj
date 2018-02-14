@@ -202,6 +202,11 @@ var address = null;
         	
         
         });
+
+
+
+
+
     </script>
 
 
@@ -343,7 +348,7 @@ var address = null;
         	// post 로 요청. ajax / form
         	var f  = document.createElement('form');
         	f.setAttribute('method', 'post');
-        	f.setAttribute('action', 'pj_mn40/download');
+        	f.setAttribute('action', '/pj_mn40/pj_mnDL');
         	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
         	
         	var i = document.createElement('input');
@@ -534,20 +539,12 @@ var address = null;
                         </c:if>
                     </div>
 
-                     <c:choose>
-                                <c:when test="${user.getUserclass() >1}">
-                                <!-- 2.13 --> 
-                                </c:when>
-                                
-                                <c:otherwise> 
-                    <div id="list-menu" style="text-align: right;">
-                        <input type="button" value="새글쓰기"
-                            onclick="goWrite()" />
-                    </div>
-                     </c:otherwise>
-                            </c:choose> 
-        
-
+       
+                                  <div id="list-menu" style="text-align: right;">
+                                  <input type="button" value="새글쓰기"
+                                     onclick="goWrite()" />
+                                 </div>
+               
                     <div id="search" style="text-align: center;">
                         <form id="searchForm" action="${actionurl}"
                             method="get" style="margin: 0; padding: 0;">
