@@ -119,20 +119,7 @@ var goWrite = function(){
     }
     else {
         location.href = "/pj_mn40/pj_mn42";
-        //var
-        /* var f = document.createElement('form');
-        f.setAttribute('method', 'post');
-        f.setAttribute('action', '/pj_mn40/pj_mn42');
-        f.setAttribute('enctype', 'application/x-www-form-urlencoded');
-        
-        var i = document.createElement('input');
-        i.setAttribute('type', 'hidden');
-        i.setAttribute('name', 'userid');
-        i.setAttribute('value', ${userid});
-        f.appendChild(i);
-        
-        document.body.appendChild(f);
-        f.submit();*/   
+      
         } 
     };
 	

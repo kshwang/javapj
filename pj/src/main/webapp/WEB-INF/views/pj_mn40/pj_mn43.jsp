@@ -202,15 +202,7 @@ var address = null;
         	
         
         });
-        
-        $(document).ready(function(event) {      
-            if(${user.getUserclass > 2} ){
-                  $("goWrite").hide();
-            } else {
-            	$("goWrite").hide();
-            }
 
-      });
 
 
 
@@ -356,7 +348,7 @@ var address = null;
         	// post 로 요청. ajax / form
         	var f  = document.createElement('form');
         	f.setAttribute('method', 'post');
-        	f.setAttribute('action', 'pj_mn40/download');
+        	f.setAttribute('action', '/pj_mn40/pj_mnDL');
         	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
         	
         	var i = document.createElement('input');
@@ -546,21 +538,13 @@ var address = null;
                                 href="javascript:goList( ${nextLink }, false )">[다음]</a>
                         </c:if>
                     </div>
-<%-- 
-                    <c:choose>
-                                <c:when test="${user.getUserclass == 2} ">
-                                <!-- 2.13 -->  --%>
+
+       
                                   <div id="list-menu" style="text-align: right;">
                                   <input type="button" value="새글쓰기"
                                      onclick="goWrite()" />
                                  </div>
-                     <%--            </c:when>
-                        <c:otherwise>
-  
-                         </c:otherwise>
-                            </c:choose>  --%>
-     
-
+               
                     <div id="search" style="text-align: center;">
                         <form id="searchForm" action="${actionurl}"
                             method="get" style="margin: 0; padding: 0;">
