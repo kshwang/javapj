@@ -143,10 +143,115 @@ public class EmployController {
     }
    @RequestMapping(value = "/pj_mn20/insertuploaduser", method = RequestMethod.POST)
 	    public String  insertuploaduser( Model model
+	                                                            , HttpSession session
 	                                                            ,@RequestParam(value="upload") MultipartFile upload
-	                                                            ,@ModelAttribute ModelEmployUserFile insert) {
+	                                                            ,@ModelAttribute ModelEmployUserFile insert
+	                                                            , @RequestParam (defaultValue="@")String email) {
 	        logger.info("/pj_mn20/insertuploaduser");
-	        if( !upload.getOriginalFilename().isEmpty() ) {
+	        
+	       
+	        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+	        // user 가 아닌사람이 지원할때
+	        if (user == null) {
+	            if( !upload.getOriginalFilename().isEmpty() ) {
+	                
+	                // 서버의 업로드 폴더 존재 여부 체크. 없으면 폴더 생성
+	                java.io.File uploadDir = new java.io.File( WebConstants.UPLOAD_PATH );
+	                if( !uploadDir.exists() ) uploadDir.mkdir();
+	                
+	                // 클라이언트의 파일을 서버로 복사
+	                String fileName = upload.getOriginalFilename();
+	                String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+	                String newFile  = WebConstants.UPLOAD_PATH + tempName; // c:/upload/20180123115415
+	                java.io.File serverfile = new java.io.File( newFile );
+	                
+	                try {
+	                    upload.transferTo( serverfile ); // 실제로 파일 카피 발생.
+	                } catch (IllegalStateException e) {
+	                    logger.error("insertuploaduser" + e.getMessage() );
+	                } catch (IOException e) {
+	                    logger.error("insertuploaduser" + e.getMessage() );
+	                }
+	                
+	                // 파일을 서버로 복사 성공 여부 체크. 
+	                // 성공한 경우만 테이블에 insert.
+	                if( serverfile.exists() ) {
+
+	                    String mail = insert.getMail()+"@"+email;
+	                    ModelEmployUserFile attachFile = new ModelEmployUserFile();
+	                    attachFile.setDetpno(insert.getDetpno());
+	                    attachFile.setName(insert.getName());
+	                    attachFile.setPhone(insert.getPhone());
+	                    attachFile.setMail(mail);
+	                    attachFile.setAddress(insert.getAddress());
+	                    attachFile.setUrl(insert.getUrl());
+	                    attachFile.setFileNameOrig( fileName );
+	                    attachFile.setFileNameTemp( tempName );
+	                    attachFile.setFileSize( serverfile.length() );
+	                    attachFile.setContentType( upload.getContentType() );
+	                    
+	                    int rs = svremp.insertuploaduser(attachFile);
+	                }
+	              
+	            }else{
+	                String mail = insert.getMail()+"@"+email;
+	                insert.setMail(mail);
+	                int rs = svremp.insertuploaduser(insert);
+	                }
+	        }
+	           // user 가 지원할때 
+	        else {
+	            if( !upload.getOriginalFilename().isEmpty() ) {
+	                
+	                // 서버의 업로드 폴더 존재 여부 체크. 없으면 폴더 생성
+	                java.io.File uploadDir = new java.io.File( WebConstants.UPLOAD_PATH );
+	                if( !uploadDir.exists() ) uploadDir.mkdir();
+	                
+	                // 클라이언트의 파일을 서버로 복사
+	                String fileName = upload.getOriginalFilename();
+	                String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+	                String newFile  = WebConstants.UPLOAD_PATH + tempName; // c:/upload/20180123115415
+	                java.io.File serverfile = new java.io.File( newFile );
+	                
+	                try {
+	                    upload.transferTo( serverfile ); // 실제로 파일 카피 발생.
+	                } catch (IllegalStateException e) {
+	                    logger.error("insertuploaduser" + e.getMessage() );
+	                } catch (IOException e) {
+	                    logger.error("insertuploaduser" + e.getMessage() );
+	                }
+	                
+	                // 파일을 서버로 복사 성공 여부 체크. 
+	                // 성공한 경우만 테이블에 insert.
+	                if( serverfile.exists() ) {
+	                    ModelEmployUserFile attachFile = new ModelEmployUserFile();
+	                    attachFile.setDetpno(insert.getDetpno());
+	                    attachFile.setName(user.getName());
+	                    attachFile.setPhone(user.getMobile());
+	                    attachFile.setMail(user.getEmail());
+	                    attachFile.setAddress(user.getAddress());
+	                    attachFile.setUrl(insert.getUrl());
+	                    attachFile.setFileNameOrig( fileName );
+	                    attachFile.setFileNameTemp( tempName );
+	                    attachFile.setFileSize( serverfile.length() );
+	                    attachFile.setContentType( upload.getContentType() );
+	                    
+	                    int rs = svremp.insertuploaduser(attachFile);
+	                }
+	              
+	            }else{
+	                
+	                insert.setName(user.getName());
+	                insert.setPhone(user.getMobile());
+	                insert.setMail(user.getEmail());
+	                insert.setAddress(user.getAddress());
+	                int rs = svremp.insertuploaduser(insert);
+	                }
+	            
+	        }
+	        
+	        
+	        /*if( !upload.getOriginalFilename().isEmpty() ) {
 	            
 	            // 서버의 업로드 폴더 존재 여부 체크. 없으면 폴더 생성
 	            java.io.File uploadDir = new java.io.File( WebConstants.UPLOAD_PATH );
@@ -167,14 +272,15 @@ public class EmployController {
 	            }
 	            
 	            // 파일을 서버로 복사 성공 여부 체크. 
-	            // 성공한 경우만 tb_bbs_attachfile 테이블에 insert.
+	            // 성공한 경우만 테이블에 insert.
 	            if( serverfile.exists() ) {
-	                // 3. tb_bbs_attachfile 테이블에 insert.
+
+	                String mail = insert.getMail()+"@"+email;
 	                ModelEmployUserFile attachFile = new ModelEmployUserFile();
 	                attachFile.setDetpno(insert.getDetpno());
 	                attachFile.setName(insert.getName());
 	                attachFile.setPhone(insert.getPhone());
-	                attachFile.setMail(insert.getMail());
+	                attachFile.setMail(mail);
 	                attachFile.setAddress(insert.getAddress());
 	                attachFile.setUrl(insert.getUrl());
 	                attachFile.setFileNameOrig( fileName );
@@ -184,10 +290,12 @@ public class EmployController {
 	                
 	                int rs = svremp.insertuploaduser(attachFile);
 	            }
-	            else{
-	            int rs = svremp.insertuploaduser(insert);
-	            }
-	        }
+	          
+	        }else{
+	            String mail = insert.getMail()+"@"+email;
+	            insert.setMail(mail);
+                int rs = svremp.insertuploaduser(insert);
+                }*/
 	         return "redirect:/pj_mn20/pj_mn21_jobs";
 	   }
    
