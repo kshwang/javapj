@@ -149,7 +149,7 @@ h3 {
             <h3>입사지원서 작성</h3>
             <hr>
 
-            <form action="/pj_mn20/insertuploaduser" action=" /pj_mn20/pj_mn21_jobs"method="post" enctype="multipart/form-data">
+            <form action="/pj_mn20/insertuploaduser" method="post" enctype="multipart/form-data">
                 <table>
                     <thead>
                         <tr>
