@@ -30,6 +30,7 @@ import com.spring.pj.model.ModelEmployUserFile;
 import com.spring.pj.model.ModelUser;
 
 
+
 @Controller
 public class EmployController {
 	
@@ -141,37 +142,53 @@ public class EmployController {
        }
     }
    @RequestMapping(value = "/pj_mn20/insertuploaduser", method = RequestMethod.POST)
-	   @ResponseBody
-	    public int  insertuploaduser( Model model
-	  ,@RequestParam(value="upload") MultipartFile upload
-	    ,@ModelAttribute ModelEmployUserFile insert) {
+	    public String  insertuploaduser( Model model
+	                                                            ,@RequestParam(value="upload") MultipartFile upload
+	                                                            ,@ModelAttribute ModelEmployUserFile insert) {
 	        logger.info("/pj_mn20/insertuploaduser");
-	         int rs = svremp.insertuploaduser(insert);
-	         if( !upload.getOriginalFilename().isEmpty() ) {
-	             String fileName = upload.getOriginalFilename();
-	             String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-	             String newFile  = WebConstants.UPLOAD_PATH + tempName; // c:/upload/20180123115415
-	             java.io.File serverfile = new java.io.File( newFile );
-	             try {
-	                 upload.transferTo( serverfile ); // 실제로 파일 카피 발생.
-	             } catch (IllegalStateException e) {
-	                 logger.error("articlewrite" + e.getMessage() );
-	             } catch (IOException e) {
-	                 logger.error("articlewrite" + e.getMessage() );
-	             }
-	             if( serverfile.exists() ) {
-	                 // 3. tb_bbs_attachfile 테이블에 insert.
-	                 ModelEmployUserFile attachFile = new ModelEmployUserFile();
-	                 attachFile.setUploadFileNo( rs );
-	                 attachFile.setFileNameOrig( fileName );
-	                 attachFile.setFileNameTemp( tempName );
-	                 attachFile.setFileSize( serverfile.length() );
-	                 attachFile.setContentType( upload.getContentType() );
-	                 
-	                 int result = svremp.insertuploaduser(attachFile);
-	             }
-	         }
-	         return rs;
+	        if( !upload.getOriginalFilename().isEmpty() ) {
+	            
+	            // 서버의 업로드 폴더 존재 여부 체크. 없으면 폴더 생성
+	            java.io.File uploadDir = new java.io.File( WebConstants.UPLOAD_PATH );
+	            if( !uploadDir.exists() ) uploadDir.mkdir();
+	            
+	            // 클라이언트의 파일을 서버로 복사
+	            String fileName = upload.getOriginalFilename();
+	            String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+	            String newFile  = WebConstants.UPLOAD_PATH + tempName; // c:/upload/20180123115415
+	            java.io.File serverfile = new java.io.File( newFile );
+	            
+	            try {
+	                upload.transferTo( serverfile ); // 실제로 파일 카피 발생.
+	            } catch (IllegalStateException e) {
+	                logger.error("insertuploaduser" + e.getMessage() );
+	            } catch (IOException e) {
+	                logger.error("insertuploaduser" + e.getMessage() );
+	            }
+	            
+	            // 파일을 서버로 복사 성공 여부 체크. 
+	            // 성공한 경우만 tb_bbs_attachfile 테이블에 insert.
+	            if( serverfile.exists() ) {
+	                // 3. tb_bbs_attachfile 테이블에 insert.
+	                ModelEmployUserFile attachFile = new ModelEmployUserFile();
+	                attachFile.setDetpno(insert.getDetpno());
+	                attachFile.setName(insert.getName());
+	                attachFile.setPhone(insert.getPhone());
+	                attachFile.setMail(insert.getMail());
+	                attachFile.setAddress(insert.getAddress());
+	                attachFile.setUrl(insert.getUrl());
+	                attachFile.setFileNameOrig( fileName );
+	                attachFile.setFileNameTemp( tempName );
+	                attachFile.setFileSize( serverfile.length() );
+	                attachFile.setContentType( upload.getContentType() );
+	                
+	                int rs = svremp.insertuploaduser(attachFile);
+	            }
+	            else{
+	            int rs = svremp.insertuploaduser(insert);
+	            }
+	        }
+	         return "redirect:/pj_mn20/pj_mn21_jobs";
 	   }
    
 	  

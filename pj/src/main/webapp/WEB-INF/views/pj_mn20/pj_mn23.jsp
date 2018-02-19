@@ -42,7 +42,7 @@ $(document).ready(function() {
            var mail =$('.mail').val();
            var address = $('.address').val();
            var mail2 = $('select[name="email"]').val();
-           var email = mail + '@' + mail2;
+           
            if(name === '' ){
                 alert('이름을적어주세요.');
                 return false;
@@ -74,35 +74,8 @@ $(document).ready(function() {
              if (!confirm('지원 하시겠습니까?')) {
                  return false;
              }
-               var no = $('.ok').attr('no');
-           $.ajax({
-               url : '/pj_mn20/insertuploaduser'
-               , data: {'detpno': Number(no), 'name':name, 'phone':phone, 'mail':email, 'address':address, 'url':u }        // 사용하는 경우에는 { 'data1':'test1', 'data2':'test2' }
-               , type: 'post'       // get, post
-               , timeout: 30000    // 30초
-               , dataType: 'json'  // text, html, xml, json, jsonp, script
-               , beforeSend : function() {
-                   // 통신이 시작되기 전에 이 함수를 타게 된다.
-               }
-           }).done( function(data, textStatus, xhr ){
-               // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-               if (data === 1) {
-                   // 성공
-                   alert('감사합니다 지원이 완료되었습니다.');
-                   window.location.href='/pj_mn20/pj_mn21_jobs';
-                   
-               }
-               else {
-                   // 실패
-                   alert('죄송합니다 . 다시지원해주세요.');
-                   window.location.href='/pj_mn20/pj_mn23';
-               }
-           }).fail( function(xhr, textStatus, error ) {
-               // 통신이 실패했을 때 이 함수를 타게 된다.
-           }).always( function(data, textStatus, xhr ) {
-               // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
-           }); 
-        
+            $('form').submit();
+               
          });
     $('.no').click( function(){
     	 if (!confirm('취소하시겠습니까?')) {
@@ -176,7 +149,7 @@ h3 {
             <h3>입사지원서 작성</h3>
             <hr>
 
-            <form action="" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/pj_mn20/insertuploaduser" action=" /pj_mn20/pj_mn21_jobs"method="post" enctype="multipart/form-data">
                 <table>
                     <thead>
                         <tr>
@@ -205,7 +178,7 @@ h3 {
                             <th>핸드폰</th>
                             <c:choose>
                                 <c:when test="${empty user}">
-                                    <td><input class="phone" type="text" name="phone1" 
+                                    <td><input class="phone" type="text" name="phone" 
                                     pattern  = "\d{3}\-\d{4}\-\d{4}\"
                                     title="000-0000-0000형식으로 입력해주세요.">
                                     000-0000-0000형식으로 입력해주세요.
@@ -274,10 +247,12 @@ h3 {
                 <center>
                 <c:choose>
                     <c:when test="${empty user}">
-                        <input class="ok"  no="${detpno}" type="button" name="ok" value="확인">
+                        <input type="hidden" name="detpno" value="${detpno}">
+                        <input class="ok"  type="button" name="ok" value="확인">
                     </c:when>
                     <c:otherwise>
-                         <input class="ok"  no="${detpno}" type="button"  value="확인">
+                    <input type="hidden" name="detpno" value="${detpno}">
+                         <input class="ok"  type="button"  value="확인">
                     </c:otherwise>
                 </c:choose>
                     &nbsp;&nbsp;&nbsp;&nbsp;<input class="no" type="submit"
