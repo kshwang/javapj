@@ -36,7 +36,7 @@ table {
 #write-form {
     border-spacing: 100px;
 }
-/*   table tr {background: #36CBD4; } */
+
 table tr {
     text-align: center;
 }
@@ -45,8 +45,7 @@ table td {
     text-align: center;
     padding: 20px;
 }
-/* table tr {
-padding: 15px;} */
+
 .sthead {
     border-top: solid, 2px, black;
     border-bottom: solid, 2px, black;
@@ -61,19 +60,18 @@ url-navi {
     border-bottom: 1px solid #DAEAAA;
 }
 </style>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
 <script src="/resources/js/jquery-2.1.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
+
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/wow.min.js"></script>
 <script src="/resources/js/jquery.easing.1.3.js"></script>
 <script src="/resources/js/jquery.isotope.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
-<!--     <script type="text/javascript" src="/resources/js/fliplightbox.min.js"></script>
+
  -->
 <script src="/resources/js/functions.js"></script>
-<!-- 
-    <script type="text/javascript">$('.portfolio').flipLightBox()</script> -->
+
 
 <script>
 	$(document)

@@ -47,7 +47,13 @@ div#list-menu {
     margin-left: auto;
     width: 1143px;
 }
-
+ #mainimg {
+    border: 0;
+    align-content: center;
+    width: 1143px;
+    height: 300px;
+    margin-left: 15px;
+}
 
 th {
       color: #2e3532;
@@ -59,13 +65,7 @@ th {
 tr[articleno] {
     cursor: pointer;
 }
-/* 
-a:HOVER {  
 
-        text-decoration: underline; color: #0F0; font-weight: bold;
-
-}
- */
 
 
 td {
@@ -98,9 +98,9 @@ fr {
     float: right;
 }
 </style>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
 <script src="/resources/js/jquery-2.1.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
+
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/wow.min.js"></script>
 <script src="/resources/js/jquery.easing.1.3.js"></script>
@@ -112,6 +112,8 @@ var goList = function(page) {
     location.href = "/pj_mn40/pj_mn41?searchWord=${searchWord}&curPage="
             + page;
 };
+
+
 var goWrite = function(){
 	if(${empty user}===true){
         alert('로그인하세요');
@@ -123,31 +125,27 @@ var goWrite = function(){
         } 
     };
 	
+    var goView= function(articleno){
+        location.href = '/pj_mn40/pj_mn43/' + articleno;
+    };
 
 </script>
-<script>
-        $(document).ready( function(event){
-            $('tr[articleno]').click( function(event){
-                var articleno = $(this).attr('articleno');
-                location.href = '/pj_mn40/pj_mn43/' + articleno;               
-            });
-        
-        });
-    </script>
+
 </head>
 <body>
 
     <%@ include file="../header.jsp"%>
     <div class="container">
         <div class="row">
+            <img id="mainimg" src="/resources/images/training.png">
             <div class="col-md-6 col-md-offset-3">
-                <div class="portfolios">
-                    <div class="text-center">
+              <!--   <div class="portfolios"> -->
+                   <!--  <div class="text-center">
                         <h2>교육</h2>
                         <p>
                             이번 달 교육입니다. <br>
                         </p>
-                    </div>
+                    </div> -->
                     <hr>
                 </div>
             </div>
@@ -161,19 +159,15 @@ var goWrite = function(){
             <tr>
                 <th style="width: 60px;text-align: center;">NO</th>
                 <th style="text-align: center;">교육 목록</th>
-                <th style="width: 100px;text-align: center;">날짜</th>
-                <th style="width: 100px;text-align: center;">마감일</th>
+                <th style="width: 100px;text-align: center;">날짜</th>                
                 <th style="width: 60px;">조회수</th>
             </tr>
             <!--  반복 구간 시작 -->
             <c:forEach var="training" items="${traininglist }" varStatus="status">
                     <tr articleno="${training.articleno }" >
-                    
                         <td>${training.articleno }</td>
-                        
-                        <td>${training.title }</td>
-                        <td align="center"><fmt:formatDate  value="${training.regdate }" pattern="yyyy-MM-dd"/>  </td>
-                        <td><fmt:formatDate  value="${training.enddate }" pattern="yyyy-MM-dd"/></td>
+                        <td><a href="javascript:goView('${training.articleno }')">${training.title }</td>
+                        <td align="center"><fmt:formatDate  value="${training.regdate }" pattern="yyyy-MM-dd"/>  </td>                        
                         <td>${training.hit }</td>
                     </tr>
                 
@@ -205,11 +199,11 @@ var goWrite = function(){
                 <a href="javascript:goList( ${nextLink})">[다음]</a>
             </c:if>
         </div>
-
+        <c:if test="${user.userclass == 2}">
         <div id="list-menu" style="text-align: right;">
             <br> <input type="button" value="새글쓰기" onclick="javascript:goWrite();" />
         </div>
-
+        </c:if>
         <div id="search" style="text-align: center;">
             <form id="searchForm" action="${actionurl }" method="get"
                 style="margin: 0; padding: 0;">

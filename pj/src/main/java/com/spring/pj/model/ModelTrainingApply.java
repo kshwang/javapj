@@ -33,5 +33,11 @@ public class ModelTrainingApply {
     public void setArticleno(Integer articleno) {
         this.articleno = articleno;
     }
+
+    @Override
+    public String toString() {
+        return "ModelTrainingApply [applyno=" + applyno + ", userno=" + userno
+                + ", articleno=" + articleno + "]";
+    }
     
 }

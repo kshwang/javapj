@@ -51,10 +51,8 @@
     <insert id="insertArticle" parameterType="ModelTraining"
         useGeneratedKeys="true" keyProperty="articleno">
         INSERT INTO
-        pj_training ( title , content , userid , hit, regdate, InsertUID
-        , InsertDT , UpdateUID , UpdateDT )
-        VALUES ( #{title}, #{content}, #{userid}, 0 , now() , #{InsertUID},
-        #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+        pj_training ( title , content , userid , hit, regdate)
+        VALUES ( #{title}, #{content}, #{userid}, 0 , now()  )
     </insert>
 
     <update id="updateArticle" parameterType="java.util.Map">
@@ -63,8 +61,7 @@
             <if test=" setValue.title     != null and setValue.title   !='' "> title = #{setValue.title } , </if>
             <if test=" setValue.content   != null and setValue.content !='' "> content = #{setValue.content } , </if>
             <if test=" setValue.UseYN     != null                           "> UseYN = #{setValue.UseYN } , </if>
-            <if test=" setValue.UpdateUID != null                           "> UpdateUID = #{setValue.UpdateUID} , </if>
-            <if test=" setValue.UpdateDT  != null                           "> UpdateDT = #{setValue.UpdateDT } , </if>
+            
         </set>
         WHERE 1 = 1
 
@@ -160,8 +157,8 @@
     
     <insert id="insertAttachFile" parameterType="ModelTrainingFile" useGeneratedKeys="true" keyProperty="attachfileno" >
         INSERT INTO 
-        pj_training_file (filenameorig,    filenametemp, filetype, filesize, articleno, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-        VALUES        ( #{filenameorig}, #{filenametemp}, #{filetype}, #{filesize}, #{articleno}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+        pj_training_file (filenameorig,    filenametemp, filetype, filesize, articleno)
+        VALUES        ( #{filenameorig}, #{filenametemp}, #{filetype}, #{filesize}, #{articleno})
     </insert>
     
     

@@ -62,8 +62,8 @@ url-navi {
 
 </style>
     <script src="../../resources/js/jquery-3.1.1.js"></script>
-    <!-- <script src="/resources/js/ajaxsetup.js"><!-- jquery 아래에 위치해야 함 --></script> -->
-    <!-- <script>
+    
+     <!-- <script>
         $(document).ready( function(event){
         	$('div[attachfileno]').click( function(event){
         		
@@ -90,7 +90,7 @@ url-navi {
         		
         	});
         });
-    </script> -->
+    </script>  -->
     <script>
     var goList = function(){
     	window.location.href="/pj_mn40/pj_mn41?searchWord=${searchWord}&curPage=1"
