@@ -28,11 +28,6 @@
 <link href="../../resources/css/overwrite.css" rel="stylesheet">
 <link href="../../resources/css/style.css" rel="stylesheet">
 
-
-
-
-
-
 <style type="text/css">
 table {
     margin-right: auto;
@@ -165,7 +160,8 @@ var goWrite = function(){
             <!--  반복 구간 시작 -->
             <c:forEach var="training" items="${traininglist }" varStatus="status">
                     <tr articleno="${training.articleno }" >
-                        <td>${training.articleno }</td>
+                        <td> ${no - status.index }</td>
+                       
                         <td><a href="javascript:goView('${training.articleno }')">${training.title }</td>
                         <td align="center"><fmt:formatDate  value="${training.regdate }" pattern="yyyy-MM-dd"/>  </td>                        
                         <td>${training.hit }</td>

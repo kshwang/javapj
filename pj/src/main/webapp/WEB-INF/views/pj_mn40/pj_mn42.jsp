@@ -114,6 +114,11 @@ url-navi {
                   <%-- <input type="hidden" name="user" value="${user.userid }" /> --%>
             </p>
             <table id="write-form">
+            <tr>
+                    <td><b>작성자</td>
+                    <td> ${user.userid}</td>
+                    <br>
+                </tr>
 
                 <tr>
                     <td><b>제목</td>

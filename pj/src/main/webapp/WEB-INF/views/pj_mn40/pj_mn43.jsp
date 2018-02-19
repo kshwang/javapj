@@ -223,22 +223,7 @@ var address = null;
                 location.href = "/login";
             }
             else {
-            /* 	alert('등록되었습니다');
-                 location.href = "/pj_mn40/pj_mn43/insertapply"; 
-            	var f = document.createElement('form');
-            	f.setAttribute('method', 'post');
-            	f.setAttribute('action', '/pj_mn40/pj_mn43/insertapply');
-            	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
-            	
-            	var i = document.createElement('input');
-            	i.setAttribute('type', 'hidden');
-            	i.setAttribute('name', 'articleno');
-            	i.setAttribute('value', ${articleno});            
-                f.appendChild(i);
-                
-            	document.body.appendChild( f );
-            	
-            	f.submit();  */
+            
             	$.ajax({
             	    url : '/rest/pj_mn40/pj_mn43/insertapply',
             	    data: {'articleno': ${articleno } },        
@@ -380,7 +365,7 @@ var address = null;
                                     value="${thisArticle.regdate}" /></th>
                         </tr>
                     </table>
-                    <h6>작성자 ${thisArticle.userid}, 조회수  ${thisArticle.hit }</h6> 
+                    <h6>작성자 ${user.userid}  &nbsp; 조회수  ${thisArticle.hit }</h6> 
                     <div id="gul-content" >
                         
                         <p style="text-align: center;">${thisArticle.content }</p>
@@ -458,7 +443,7 @@ var address = null;
                                                 alt="현재글" />
                                         </c:when>
                                         <c:otherwise>
-                					${training.articleno }
+                					${no - status.index }
                 				</c:otherwise>
                                     </c:choose></td>
                                 <td><span><a href="javascript:goView('${training.articleno }')">${training.title}</span> <c:if
