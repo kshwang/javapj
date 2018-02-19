@@ -143,8 +143,8 @@ public class EmployController {
    @RequestMapping(value = "/pj_mn20/insertuploaduser", method = RequestMethod.POST)
 	   @ResponseBody
 	    public int  insertuploaduser( Model model
-	                                                            ,@RequestParam(value="upload") MultipartFile upload
-	                                                            ,@ModelAttribute ModelEmployUserFile insert) {
+	  ,@RequestParam(value="upload") MultipartFile upload
+	    ,@ModelAttribute ModelEmployUserFile insert) {
 	        logger.info("/pj_mn20/insertuploaduser");
 	         int rs = svremp.insertuploaduser(insert);
 	         if( !upload.getOriginalFilename().isEmpty() ) {
