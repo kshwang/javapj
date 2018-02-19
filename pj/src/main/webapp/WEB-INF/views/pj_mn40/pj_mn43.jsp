@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -10,7 +9,6 @@
 <meta charset="utf-8" />
 <meta name="Keywords" content="게시판 상세보기" />
 <meta name="Description" content="게시판 상세보기" />
-
 <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../../resources/css/animate.css">
 <link rel="stylesheet" href="../../resources/css/font-awesome.min.css">
@@ -23,10 +21,6 @@
     href="../../resources/css/set1.css" />
 <link href="../../resources/css/overwrite.css" rel="stylesheet">
 <link href="../../resources/css/style.css" rel="stylesheet">
-
-
-
-
 <style type="text/css">
 table {
     margin-right: auto;
@@ -124,6 +118,13 @@ div.fr {
         height: 400px;
         background-color: grey;
       }
+ #mainimg {
+    border: 0;
+    align-content: center;
+    width: 1143px;
+    height: 300px;
+    margin-left: 15px;
+}
       
 #file-list{
 font-size: 15px;
@@ -138,39 +139,30 @@ height: 300px;
 font-size: 20px;
 }
 
-
 </style>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
 <script src="/resources/js/jquery-2.1.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/wow.min.js"></script>
 <script src="/resources/js/jquery.easing.1.3.js"></script>
 <script src="/resources/js/jquery.isotope.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
-<!-- <script src="/resources/js/map.js"></script> -->
-<script type="text/javascript">
-   <!--  <script src="/resources/js/ajaxsetup.js"><!-- jquery 아래에 위치해야 함 --></script>
--->
-<script>;
+<script type="text/javascript"></script>
+ 
+<script>
 var address = null;
-
-  function initMap() { // 지도 요청시 callback으로 호출될 메서드 부분으로 지도를 맨처음 초기화하고, 표시해주는 함수
-    
-    var mapLocation = new google.maps.LatLng('37.655557', '127.060504'); // 게시글 DTO에서 위도값을 가져옴
+  function initMap() { 
+    var mapLocation = new google.maps.LatLng('37.655557', '127.060504'); 
     var  markLocation = new google.maps.LatLng('337.655557', '127.060504');
     var mapOptions = {
-            center: mapLocation, // 지도에서 가운데로 위치할 위도와 경도(변수)
-            zoom: 18, // 지도 zoom단계
+            center: mapLocation, 
+            zoom: 18, 
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
-          var map = new google.maps.Map(document.getElementById("map"), // id: map-canvas, body에 있는 div태그의 id와 같아야 함
-              mapOptions);
+          var map = new google.maps.Map(document.getElementById("map"), mapOptions);
             
-          var size_x = 60; // 마커로 사용할 이미지의 가로 크기
-          var size_y = 60; // 마커로 사용할 이미지의 세로 크기
-            
-          // 마커로 사용할 이미지 주소
+          var size_x = 60; 
+          var size_y = 60;
           var image = new google.maps.MarkerImage( 'http://www.weicherthallmark.com/wp-content/themes/realty/lib/images/map-marker/map-marker-gold-fat.png',
                               new google.maps.Size(size_x, size_y),
                               '',
@@ -179,37 +171,17 @@ var address = null;
             
           var marker;
           marker = new google.maps.Marker({
-                 position: mapLocation, // 마커가 위치할 위도와 경도(변수)
+                 position: mapLocation, 
                  map: map,
-                 icon: image, // 마커로 사용할 이미지(변수)
-                 title: "교육장" // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
+                 icon: image, 
+                 title: "교육장" 
           });
           google.maps.event.addDomListener(window, 'load', initMap);
      
-  }
+  };
 </script>
-
-<script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIjE95EEaou7VAOu1Mmod_HbvFQguQh7U&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIjE95EEaou7VAOu1Mmod_HbvFQguQh7U&callback=initMap">
 </script>
-
-<script>
-        $(document).ready( function(event){
-        	$('tr[articleno]').click( function(event){
-        		var articleno = $(this).attr('articleno');
-        		location.href = '/pj_mn40/pj_mn43/' + articleno + location.search; 
-        	});
-        	
-        
-        });
-
-
-
-
-
-    </script>
-
-
 <script>
 		
         var goView = function( articleno ) {
@@ -251,44 +223,28 @@ var address = null;
                 location.href = "/login";
             }
             else {
-            	alert('등록되었습니다');
-                location.href = "/pj_mn40/pj_mn43/insertapply";
-            	 var f = document.createElement('form');
-            	f.setAttribute('method', 'post');
-            	f.setAttribute('action', '/pj_mn40/pj_mn43/insertapply');
-            	f.setAttribute('enctype', 'application/x-www-form-urlencoded');
-            	
-            	var i = document.createElement('input');
-            	i.setAttribute('type', 'hidden');
-            	i.setAttribute('name', 'articleno');
-            	i.setAttribute('value', ${articleno});            
-                f.appendChild(i);
-                
-            	document.body.appendChild( f );
-            	
-            	f.submit(); 
+            
             	$.ajax({
             	    url : '/rest/pj_mn40/pj_mn43/insertapply',
-            	    data: {'articleno': ${articleno } },        // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-            	    type: 'post',       // get, post
-            	    timeout: 30000,    // 30초
-            	    dataType: 'json',  // text, html, xml, json, jsonp, script
+            	    data: {'articleno': ${articleno } },        
+            	    type: 'post',       
+            	    timeout: 30000,   
+            	    dataType: 'json',  
             	    beforeSend : function() {
-            	        // 통신이 시작되기 전에 이 함수를 타게 된다.
             	    }
             	}).done( function(data, textStatus, xhr ){
-            	    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+            	 
             	    if (data == 1) {
             	    	alert('등록되었습니다');
+            	    	
             	    	window.location.href = '/pj_mn40/pj_mn43/${articleno}';
+            	    	
             		}
             	    else {
             	    	alert('이미 신청하셨습니다');
             	    }
             	}).fail( function(xhr, textStatus, error ) {
-            	    // 통신이 실패했을 때 이 함수를 타게 된다.
             	}).always( function(data, textStatus, xhr ) {
-            	    // 통신이 실패했어도 성공했어도 이 함수를 타게 된다.
             	});
 
                 
@@ -345,7 +301,6 @@ var address = null;
         };
         
         var download = function( filetemp, fileorig ) {
-        	// post 로 요청. ajax / form
         	var f  = document.createElement('form');
         	f.setAttribute('method', 'post');
         	f.setAttribute('action', '/pj_mn40/pj_mnDL');
@@ -374,16 +329,15 @@ var address = null;
 <body>
 
  <%@ include file="../header.jsp"%>
-    
+   
     <div class="container">
+
         <div class="row">
+         <img id="mainimg" src="/resources/images/training.png">
             <div class="col-md-6 col-md-offset-3">
-                <div class="portfolios">
-                    <div class="text-center">
-                        <h2>교육</h2>
-                        <p>
-                            이번 달 교육입니다. <br>
-                        </p>
+                
+                    <div class="center">
+                   
                     </div>
                     <hr>
                 </div>
@@ -403,24 +357,18 @@ var address = null;
                     <table>
                         <tr>
                            <th style="text-align: left; width: 70px;">${thisArticle.articleno }
-                                </th>
-                                <%--  <th style="text-align: left;">
-                                    ${articleno }
-                                    </th> --%>
-                                
+                                </th>                             
                             <th style="text-align: center; color: #555;">${thisArticle.title }</th>
                             <th style="width: 50px;">DATE</th>
                             <th style="width: 130px; color: #555; text-align: right;"><fmt:formatDate
                                     pattern="yyyy-MM-dd"
-                                    value="${thisArticle.regdate }" /></th>
+                                    value="${thisArticle.regdate}" /></th>
                         </tr>
                     </table>
-                    <h6>작성자 ${thisArticle.userid}, 조회수
-                            ${thisArticle.hit }</h6>  <!--gul-content안에 있던걸 위로 끌어 올림  -->
+                    <h6>작성자 ${user.userid}  &nbsp; 조회수  ${thisArticle.hit }</h6> 
                     <div id="gul-content" >
                         
                         <p style="text-align: center;">${thisArticle.content }</p>
-                      
                     </div>
                                   <p id="file-list" style="text-align: right;">
                             <c:forEach var="file"
@@ -430,7 +378,7 @@ var address = null;
                                     href="javascript:download('${file.filenametemp }', '${file.filenameorig }')">${file.filenameorig }</a>
                                 <br />
                             </c:forEach>
-                        </p> <!--gul-content안에 있던걸 아래로 끌어 내림  -->
+                        </p> 
            
                     <div id="next-prev">
                         <c:if test="${nextArticle != null }">
@@ -449,6 +397,13 @@ var address = null;
 
                     <div id="view-menu">
                         <div class="fl">
+                           <c:if test="${user.userclass == 2}">
+                            <input type="button" value="수정"
+                                onclick="javascript:goModify(${thisArticle.articleno });" />                 
+                                              
+                                <input type="button" value="삭제"
+                                onclick="javascript:goDelete(${thisArticle.articleno });" />
+                              </c:if>
                          <input type="button" value="신청"
                                 onclick="javascript:goApply();" /> 
                                 
@@ -458,12 +413,7 @@ var address = null;
                               <input type="button" value="목록" id="apply"
                                 onclick="javascript:goList( ${curPage } );" />
                                 
-                               
-                            <input type="button" value="수정"
-                                onclick="javascript:goModify();" />                 
-                                              
-                                <input type="button" value="삭제"
-                                onclick="javascript:goDelete(${thisArticle.articleno });" />
+                            
                         
                         
                         </div>
@@ -476,7 +426,7 @@ var address = null;
                             <th style="width: 60px; text-align: center;">NO</th>
                             <th style="text-align: center;">교육 목록</th>
                             <th style="width: 100px; text-align: center;">등록 날짜</th>
-                            <th style="width: 100px; text-align: center;">마감일</th>
+                           
                             <th style="width: 60px;">조회수</th>
                         </tr>
 
@@ -484,8 +434,7 @@ var address = null;
                         <c:forEach var="training" items="${articleList}"
                             varStatus="status">
                             
-                            <tr articleno="${training.articleno}">
-                                <!--  사용자 속성 추가: articleno -->
+                            <tr articleno="${training.articleno}">                              
                                 <td style="text-align: center;"><c:choose>
                                         <c:when
                                             test="${articleno == training.articleno }">
@@ -494,10 +443,10 @@ var address = null;
                                                 alt="현재글" />
                                         </c:when>
                                         <c:otherwise>
-                					${training.articleno }
+                					${no - status.index }
                 				</c:otherwise>
                                     </c:choose></td>
-                                <td><span>${training.title}</span> <c:if
+                                <td><span><a href="javascript:goView('${training.articleno }')">${training.title}</span> <c:if
                                         test="${training.attachFileNum > 0 }">
                                         <img src="/resources/images/attach.png"
                                             alt="첨부파일" />
@@ -505,9 +454,7 @@ var address = null;
                                 <td style="text-align: center;"><fmt:formatDate
                                         pattern="yyyy-MM-dd"
                                         value="${training.regdate }" /></td>
-                                <td style="text-align: center;"><fmt:formatDate
-                                        pattern="yyyy-MM-dd"
-                                        value="${training.enddate }" /></td>
+                           
                                 <td style="text-align: center;">${training.hit }</td>
                                 
                             </tr>
@@ -539,12 +486,12 @@ var address = null;
                         </c:if>
                     </div>
 
-       
+       <c:if test="${user.userclass == 2}">
                                   <div id="list-menu" style="text-align: right;">
                                   <input type="button" value="새글쓰기"
                                      onclick="goWrite()" />
                                  </div>
-               
+             </c:if>
                     <div id="search" style="text-align: center;">
                         <form id="searchForm" action="${actionurl}"
                             method="get" style="margin: 0; padding: 0;">
@@ -570,11 +517,6 @@ var address = null;
 
  <h3 align="center">교육 장소</h3>
 <div id="map"></div> 
-
-
-
-
-
         <div id="footer">
             <%@ include file="../footer.jsp"%>
         </div>

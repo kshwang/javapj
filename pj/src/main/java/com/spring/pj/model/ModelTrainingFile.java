@@ -10,10 +10,7 @@ public class ModelTrainingFile {
     Long    filesize       ;
     Integer articleno      ;
     Boolean UseYN          ; 
-    String  InsertUID      ;     
-    Date    InsertDT       ;
-    String  UpdateUID      ;     
-    Date    UpdateDT       ;
+  
     
     public Integer getAttachfileno() {
         return attachfileno;
@@ -57,40 +54,16 @@ public class ModelTrainingFile {
     public void setUseYN(Boolean useYN) {
         UseYN = useYN;
     }
-    public String getInsertUID() {
-        return InsertUID;
-    }
-    public void setInsertUID(String insertUID) {
-        InsertUID = insertUID;
-    }
-    public Date getInsertDT() {
-        return InsertDT;
-    }
-    public void setInsertDT(Date insertDT) {
-        InsertDT = insertDT;
-    }
-    public String getUpdateUID() {
-        return UpdateUID;
-    }
-    public void setUpdateUID(String updateUID) {
-        UpdateUID = updateUID;
-    }
-    public Date getUpdateDT() {
-        return UpdateDT;
-    }
-    public void setUpdateDT(Date updateDT) {
-        UpdateDT = updateDT;
-    }
+    
+    
     @Override
     public String toString() {
         return "ModelTrainingFile [attachfileno=" + attachfileno
                 + ", filenameorig=" + filenameorig + ", filenametemp="
                 + filenametemp + ", filetype=" + filetype + ", filesize="
                 + filesize + ", articleno=" + articleno + ", UseYN=" + UseYN
-                + ", InsertUID=" + InsertUID + ", InsertDT=" + InsertDT
-                + ", UpdateUID=" + UpdateUID + ", UpdateDT=" + UpdateDT + "]";
+                + "]";
     }
-    
     public ModelTrainingFile() {
         super();
     }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -36,9 +37,11 @@ public class TrainingController {
     
     private static final Logger logger = LoggerFactory.getLogger(TrainingController.class);
     
-    @Autowired // 인스턴스 생성
+    @Autowired 
     IServiceTraining  srvboard;
-    
+
+/*  private ServletRequest session; //articleview때문에 추가
+*/   
    
     @RequestMapping(value = "pj_mn40/pj_mn41", method = RequestMethod.GET)
     public String pj_mn41(Model model,              
@@ -66,7 +69,7 @@ public class TrainingController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("nextLink", paging.getNextLink());
         
-        return "pj_mn40/pj_mn41"; // views / board / articlelist.jsp
+        return "pj_mn40/pj_mn41"; 
     }
     
   
@@ -79,7 +82,7 @@ public class TrainingController {
         logger.info("pj_mn40/pj_mn42");
        
            
-        return "pj_mn40/pj_mn42"; // views / board / articlelist.jsp
+        return "pj_mn40/pj_mn42";
     }
     
     @RequestMapping(value = "/pj_mn40/pj_mn43/{articleno}", method = RequestMethod.GET)
@@ -90,49 +93,36 @@ public class TrainingController {
             , HttpServletRequest request
             /*, HttpSession session*/) {
         logger.info("/pj_mn40/pj_mn43");
-        
-        // boardcd
-        // articleno
-        // curPage
-        // searchWord
-       
+    
         
         model.addAttribute("articleno" , articleno  );
         model.addAttribute("curPage"   , curPage    );
         model.addAttribute("searchWord", searchWord );
-        
-      
-        
-        // thisArticle
+   
         ModelTraining thisArticle = srvboard.transArticle(articleno);
         model.addAttribute("thisArticle", thisArticle);
         
-        // attachFileList : 첨부파일을 출력하는 경우.
+
         List<ModelTrainingFile> attachFileList = srvboard.getAttachFileList(articleno);
         model.addAttribute("attachFileList", attachFileList);
         
-   
-        
-        // nextArticle
+      
         ModelTraining nextArticle = srvboard.getNextArticle(articleno, searchWord);
         model.addAttribute("nextArticle", nextArticle);
         
-        // prevArticle
+   
         ModelTraining prevArticle = srvboard.getPrevArticle(articleno,searchWord);
         model.addAttribute("prevArticle", prevArticle);
         
-        
-        // articleList
-        // no
-        // prevLink
-        // pageLinks
-        // nextLink
+   
         int totalRecord = srvboard.getArticleTotalRecord( searchWord);
         PagingHelper paging = new PagingHelper(totalRecord, curPage);
         int start = paging.getStartRecord();
         int end   = paging.getEndRecord();
         
-       /* ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+      /* ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        model.addAttribute("user",user.getUserclass());*/
+        /* ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
        
         
         if(user == null || user.getUserclass() >2){
@@ -168,22 +158,18 @@ public class TrainingController {
         model.addAttribute("curPage"   , curPage);
         model.addAttribute("searchWord", searchWord);
         
-        // 1. tb_bbs_article table insert. inserted pk 값을 반환 받는다.
-        // 2. client의 파일을 server로 upload.
-        // 3. tb_bbs_attachfile 테이블에 insert.
         
-        // tb_bbs_article table insert. inserted pk 값을 반환 받는다.
        
         int insertedpk = srvboard.insertArticle(article);
         
-        // client의 파일을 server로 upload.
+        
         if( !upload.getOriginalFilename().isEmpty() ) {
             
-            // 서버의 업로드 폴더 존재 여부 체크. 없으면 폴더 생성
+            
             java.io.File uploadDir = new java.io.File( WebConstants.UPLOAD_PATH );
             if( !uploadDir.exists() ) uploadDir.mkdir();
             
-            // 클라이언트의 파일을 서버로 복사
+           
             String fileName = upload.getOriginalFilename();
             String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             String newFile  = WebConstants.UPLOAD_PATH + tempName; // c:/upload/20180123115415
@@ -197,8 +183,7 @@ public class TrainingController {
                 logger.error("articlewrite" + e.getMessage() );
             }
             
-            // 파일을 서버로 복사 성공 여부 체크. 
-            // 성공한 경우만 tb_bbs_attachfile 테이블에 insert.
+          
             if( serverfile.exists() ) {
                 
                 // 3. tb_bbs_attachfile 테이블에 insert.
@@ -248,11 +233,7 @@ public class TrainingController {
             , @RequestParam(defaultValue=""  ) String searchWord ) {
         logger.info("/pj_mn40/pj_mnMD :: post");
         
-        // 1. client의 파일을 server로 upload.
-        // 2. tb_bbs_attachfile 테이블에 insert.
-        // 3. tb_bbs_article table update.
-        
-        // client의 파일을 server로 upload.
+       
         if( !upload.getOriginalFilename().isEmpty() ) {
             
             // 서버의 업로드 폴더 존재 여부 체크. 없으면 폴더 생성
@@ -339,26 +320,9 @@ public class TrainingController {
     }
     
     
-//    @RequestMapping(value = "/pj_mn40/pj_mn43/insertapply", method = RequestMethod.POST)
-//    public String insertapply(Model model
-//            , HttpSession session
-//            , @RequestParam Integer articleno
-//           ) {
-//        logger.info("/pj_mn40/pj_mn43/insertapply");
-//        
-//        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-//        Integer userno = user.getUserno();
-//        
-//        ModelTrainingApply apply = new ModelTrainingApply();
-//        apply.setUserno(userno);
-//        apply.setArticleno(articleno);
-//        
-//        int result = srvboard.insertTrainingApply(apply);
-//        
-//        return "redirect:/pj_mn40/pj_mn43/" + articleno;
-//    }
+
     @RequestMapping(value = "/rest/pj_mn40/pj_mn43/insertapply", method = RequestMethod.POST)
-    @ResponseBody //?
+    @ResponseBody 
     public int restinsertapply(Model model
             , HttpSession session
             , @RequestParam Integer articleno

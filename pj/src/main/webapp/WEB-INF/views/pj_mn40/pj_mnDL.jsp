@@ -7,7 +7,7 @@
 <%@ page import="java.io.IOException" %>
 <%@ page import="org.springframework.util.FileCopyUtils" %>
 <%
-    //request.setCharacterEncoding("UTF-8");//이 작업은 필터가 한다.
+   
     String filetemp = request.getParameter("filetemp");
     String fileorig = request.getParameter("fileorig");
        
