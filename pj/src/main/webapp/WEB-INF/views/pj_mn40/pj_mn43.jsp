@@ -365,7 +365,7 @@ var address = null;
                                     value="${thisArticle.regdate}" /></th>
                         </tr>
                     </table>
-                    <h6>작성자 ${user.userid}  &nbsp; 조회수  ${thisArticle.hit }</h6> 
+                    <h6>작성자 ${thisArticle.userid}  &nbsp; 조회수  ${thisArticle.hit }</h6> 
                     <div id="gul-content" >
                         
                         <p style="text-align: center;">${thisArticle.content }</p>

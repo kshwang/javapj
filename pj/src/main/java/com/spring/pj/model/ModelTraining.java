@@ -7,7 +7,7 @@ public class ModelTraining {
     Integer articleno ;
     String  title     ; 
     String  content   ;
-    String  userid    ;
+    String  userid     ;
     Integer hit       ;
     Date    regdate   ;
     Boolean UseYN     ;

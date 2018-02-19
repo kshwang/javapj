@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.pj.common.PagingHelper;
 import com.spring.pj.common.WebConstants;
 import com.spring.pj.inf.IServiceTraining;
+import com.spring.pj.inf.IServiceUser;
 import com.spring.pj.model.ModelTraining;
 import com.spring.pj.model.ModelTrainingApply;
 import com.spring.pj.model.ModelTrainingFile;
@@ -39,6 +40,8 @@ public class TrainingController {
     
     @Autowired 
     IServiceTraining  srvboard;
+    @Autowired
+    IServiceUser svruser;
 
 /*  private ServletRequest session; //articleview때문에 추가
 */   
@@ -119,19 +122,7 @@ public class TrainingController {
         PagingHelper paging = new PagingHelper(totalRecord, curPage);
         int start = paging.getStartRecord();
         int end   = paging.getEndRecord();
-        
-      /* ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-        model.addAttribute("user",user.getUserclass());*/
-        /* ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-       
-        
-        if(user == null || user.getUserclass() >2){
-            
-        }
-        else{
-            model.addAttribute("user",user.getUserclass());
-        }
-        */
+      
         
         List<ModelTraining> articleList = srvboard.getArticleList(searchWord, start, end);
         
@@ -141,7 +132,6 @@ public class TrainingController {
         model.addAttribute("pageLinks", paging.getPageLinks() );
         model.addAttribute("nextLink", paging.getNextLink() );
 
-        // actionurl
         String actionurl = request.getRequestURL().toString(); // 현재 실행되는 페이지 주소
         model.addAttribute("actionurl", actionurl );
 
@@ -152,23 +142,18 @@ public class TrainingController {
             , @ModelAttribute ModelTraining article
             , @RequestParam(value="upload" ) MultipartFile upload
             , @RequestParam(defaultValue="1" ) Integer curPage
-            , @RequestParam(defaultValue=""  ) String searchWord ) {
+            , @RequestParam(defaultValue=""  ) String searchWord 
+            ) {
         logger.info("/pj_mn40/pj_mn42 :: post");
+       
         
         model.addAttribute("curPage"   , curPage);
-        model.addAttribute("searchWord", searchWord);
-        
-        
-       
-        int insertedpk = srvboard.insertArticle(article);
-        
-        
-        if( !upload.getOriginalFilename().isEmpty() ) {
-            
+        model.addAttribute("searchWord", searchWord);        
+        int insertedpk = srvboard.insertArticle(article);        
+        if( !upload.getOriginalFilename().isEmpty() ) {           
             
             java.io.File uploadDir = new java.io.File( WebConstants.UPLOAD_PATH );
-            if( !uploadDir.exists() ) uploadDir.mkdir();
-            
+            if( !uploadDir.exists() ) uploadDir.mkdir();          
            
             String fileName = upload.getOriginalFilename();
             String tempName = LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -308,7 +293,6 @@ public class TrainingController {
         return url;
     }
     
-    // REST 서비스 : ajax 이용.
     @RequestMapping(value = "/pj_mn40/deleteattachfile", method = RequestMethod.POST)
     @ResponseBody
     public int deleteattachfile( Model model
@@ -319,8 +303,6 @@ public class TrainingController {
         return result; 
     }
     
-    
-
     @RequestMapping(value = "/rest/pj_mn40/pj_mn43/insertapply", method = RequestMethod.POST)
     @ResponseBody 
     public int restinsertapply(Model model
