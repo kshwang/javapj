@@ -398,7 +398,7 @@ var address = null;
 
                     <div id="view-menu">
                         <div class="fl">
-                           <c:if test="${user.userclass == 2}">
+                           <c:if test="${user.userclass < 2}">
                             <input type="button" value="수정"
                                 onclick="javascript:goModify(${thisArticle.articleno });" />                 
                                               
@@ -487,7 +487,7 @@ var address = null;
                         </c:if>
                     </div>
 
-       <c:if test="${user.userclass == 2}">
+       <c:if test="${user.userclass < 2}">
                                   <div id="list-menu" style="text-align: right;">
                                   <input type="button" value="새글쓰기"
                                      onclick="goWrite()" />

@@ -188,7 +188,7 @@ var goWrite = function(){
                 <a href="javascript:goList( ${nextLink})">[다음]</a>
             </c:if>
         </div>
-        <c:if test="${user.userclass == 2}">
+        <c:if test="${user.userclass < 2}">
         <div id="list-menu" style="text-align: right;">
             <br> <input type="button" value="새글쓰기" onclick="javascript:goWrite();" />
         </div>
