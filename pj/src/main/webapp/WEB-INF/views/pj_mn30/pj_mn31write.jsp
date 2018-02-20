@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eNno Bootstrap Template</title>
+    <title>글쓰기</title>
 
     <!-- Bootstrap -->
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -68,9 +68,8 @@
  -->    <script src="/resources/js/functions.js"></script>
 <!--     <script type="text/javascript">$('.portfolio').flipLightBox()</script>
  -->    <script type="text/javascript">
-    var goList = function(page) {
-        location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage="
-                + page;
+    var goList = function() {
+        location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage=1";
     };
 
     var goView= function(bno){

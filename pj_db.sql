@@ -1,21 +1,10 @@
--- DB 생성
+﻿-- DB 생성
 DROP DATABASE IF EXISTS pj_db;
 CREATE DATABASE pj_db COLLATE 'utf8_general_ci';
 
 use pj_db;
 
--- 테이블 삭제
-DROP TABLE IF EXISTS pj_training_apply;
-DROP TABLE IF EXISTS pj_training_file;
-DROP TABLE IF EXISTS pj_training;
-DROP TABLE IF EXISTS pj_comments;
-DROP TABLE IF EXISTS pj_qnaboard;
-DROP TABLE IF EXISTS pj_employ_upload_user;
-DROP TABLE IF EXISTS pj_employ_detp;
-DROP TABLE IF EXISTS pj_user;
-DROP TABLE IF EXISTS pj_user_pw_question;
-
--- 회원가입시 질문 목록 테이블
+-- 비밀번호찾기 질문 목록 테이블
 CREATE TABLE `pj_user_pw_question` (
 	`q_no` INT(11) NOT NULL AUTO_INCREMENT,
 	`q_st` VARCHAR(50) NOT NULL,
