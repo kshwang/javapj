@@ -42,9 +42,6 @@ public class TrainingController {
     IServiceTraining  srvboard;
     @Autowired
     IServiceUser svruser;
-
-/*  private ServletRequest session; //articleview때문에 추가
-*/   
    
     @RequestMapping(value = "pj_mn40/pj_mn41", method = RequestMethod.GET)
     public String pj_mn41(Model model,              
@@ -60,8 +57,7 @@ public class TrainingController {
         int start = paging.getStartRecord();
         int end = paging.getEndRecord();
         
-        List<ModelTraining> result = srvboard.getArticleList(
-                searchWord, start, end);
+        List<ModelTraining> result = srvboard.getArticleList(searchWord, start, end);
         model.addAttribute(WebConstants.SESSION_NAME, session.getAttribute(WebConstants.SESSION_NAME));
         model.addAttribute("traininglist", result);     
         model.addAttribute("curPage", curPage);
@@ -284,7 +280,7 @@ public class TrainingController {
             url = String.format("redirect:/pj_mn40/pj_mn41?curPage=%s&searchWord=%s" , curPage, searchWord );
         }
         else {
-           /* rttr.addFlashAttribute("msg"  , WebConstants.MSG_FAIL_DELETE_ARTICLE );*/
+          
             rttr.addAttribute("curPage"   , curPage);
             rttr.addAttribute("searchWord", searchWord);
             

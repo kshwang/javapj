@@ -188,7 +188,7 @@ var address = null;
         	location.href = '/pj_mn40/pj_mn43/'+ articleno + location.search;
         };
         var goApplyCancel = function(){
-        	if (confirm("정말 취소하시겠습니까?") == true){    //확인
+        	if (confirm("정말 취소하시겠습니까?") == true){    
         		 var f = document.createElement('form');
               	f.setAttribute('method', 'post');
               	f.setAttribute('action', '/pj_mn40/deleteapply');
@@ -356,16 +356,17 @@ var address = null;
                 <div id="bbs">
                     <table>
                         <tr>
-                           <th style="text-align: left; width: 70px;">${thisArticle.articleno }
-                                </th>                             
+                                                      
                             <th style="text-align: center; color: #555;">${thisArticle.title }</th>
                             <th style="width: 50px;">DATE</th>
                             <th style="width: 130px; color: #555; text-align: right;"><fmt:formatDate
                                     pattern="yyyy-MM-dd"
                                     value="${thisArticle.regdate}" /></th>
                         </tr>
+                        
                     </table>
                     <h6>작성자 ${thisArticle.userid}  &nbsp; 조회수  ${thisArticle.hit }</h6> 
+                    
                     <div id="gul-content" >
                         
                         <p style="text-align: center;">${thisArticle.content }</p>

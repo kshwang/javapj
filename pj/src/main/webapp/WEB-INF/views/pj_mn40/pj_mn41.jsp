@@ -134,13 +134,6 @@ var goWrite = function(){
         <div class="row">
             <img id="mainimg" src="/resources/images/training.png">
             <div class="col-md-6 col-md-offset-3">
-              <!--   <div class="portfolios"> -->
-                   <!--  <div class="text-center">
-                        <h2>교육</h2>
-                        <p>
-                            이번 달 교육입니다. <br>
-                        </p>
-                    </div> -->
                     <hr>
                 </div>
             </div>
@@ -201,7 +194,7 @@ var goWrite = function(){
         </div>
         </c:if>
         <div id="search" style="text-align: center;">
-            <form id="searchForm" action="${actionurl }" method="get"
+            <form id="searchForm" action="${actionurl}" method="get"
                 style="margin: 0; padding: 0;">
                 <p style="margin: 0; padding: 0;">
                      <input type="text"

@@ -22,13 +22,7 @@ public class ServiceTraining implements IServiceTraining {
     
     @Autowired
     IDaoTraining daotrn;
-    
-/*    @Qualifier("daoboard")
-    private IDaoTraining  daoboard;
-    
-    public ServiceTraining() {
-        super();
-    }*/
+
     @Override
     public List<ModelTraining> selectAll() {
         List<ModelTraining> rs = null;
@@ -43,10 +37,6 @@ public class ServiceTraining implements IServiceTraining {
         
         return rs;
     }
-    
-    
-    
-   
     @Override
     public int getArticleTotalRecord(String searchWord) {
         int result = -1;
