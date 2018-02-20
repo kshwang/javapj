@@ -137,9 +137,9 @@ public class UserController {
         user.setEmail(email);
         user.setMobile(mobile);
         
-        ModelUser result = srvuser.selectUserOne(user);
+        List<ModelUser> result = srvuser.selectUserList(user);
         
-        if (result == null) {
+        if (result.size() == 0) {
             rttr.addFlashAttribute("msg", "아이디 찾기 실패");
             return "redirect:/findid";
         }
