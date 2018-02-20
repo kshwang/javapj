@@ -68,9 +68,8 @@
  -->    <script src="/resources/js/functions.js"></script>
 <!--     <script type="text/javascript">$('.portfolio').flipLightBox()</script>
  -->    <script type="text/javascript">
-    var goList = function(page) {
-        location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage="
-                + page;
+    var goList = function() {
+        location.href = "/pj_mn30/pj_mn31?searchWord=${searchWord}&curPage=1";
     };
 
     var goView= function(bno){

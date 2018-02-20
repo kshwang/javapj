@@ -2,42 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <footer>
-        <div class="inner-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 f-about">
-                        <a href="index.html"><h1><span>e</span>Nno</h1></a>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Cras suscipit arcu libero
-                        vestibulum volutpat libero sollicitudin vitae Curabitur ac aliquam  consectetur adipiscing elit Cras suscipit arcu libero
-                        </p>
-                    </div>
-                    <div class="col-md-4 l-posts">
-                        <h3 class="widgetheading">Latest Posts</h3>
-                        <ul>
-                            <li><a href="#">This is awesome post title</a></li>
-                            <li><a href="#">Awesome features are awesome</a></li>
-                            <li><a href="#">Create your own awesome website</a></li>
-                            <li><a href="#">Wow, this is fourth post title</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 f-contact">
-                        <h3 class="widgetheading">Stay in touch</h3>
-                        <a href="#"><p><i class="fa fa-envelope"></i> example@gmail.com</p></a>
-                        <p><i class="fa fa-phone"></i>  +345 578 59 45 416</p>
-                        <p><i class="fa fa-home"></i> Enno inc  |  PO Box 23456 
-                            Little Lonsdale St, New York <br>
-                            Victoria 8011 USA</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         
         
         <div class="last-div">
             <div class="container">
                 <div class="row">
                     <div class="copyright">
-                        © 2014 eNno Multi-purpose theme | <a target="_blank" href="http://bootstraptaste.com">Bootstraptaste</a>
+                        © 2014 TheJoen Multi-purpose theme | <a target="_blank" href="http://bootstraptaste.com">Bootstraptaste</a>
                     </div>  
                     <!-- 
                         All links in the footer should remain intact. 
